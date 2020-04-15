@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+@import "navbar.css";
 
 :root{
     --title-font: 'Headland One', serif;
@@ -13,4 +14,8 @@
     --secondary-color: #6af65d;
     --dark: #100d07;
     --light: #e2f3e1;
+}
+
+body{
+    font-family: var(--main-font);
 }

@@ -1,0 +1,9 @@
+nav{
+    font-family: var(--title-font);
+}
+
+h1{
+    font-size: 1.5em;
+    margin-left: var(--spacing-sm);
+    margin-bottom: 0;
+}
