@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 
+@import 'header.css';
+
 :root{
     --title-font: 'Headland One', serif;
     --main-font: 'Noto Sans TC', sans-serif;
@@ -10,7 +12,7 @@
     --spacing-lg: calc(var(--spacing) * 2);
 
     --main-color: #634b2d;
-    --secondary-color: #6af65d;
+    --secondary-color: #B7CDAE;
     --dark: #100d07;
     --light: #e2f3e1;
 }
