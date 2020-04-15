@@ -4,16 +4,16 @@
     background-color: var(--secondary-color);
 }
 
-.header h2{
+.header h2 {
     font-size: 45px;
 }
 
-.header p{
+.header p {
     font-size: 20px;
 }
 
-@media only screen and (max-width:767px){
-    .header p{
+@media only screen and (max-width:767px) {
+    .header p {
         font-size: 16px;
     }
 }
