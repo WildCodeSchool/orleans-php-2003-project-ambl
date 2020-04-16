@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
+@import "footer.css";
 
 :root{
     --title-font: 'Headland One', serif;
