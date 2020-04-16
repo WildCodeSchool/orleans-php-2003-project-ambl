@@ -1,0 +1,16 @@
+nav{
+    font-family: var(--title-font);
+    background-color: var(--main-color);
+}
+
+.logo-title{
+    font-size: 1.2em;
+    margin-left: var(--spacing-sm);
+    margin-bottom: 0;
+}
+
+.logo{
+    height: 80px;
+    width: 80px;
+    object-fit: contain;
+}
