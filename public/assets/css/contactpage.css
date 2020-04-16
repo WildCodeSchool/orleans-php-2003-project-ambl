@@ -21,16 +21,16 @@
 .contact-label {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
 }
 
-input {
+.contact-input {
     padding: 10px;
     margin-bottom: 20px;
     width: 50vw;
 }
 
-textarea {
+.contact-textarea {
     width: 50vw;
 }
 
