@@ -3,7 +3,7 @@ nav{
     background-color: var(--main-color);
 }
 
-h1{
+.logo-title{
     font-size: 1.2em;
     margin-left: var(--spacing-sm);
     margin-bottom: 0;
