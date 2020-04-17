@@ -6,6 +6,9 @@
 @import "navbar.css";
 
 
+@import 'header.css';
+
+
 :root{
     --title-font: 'Headland One', serif;
     --main-font: 'Noto Sans TC', sans-serif;
