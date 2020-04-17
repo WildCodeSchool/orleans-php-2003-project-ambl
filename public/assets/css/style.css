@@ -14,4 +14,17 @@
     --secondary-color: #6af65d;
     --dark: #100d07;
     --light: #e2f3e1;
+    --light-hover: #9fad9e;
+    --main-darker: #342b17;
+    --main-lighter: #957144;
+}
+
+.btn-primary {
+    background-color: var(--main-lighter);
+    border-color: var(--main-darker);
+}
+
+.btn-primary:hover {
+    background-color: var(--main-darker);
+    border-color: var(--main-darker);
 }
