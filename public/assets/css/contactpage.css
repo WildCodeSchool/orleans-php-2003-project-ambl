@@ -1,5 +1,6 @@
 .contact-section {
     background-color: var(--light);
+    padding-bottom: 50px;
 }
 
 .contact-form {
@@ -16,6 +17,7 @@
 
 .contact-h1 {
     text-align: center;
+    padding: 25px;
 }
 
 .contact-label {
