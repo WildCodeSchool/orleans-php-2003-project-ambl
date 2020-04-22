@@ -37,6 +37,10 @@ class CatalogManager extends AbstractManager
      */
     public function selectAllByType(string $type): array
     {
+        if ($type == '') {
+            $type = 'mushroom';
+        }
+
         $query = 'SELECT element.name, element.picture FROM ' . $this->table . ' JOIN type ON ' . $this->table;
         $query .= '.type_id = type.id WHERE type.name = "' . $type . '" LIMIT ' . self::MAX_RESULT;
 
