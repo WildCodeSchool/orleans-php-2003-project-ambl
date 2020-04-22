@@ -44,6 +44,6 @@ class CatalogManager extends AbstractManager
         $statement->bindValue(':type', $type, \PDO::PARAM_STR);
         $statement->execute();
 
-        return $statement->fetchAll();
+        return $statement->fetchAll(\PDO::FETCH_ASSOC);
     }
 }
