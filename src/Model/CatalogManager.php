@@ -35,15 +35,15 @@ class CatalogManager extends AbstractManager
      * @param string $type
      * @return array
      */
-    public function selectAllByType(string $type): array
+    public function selectAllByType(string $type = 'mushroom'): array
     {
-        if ($type == '') {
-            $type = 'mushroom';
-        }
-
         $query = 'SELECT element.name, element.picture FROM ' . $this->table . ' JOIN type ON ' . $this->table;
         $query .= '.type_id = type.id WHERE type.name = "' . $type . '" LIMIT ' . self::MAX_RESULT;
 
-        return $this->pdo->query($query)->fetchAll();
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('type', $type, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 }
