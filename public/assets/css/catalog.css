@@ -13,8 +13,9 @@
 }
 
  #catalog .page-item.active .page-link {
-    background-color: var(--main-lighter);
+     background-color: var(--main-lighter);
 }
+
 #toolsbox {
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
