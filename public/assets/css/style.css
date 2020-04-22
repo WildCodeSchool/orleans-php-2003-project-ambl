@@ -5,7 +5,6 @@
 
 @import "navbar.css";
 
-
 @import 'header.css';
 
 
@@ -29,6 +28,10 @@
 
 body{
     font-family: var(--main-font);
+}
+
+h1, h2{
+    font-family: var(--title-font);
 }
 
 .btn-primary {

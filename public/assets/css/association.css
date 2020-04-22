@@ -10,6 +10,3 @@
     margin: var(--spacing);
 }
 
-h1, h2{
-    font-family: var(--title-font);
-}
