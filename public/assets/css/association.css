@@ -1,0 +1,15 @@
+.asso {
+    margin-top: var(--spacing-lg);
+}
+
+.asso_goals{
+    margin: var(--spacing-lg);
+}
+
+.asso-description{
+    margin: var(--spacing);
+}
+
+h1, h2{
+    font-family: var(--title-font);
+}
