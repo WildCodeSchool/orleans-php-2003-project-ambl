@@ -3,6 +3,10 @@
     padding-bottom: 50px;
 }
 
+.contact-show-errors {
+
+}
+
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -18,6 +22,7 @@
 .contact-h1 {
     text-align: center;
     padding: 25px;
+    background-color: var(--light);
 }
 
 .contact-label {

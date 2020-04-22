@@ -1,10 +1,28 @@
 {% extends 'layout.html.twig' %}
 {%  block content %}
+<header>
+    <h1 class="contact-h1">Prenez contact avec nous !</h1>
+</header>
     <section class="contact-section">
-        <h1 class="contact-h1">Prenez contact avec nous !</h1>
         <div class="container card">
             <div class="row container-form">
-                <form novalidate class="contact-form" action="/contact/send" method="POST">
+                {% if contactSuccess is not empty %}
+                <div class="contact-show-success">
+                    <p>
+                        {{ contactSuccess }}
+                    </p>
+                </div>
+                {% endif %}
+                {% if contactErrors is not empty %}
+                <div class="contact-show-errors">
+                    <ul>
+                        {% for error in contactErrors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <form novalidate class="contact-form" action="/contact/checkingForm" method="POST">
 
                     <label class="contact-label" for="firstname">Votre prénom :</label>
                     <input class="contact-input" type="text" id="firstname" name="contact_firstname" placeholder="Jean" required>
