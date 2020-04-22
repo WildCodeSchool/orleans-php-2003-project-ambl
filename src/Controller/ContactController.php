@@ -46,9 +46,6 @@ class ContactController extends AbstractController
             if (empty($contactData['contact_phonenumber'])) {
                 $contactErrors[] = 'Un numéro de téléphone est requis';
             }
-            //if (!filter_var($contactData['contact_phonenumber'], FILTER_VALIDATE_INT)) {
-            //    $contactErrors[] = 'Le numéro de téléphone doit être composé de chiffres uniquement';
-            //}
             if (strlen($contactData['contact_phonenumber']) > 10) {
                 $contactErrors[] = 'Le numéro de téléphone doit être composé de dix chiffres seulement';
             }
@@ -58,12 +55,10 @@ class ContactController extends AbstractController
             if (empty($contactData['contact_message'])) {
                 $contactErrors[] = 'Votre message ne peut être  vide';
             } else {
-                $contactSuccess = "Bonjour " . htmlentities($contactData['contact_firstname']) . " " . htmlentities($contactData['contact_lastname']) . ", votre message a bien été envoyé. Merci.";
-
+                $contactSuccess = "Bonjour " . htmlentities($contactData['contact_firstname']) . " " .
+                htmlentities($contactData['contact_lastname']) . ", votre message a bien été envoyé. Merci.";
             }
-            var_dump($_POST);
-            return $this->twig->render('Contact/contact.html.twig',['contactErrors'=>$contactErrors,'contactSuccess'=>$contactSuccess]);
+            return $this->twig->render('Contact/contact.html.twig', ['contactErrors' => $contactErrors, 'contactSuccess' => $contactSuccess]);
         }
-
     }
 }
