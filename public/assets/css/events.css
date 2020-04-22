@@ -1,7 +1,3 @@
-.events{
-    margin-top: var(--spacing-lg);
-}
-
-.list-events{
+.events, .list-events{
     margin-top: var(--spacing-lg);
 }
