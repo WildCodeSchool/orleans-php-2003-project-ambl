@@ -1,8 +1,7 @@
 <?php
-
-
 namespace App\Controller;
 
+use App\Model\EventsManager;
 
 class EventsController extends AbstractController
 {
@@ -16,6 +15,9 @@ class EventsController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Events/index.html.twig');
+        $eventsManager = new EventsManager();
+        $events = $eventsManager->selectTableEvents();
+
+        return $this->twig->render('Events/index.html.twig', ['events' => $events]);
     }
 }
