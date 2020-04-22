@@ -6,7 +6,7 @@ class EventsManager extends AbstractManager
     /**
      *
      */
-    const TABLE = 'Event';
+    const TABLE = 'event';
 
     /**
      *  Initializes this class.
@@ -24,9 +24,9 @@ class EventsManager extends AbstractManager
     public function selectTableEvents(): array
     {
         $query = "SELECT t.type, e.title, e.date, e.location, e.hour, CONCAT(s.firstname, ' ', s.lastname) AS fullname
-                  FROM Event e 
-                  JOIN `Type` t ON e.type_id = t.id
-                  LEFT JOIN Speaker s ON e.speaker_id = s.id
+                  FROM event e 
+                  JOIN event_type t ON e.type_id = t.id
+                  LEFT JOIN speaker s ON e.speaker_id = s.id
                   ORDER BY e.date, e.hour";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
