@@ -1,5 +1,9 @@
 {% extends 'layout.html.twig' %}
 
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/catalog.css">
+{% endblock %}
+
 {% block content %}
     <header class="header">
         <div class="container h-100 justify-around">
@@ -10,5 +14,81 @@
             </div>
         </div>
     </header>
+
+    <main>
+        <section id="catalog">
+            <div class="container">
+                <div id="toolsbox" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <form action="" method="post">
+                                            <div class="form-group">
+                                                <label for="choiceType">Afficher les </label>
+                                                <select class="form-control" name="choiceType" id="choiceType">
+                                                    <option value="">Choisissez ce que vous voulez</option>
+                                                    <option value="mushroom">Champignon</option>
+                                                    <option value="plant">Plante</option>
+                                                </select>
+                                            </div>
+                                            <button class="btn btn-primary mt-2 mb-3">Afficher</button>
+                                        </form>
+                                    </div>
+                                    <div id="searchbox" class="col-sm-6">
+                                        <form action="" method="post">
+                                            <div class="form-group">
+                                                <label for="search">Effectuer une recherche</label>
+                                                <input type="text" class="form-control input-lg" placeholder="champignon1" />
+                                            </div>
+                                            <button class="btn btn-primary mt-2 mb-3">Rechercher</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for element in elements %}
+                    <div class="col-md-3">
+                        <div class="card mb-4 shadow-sm">
+                            <img class="card-img-top img-fluid" src="/assets/images/{{ element.picture }}" alt="Photo du champignon">
+                            <div class="card-body">
+                                <p class="card-text">{{ element.nameElement }}</p>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button type="button" class="btn btn-primary">Voir la fiche</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if loop.index is divisible by(4) %}
+                </div><div class="row">
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
 {% endblock %}

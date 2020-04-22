@@ -8,9 +8,6 @@
 
 @import 'header.css';
 
-@import "catalog.css";
-
-
 :root{
     --title-font: 'Headland One', serif;
     --main-font: 'Noto Sans TC', sans-serif;

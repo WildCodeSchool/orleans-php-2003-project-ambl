@@ -1,0 +1,33 @@
+ #catalog {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+#catalog .card img {
+    min-height: 300px;
+    object-fit: cover;
+}
+
+#catalog .page-item .page-link {
+    color: var(--dark);
+}
+
+ #catalog .page-item.active .page-link {
+    background-color: var(--main-lighter);
+}
+#toolsbox {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+#searchbox-search-input{
+    padding: 3px;
+    border: solid 1px #E4E4E4;
+    border-radius: 6px;
+    background-color: #fff;
+}
+
+#searchbox-search-input input{
+    border: 0;
+    box-shadow: none;
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: aurelwcs
@@ -7,6 +8,8 @@
  */
 
 namespace App\Controller;
+
+use App\Model\CatalogManager;
 
 class CatalogController extends AbstractController
 {
@@ -21,6 +24,9 @@ class CatalogController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Catalog/index.html.twig');
+        $catalogManager = new CatalogManager();
+        $elements = $catalogManager->selectAllByType('mushroom');
+
+        return $this->twig->render('Catalog/index.html.twig', ['elements' => $elements]);
     }
 }
