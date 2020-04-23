@@ -1,0 +1,40 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/catalog.css">
+{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1>Catalogue</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="catalog">
+            <div class="container">
+                <div class="row">
+                    {% for element in elements %}
+                        <div class="col-md-3">
+                            <div class="card mb-4 shadow-sm">
+                                <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo du champignon">
+                                <div class="card-body">
+                                    <p class="card-text">{{ element.name }}</p>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button type="button" class="btn btn-primary">Voir la fiche</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}
