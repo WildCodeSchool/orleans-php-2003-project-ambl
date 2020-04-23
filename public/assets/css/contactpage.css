@@ -4,7 +4,29 @@
 }
 
 .contact-show-errors {
+    justify-items: center;
+    width: 50vw;
+    background-color: #e26060;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+}
 
+.contact-show-errors li {
+    list-style: none;
+}
+
+.contact-show-errors ul {
+    list-style: none;
+}
+
+.contact-show-success {
+    display: flex;
+    width: 50vw;
+    background-color: #9fecc1;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
 }
 
 .contact-form {
@@ -20,9 +42,11 @@
 }
 
 .contact-h1 {
+    font-family: var(--main-font);
     text-align: center;
     padding: 25px;
     background-color: var(--light);
+    margin: 0;
 }
 
 .contact-label {
