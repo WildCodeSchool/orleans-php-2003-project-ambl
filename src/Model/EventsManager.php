@@ -30,4 +30,14 @@ class EventsManager extends AbstractManager
                   ORDER BY e.date, e.hour";
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function selectNextEvents(int $nbEvents): array
+    {
+        $query = "SELECT e.title, e.date, t.image, t.type
+                  FROM event e
+                  JOIN event_type t ON e.type_id = t.id
+                  ORDER BY e.date, e.hour
+                  LIMIT " . $nbEvents;
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }
