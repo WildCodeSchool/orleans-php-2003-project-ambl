@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 @import "footer.css";
 @import "navbar.css";
+
 @import "header.css";
 
 :root{
@@ -24,6 +25,7 @@
 body{
     font-family: var(--main-font);
 }
+
 
 h1, h2{
     font-family: var(--title-font);
