@@ -1,5 +1,8 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Accueil{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/home.css">{% endblock %}
+
 {% block content %}
     <header class="header">
         <div class="container h-100 justify-around">
@@ -15,10 +18,31 @@
                         L’AMBL sera ravie de vous compter parmi ses rangs si vous ne faites pas encore partie de notre association !
                 </div>
                 <div class="col-sm-6 col-md-5 col-xl-4">
-                    <img clas="img-fluid" src="/assets/images/image_champignon.jpeg" alt="">
+                    <img class="img-fluid" src="/assets/images/image_champignon.jpeg" alt="">
                 </div>
             </div>
         </div>
     </header>
+
+    <section class="next-events container">
+        <h2 class="text-center">Événements à venir</h2>
+
+        <div class="row justify-content-center justify-content-md-between">
+        {% for nextEvent in nextEvents %}
+            <div class="card col-8 col-md-3">
+                <img class="card-img-top" src="{{ nextEvent.image }}" alt="{{ 'Image ' ~ nextEvent.type }}">
+                <div class="card-body">
+                    <h3 class="card-title">{{ nextEvent.title }}</h3>
+                    <p class="card-text">{{ nextEvent.type }}</p>
+                    <p class="card-text">{{ nexEvent.date|date('d/m/Y') }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="text-center button-events">
+            <a class="btn btn-primary" href="/events/index">Voir tous les événements</a>
+        </div>
+    </section>
 
 {% endblock %}
