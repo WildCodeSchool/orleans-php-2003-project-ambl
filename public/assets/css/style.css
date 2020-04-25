@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Headland+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap');
 @import 'contactpage.css';
+@import "footer.css";
+@import "navbar.css";
+@import "header.css";
+
 
 :root{
     --title-font: 'Headland One', serif;
@@ -11,7 +15,32 @@
     --spacing-lg: calc(var(--spacing) * 2);
 
     --main-color: #634b2d;
-    --secondary-color: #85de7c;
+    --secondary-color: #b7cdae;
     --dark: #100d07;
     --light: #e2f3e1;
+    --light-hover: #9fad9e;
+    --main-darker: #342b17;
+    --main-lighter: #957144;
 }
+
+body{
+    font-family: var(--main-font);
+}
+
+
+h1, h2{
+    font-family: var(--title-font);
+}
+
+.btn-primary {
+    background-color: var(--main-lighter);
+    border-color: var(--main-darker);
+}
+
+.btn-primary:hover {
+    background-color: var(--main-darker);
+    border-color: var(--main-darker);
+}
+
+
+

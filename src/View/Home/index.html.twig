@@ -1,5 +1,48 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}Accueil{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/home.css">{% endblock %}
+
 {% block content %}
-    <h1>Hello Wilder !</h1>
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1>Association Mycologique et Botanique du Loiret</h1>
+                </div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-sm-6 col-md-7 col-xl-8">
+                    <p>L’Association Mycologique et Botanique du Loiret a pour but de vous faire découvrir la biodiversité de notre beau département.
+                        À travers différentes initiatives comme les rassemblements, randonnées pédestres, conférences et développement d’actions environnementales, l’AMBL propose à ses adhérents et adhérentes diverses activités constructives, basées sur l’apprentissage et la découverte de la flore locale.
+                        L’AMBL sera ravie de vous compter parmi ses rangs si vous ne faites pas encore partie de notre association !
+                </div>
+                <div class="col-sm-6 col-md-5 col-xl-4">
+                    <img class="img-fluid" src="/assets/images/image_champignon.jpeg" alt="">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="next-events container">
+        <h2 class="text-center">Événements à venir</h2>
+
+        <div class="row justify-content-center justify-content-md-between">
+        {% for nextEvent in nextEvents %}
+            <div class="card col-8 col-md-3">
+                <img class="card-img-top" src="{{ nextEvent.image }}" alt="{{ 'Image ' ~ nextEvent.type }}">
+                <div class="card-body">
+                    <h3 class="card-title">{{ nextEvent.title }}</h3>
+                    <p class="card-text">{{ nextEvent.type }}</p>
+                    <p class="card-text">{{ nexEvent.date|date('d/m/Y') }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="text-center button-events">
+            <a class="btn btn-primary" href="/events/index">Voir tous les événements</a>
+        </div>
+    </section>
+
 {% endblock %}
