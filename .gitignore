@@ -4,3 +4,5 @@
 *.cache
 db.php
 .idea
+/public/assets/images/event_type/
+catalog/*

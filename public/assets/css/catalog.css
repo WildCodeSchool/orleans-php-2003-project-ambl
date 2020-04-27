@@ -1,0 +1,9 @@
+.catalog {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.catalog .card img {
+    min-height: 300px;
+    object-fit: cover;
+}

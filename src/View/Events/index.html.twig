@@ -1,0 +1,37 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Événements{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/events.css">{% endblock %}
+
+{% block content %}
+    <section class="events">
+        <h1 class="text-center">Calendrier des sorties et événements</h1>
+
+        <div class="table-responsive container-fluid">
+            <table class="list-events table table-bordered table-striped col-10 offset-1">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Titre</th>
+                        <th>Date</th>
+                        <th>Heure</th>
+                        <th>Lieu</th>
+                        <th>Intervenant (si pertinent)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in events %}
+                        <tr>
+                            <td>{{ event.type }}</td>
+                            <td>{{ event.title }}</td>
+                            <td>{{ event.date|date("d/m/Y")}}</td>
+                            <td>{{ event.hour|date("H\\hi") }}</td>
+                            <td>{{ event.location }}</td>
+                            <td>{{ event.fullname }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
