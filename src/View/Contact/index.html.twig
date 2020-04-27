@@ -19,7 +19,7 @@
                 {% if contactErrors is not empty %}
                     <div class="contact-show-errors">
                         {% for error in contactErrors %}
-                            <li>- {{ error }}</li>
+                            <li>{{ error }}</li>
                         {% endfor %}
                     </div>
                 {% endif %}
