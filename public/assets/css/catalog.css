@@ -7,3 +7,12 @@
     min-height: 300px;
     object-fit: cover;
 }
+
+.modal-catalog {
+    color: var(--light);
+    background-color: var(--main-lighter);
+}
+
+.modal img {
+    max-width: 100%;
+}
