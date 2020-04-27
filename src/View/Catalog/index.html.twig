@@ -40,7 +40,7 @@
         <div class="modal fade" id="modalItem{{ element.id }}" tabindex="-1" role="dialog" aria-labelledby="modalItem{{ element.id }}" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header modal-catalog">
                         <h5 class="modal-title" id="exampleModalLongTitle">Fiche n° {{ element.id }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -49,6 +49,11 @@
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="row">
+                                <div class="col-12">
+                                    <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo du champignon">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
                                 <div class="col-12">
                                     <p>{{ element.description }}</p>
                                 </div>
