@@ -21,9 +21,8 @@ class ContactController extends AbstractController
      */
     public function index()
     {
-        $contactSuccess = '';
         if (isset($_GET['status'])) {
-            $contactSuccess = $_GET['status'];
+            $contactSuccess = $_GET['status'] ?? '';
         }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $contactData = array_map('trim', $_POST);
