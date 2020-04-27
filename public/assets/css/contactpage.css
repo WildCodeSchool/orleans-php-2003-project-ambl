@@ -6,7 +6,7 @@
 .contact-show-errors {
     justify-items: center;
     width: 50vw;
-    background-color: #e26060;
+    background-color: var(--contact-show-errors);
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
@@ -23,7 +23,7 @@
 .contact-show-success {
     display: flex;
     width: 50vw;
-    background-color: #9fecc1;
+    background-color: var(--contact-show-success);
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
