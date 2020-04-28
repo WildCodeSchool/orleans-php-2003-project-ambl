@@ -37,7 +37,8 @@ class CatalogManager extends AbstractManager
      */
     public function selectAllByType(string $type = 'mushroom'): array
     {
-        $query = 'SELECT element.name, element.picture FROM ' . $this->table . ' JOIN type ON ' . $this->table;
+        $query = 'SELECT element.id, element.name, element.picture, element.description ';
+        $query .= 'FROM ' . $this->table . ' JOIN type ' . 'ON ' . $this->table;
         $query .= '.type_id = type.id WHERE type.name = :type LIMIT ' . self::MAX_RESULT;
 
         $statement = $this->pdo->prepare($query);
