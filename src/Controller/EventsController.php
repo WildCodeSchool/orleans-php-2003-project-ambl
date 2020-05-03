@@ -35,6 +35,7 @@ class EventsController extends AbstractController
             $errors = $this->validateForm($event);
 
             if (empty($errors)) {
+                $eventsManager->insert($event);
                 header('Location: /events/admin');
             }
         }
@@ -74,7 +75,7 @@ class EventsController extends AbstractController
     {
         $errors = [];
 
-        if (empty($data['type'])) {
+        if (empty($data['type_id'])) {
             $errors[] = 'Veuillez choisir un type d\'événement';
         }
 
@@ -86,7 +87,7 @@ class EventsController extends AbstractController
             $errors[] = 'Veuillez indiquer la date de l\'événement';
         }
 
-        if (empty($data['time'])) {
+        if (empty($data['hour'])) {
             $errors[] = 'Veuillez indiquer l\'horaire de l\'événement';
         }
 
