@@ -20,4 +20,9 @@ class EventsController extends AbstractController
 
         return $this->twig->render('Events/index.html.twig', ['events' => $events]);
     }
+
+    public function add()
+    {
+        return $this->twig->render('Events/add.html.twig');
+    }
 }
