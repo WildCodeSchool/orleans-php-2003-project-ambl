@@ -23,6 +23,9 @@ class EventsController extends AbstractController
 
     public function add()
     {
-        return $this->twig->render('Events/add.html.twig');
+        $eventsManager = new EventsManager();
+        $types = $eventsManager->selectAllType();
+
+        return $this->twig->render('Events/add.html.twig', ['types' => $types]);
     }
 }

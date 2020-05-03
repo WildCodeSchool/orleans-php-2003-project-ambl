@@ -40,4 +40,11 @@ class EventsManager extends AbstractManager
                   LIMIT " . $nbEvents;
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function selectAllType()
+    {
+        $query = "SELECT *
+                  FROM event_type";
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
 }

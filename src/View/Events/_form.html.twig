@@ -1,0 +1,42 @@
+<form method="post">
+    <input type="hidden" value="{{ event.id }}" name="id">
+
+    <div class="form-group">
+        <label for="type">Type d'événement<span class="red">*</span></label>
+        <select class="form-control" name="type_id" id="type" required>
+            <option value="">--Choisir un type d'événement--</option>
+            {% for type in types %}
+                <option value="{{ type.id }}">{{ type.type }}</option>>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="title">Nom de l'événement<span class="red">*</span></label>
+        <input class="form-control" type="text" value="{{ event.title }}" name="title" id="title" required>
+    </div>
+
+    <div class="form-group">
+        <label for="date">Date de l'événement<span class="red">*</span></label>
+        <input class="form-control" type="date" value="{{ event.date }}" name="date" id="date" required>
+    </div>
+
+    <div class="form-group">
+        <label for="hour">Horaire de l'événement<span class="red">*</span></label>
+        <input class="form-control" type="time" value="{{ event.hour }}" name="hour" id="hour" required>
+    </div>
+
+    <div class="form-group">
+        <label for="location">Lieu de l'événement<span class="red">*</span></label>
+        <input class="form-control" type="text" value="{{ event.location }}" name="location" id="location" required>
+    </div>
+
+    <div class="form-group">
+        <label for="speaker_name">Nom de l'intervenant</label>
+        <input class="form-control" type="text" value="{{ event.speaker_name }}" name="speaker_name" id="speaker_name">
+    </div>
+
+    <div class="text-center">
+        <button class="btn btn-primary" type="submit">Valider</button>
+    </div>
+</form>

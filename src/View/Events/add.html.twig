@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Événements | Ajouter{% endblock %}
-{% block stylesheet %}<link rel="stylesheet" href="/assets/css/add_events.css">{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/form_events.css">{% endblock %}
 
 {% block content %}
     <section class="events">
@@ -15,6 +15,9 @@
             </div>
         </header>
 
+    <div class="container">
+        {% include "Events/_form.html.twig" %}
+    </div>
 
     </section>
 {% endblock %}
