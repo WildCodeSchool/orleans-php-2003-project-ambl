@@ -1,7 +1,12 @@
 .list-events{
-    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
 }
 
 thead{
     background-color: var(--main-lighter);
+}
+
+.button-add-events{
+    margin-top: var(--spacing);
+    margin-bottom:  var(--spacing);
 }
