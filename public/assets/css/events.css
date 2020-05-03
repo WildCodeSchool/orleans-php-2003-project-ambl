@@ -1,3 +1,7 @@
-.events, .list-events{
+.list-events{
     margin-top: var(--spacing-lg);
+}
+
+thead{
+    background-color: var(--main-lighter);
 }
