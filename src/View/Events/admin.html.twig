@@ -28,7 +28,7 @@
                     <th>Date</th>
                     <th>Heure</th>
                     <th>Lieu</th>
-                    <th>Intervenant.e.s</th>
+                    <th>Intervenant·e·s</th>
                     <th>Modifier</th>
                 </tr>
                 </thead>
@@ -42,6 +42,12 @@
                         <td>{{ event.location }}</td>
                         <td>{{ event.speaker_name }}</td>
                         <td>
+                            <a href="/events/update?id={{ event.id }}">
+                                <img src="/assets/images/update.svg" class="button-admin-events">
+                            </a>
+                            <a href="/events/delete?id={{ event.id }}">
+                                <img src="/assets/images/delete.svg" class="button-admin-events">
+                            </a>
                         </td>
                     </tr>
                 {% endfor %}

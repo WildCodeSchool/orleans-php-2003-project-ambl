@@ -23,7 +23,7 @@ class EventsManager extends AbstractManager
      */
     public function selectTableEvents(): array
     {
-        $query = "SELECT t.type, e.title, e.date, e.location, e.hour, e.speaker_name
+        $query = "SELECT t.type, e.title, e.date, e.location, e.hour, e.speaker_name, e.id
                   FROM event e 
                   JOIN event_type t ON e.type_id = t.id
                   ORDER BY e.date, e.hour";
