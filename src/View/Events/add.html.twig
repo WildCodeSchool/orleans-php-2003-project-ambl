@@ -15,9 +15,16 @@
             </div>
         </header>
 
-    <div class="container">
-        {% include "Events/_form.html.twig" %}
-    </div>
+        <div class="container">
+            {% if errors is not empty %}
+                <div class="errors">
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% include "Events/_form.html.twig" %}
+        </div>
 
     </section>
 {% endblock %}

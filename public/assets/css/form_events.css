@@ -6,3 +6,20 @@ form{
 .red{
     color: var(--error-color);
 }
+
+.errors {
+    width: 50%;
+    background-color: var(--contact-show-errors);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.errors li {
+    list-style: none;
+}
+
+.errors ul {
+    list-style: none;
+}
