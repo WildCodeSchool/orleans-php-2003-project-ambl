@@ -25,7 +25,7 @@ class CatalogController extends AbstractController
     public function index()
     {
         $catalogManager = new CatalogManager();
-        $elements = $catalogManager->selectAllByType();
+        $elements = $catalogManager->selectAll();
 
         return $this->twig->render('Catalog/index.html.twig', ['elements' => $elements]);
     }
