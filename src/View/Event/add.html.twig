@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Événements | Modifier{% endblock %}
+{% block title %}Événements | Ajouter{% endblock %}
 {% block stylesheet %}<link rel="stylesheet" href="/assets/css/form_events.css">{% endblock %}
 
 {% block content %}
@@ -9,7 +9,7 @@
             <div class="container h-100 justify-around">
                 <div class="row h-75 align-items-center">
                     <div class="col-12">
-                        <h1>Modifier un événement</h1>
+                        <h1>Ajouter un événement</h1>
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     {% endfor %}
                 </div>
             {% endif %}
-            {% include "Events/_form.html.twig" %}
+            {% include "Event/_form.html.twig" %}
         </div>
 
     </section>

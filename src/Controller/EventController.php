@@ -1,14 +1,14 @@
 <?php
 namespace App\Controller;
 
-use App\Model\EventsManager;
+use App\Model\EventManager;
 
-class EventsController extends AbstractController
+class EventController extends AbstractController
 {
     const MAX_TEXT = 255;
 
     /**
-     * Display events page
+     * Display event page
      *
      * @return string
      * @throws \Twig\Error\LoaderError
@@ -17,24 +17,24 @@ class EventsController extends AbstractController
      */
     public function index()
     {
-        $eventsManager = new EventsManager();
-        $events = $eventsManager->selectTableEvents();
+        $eventManager = new EventManager();
+        $events = $eventManager->selectTableEvent();
 
-        return $this->twig->render('Events/index.html.twig', ['events' => $events]);
+        return $this->twig->render('Event/index.html.twig', ['events' => $events]);
     }
   
     public function admin()
     {
-        $eventsManager = new EventsManager();
-        $events = $eventsManager->selectTableEvents();
+        $eventManager = new EventManager();
+        $events = $eventManager->selectTableEvent();
 
-        return $this->twig->render('Events/admin.html.twig', ['events' => $events]);
+        return $this->twig->render('Event/admin.html.twig', ['events' => $events]);
     }
 
     public function add()
     {
-        $eventsManager = new EventsManager();
-        $types = $eventsManager->selectAllType();
+        $eventManager = new EventManager();
+        $types = $eventManager->selectAllType();
 
         $errors = [];
         $event = [];
@@ -43,21 +43,21 @@ class EventsController extends AbstractController
             $errors = $this->validateForm($event);
 
             if (empty($errors)) {
-                $eventsManager->insert($event);
-                header('Location: /events/admin');
+                $eventManager->insert($event);
+                header('Location: /event/admin');
             }
         }
 
-        return $this->twig->render('Events/add.html.twig', ['types' => $types,
+        return $this->twig->render('Event/add.html.twig', ['types' => $types,
                                                                   'errors' => $errors,
                                                                   'event' => $event]);
     }
 
     public function update(int $eventId)
     {
-        $eventsManager = new EventsManager();
-        $types = $eventsManager->selectAllType();
-        $event = $eventsManager->selectOneById($eventId);
+        $eventManager = new EventManager();
+        $types = $eventManager->selectAllType();
+        $event = $eventManager->selectOneById($eventId);
 
         $errors = [];
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -65,12 +65,12 @@ class EventsController extends AbstractController
             $errors = $this->validateForm($event);
 
             if (empty($errors)) {
-                $eventsManager->update($event);
-                header('Location: /events/admin');
+                $eventManager->update($event);
+                header('Location: /event/admin');
             }
         }
 
-        return $this->twig->render('Events/update.html.twig', ['types' => $types,
+        return $this->twig->render('Event/update.html.twig', ['types' => $types,
             'errors' => $errors,
             'event' => $event]);
     }

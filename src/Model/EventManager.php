@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-class EventsManager extends AbstractManager
+class EventManager extends AbstractManager
 {
     /**
      *
@@ -21,7 +21,7 @@ class EventsManager extends AbstractManager
      *
      * @return array
      */
-    public function selectTableEvents(): array
+    public function selectTableEvent(): array
     {
         $query = "SELECT t.type, e.title, e.date, e.location, e.hour, e.speaker_name, e.id
                   FROM event e 
