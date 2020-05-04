@@ -22,6 +22,14 @@ class EventsController extends AbstractController
 
         return $this->twig->render('Events/index.html.twig', ['events' => $events]);
     }
+  
+    public function admin()
+    {
+        $eventsManager = new EventsManager();
+        $events = $eventsManager->selectTableEvents();
+
+        return $this->twig->render('Events/admin.html.twig', ['events' => $events]);
+    }
 
     public function add()
     {
