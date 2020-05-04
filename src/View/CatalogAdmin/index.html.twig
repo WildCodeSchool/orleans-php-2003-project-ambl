@@ -1,0 +1,62 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    CatalogueAdmin
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/catalog.css">
+    <link rel="stylesheet" href="/assets/css/catalogAdmin.css">
+{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1>Catalogue</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="catalog">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm mr-5">
+                            <div class="card-body card-block-header">
+                                <a class="stretched-link" href="/catalogAdmin/add">
+                                    <i class="fa fa-plus"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% for element in elements %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="catalog-card mt-2">
+                                <div class="block-img">
+                                    <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                    <div class="status">
+                                        <p>{{ element.toxicity_name }}</p>
+                                    </div>
+                                </div>
+                                <div class="catalog-card-content">
+                                    <div class="block-title mb-3">
+                                        <h4>{{ element.common_name }}</h4>
+                                    </div>
+                                    <p>{{ element.description|slice(0,81)~'...' }}.</p>
+                                    <a href="" class="box_btn">Modifier</a>
+                                    <a href="" class="box_btn">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+.catalog {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.catalog .card-block-header {
+    background-color: var(--main-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 33vh;
+}
+
+.catalog .card-block-header a {
+    color: var(--light);
+}
+
+.catalog .card-block-header i {
+    font-size: 2rem;
+}
+
+@media screen and (max-width: 800px){
+    .catalog .card {
+        width: 100%;
+    }
+}
