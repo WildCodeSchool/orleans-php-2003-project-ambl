@@ -15,11 +15,16 @@
 
     --main-color: #634b2d;
     --secondary-color: #b7cdae;
+    --button-color: #4C591E;
+    --button-color-hover: #99A63C;
     --dark: #100d07;
     --light: #e2f3e1;
     --light-hover: #9fad9e;
     --main-darker: #342b17;
     --main-lighter: #957144;
+    
+    --contact-show-success: #9fecc1;
+    --contact-show-errors: #e26060;
 }
 
 body{

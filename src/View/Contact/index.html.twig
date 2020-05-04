@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+{% block stylesheet %}
+<link rel="stylesheet" href="/assets/css/contactpage.css"
+{% endblock %}
+{%  block content %}
+    <header>
+        <h1 class="contact-h1">Prenez contact avec nous !</h1>
+    </header>
+    <section class="contact-section">
+        <div class="container card">
+            <div class="row container-form">
+                {% if contactSuccess is not empty %}
+                    <div class="contact-show-success">
+                        <p>
+                            Merci de nous avoir contacté. Nous reviendrons vers vous dans les plus brefs délais.
+                        </p>
+                    </div>
+                {% endif %}
+                {% if contactErrors is not empty %}
+                    <div class="contact-show-errors">
+                        {% for error in contactErrors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {# Contact Form #}
+                <form novalidate class="contact-form" action="/contact/index" method="POST">
+
+                    <label class="contact-label" for="firstname">Votre prénom :</label>
+                    <input class="contact-input" type="text" id="firstname" name="contact_firstname" placeholder="Jean" value="{{ contactData['contact_firstname'] }}" required>
+
+                    <label class="contact-label" for="lastname">Votre nom :</label>
+                    <input class="contact-input" type="text" id="lastname" name="contact_lastname" placeholder="Dupont" value="{{ contactData['contact_lastname'] }}" required>
+
+                    <label class="contact-label" for="email">Votre email :</label>
+                    <input class="contact-input" type="email" id="email" name="contact_email" placeholder="jean-dupont@gmail.com" value="{{ contactData['contact_email'] }}" required>
+
+                    <label class="contact-label" for="phonenumber">Votre numéro de téléphone :</label>
+                    <input class="contact-input" type="text" id="phonenumber" name="contact_phonenumber" placeholder="0678453421" value="{{ contactData['contact_phonenumber'] }}" required>
+
+                    <label class="contact-label" for="message">Votre message :</label>
+                    <textarea class="contact-textarea" id="message" name="contact_message" placeholder="Je souhaiterai des informations sur une fleur ou un champignon" required>{{ contactData['contact_message'] }} </textarea>
+
+                    <button class="contact-button btn btn-outline-secondary" type="submit">Envoyez-nous un message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+{%  endblock %}

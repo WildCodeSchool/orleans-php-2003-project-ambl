@@ -5,5 +5,5 @@
 db.php
 .idea
 /public/assets/images/event_type/
-catalog/*
 /public/assets/images/council/
+/public/assets/images/catalog/
