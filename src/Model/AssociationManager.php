@@ -28,7 +28,7 @@ class AssociationManager extends AbstractManager
 
     public function selectTableAssociation(): array
     {
-        $query ='SELECT * FROM council';
+        $query ='SELECT * FROM council ORDER BY firstname';
         return $this->pdo->query($query)->fetchAll();
     }
 }
