@@ -53,6 +53,19 @@ class EventsController extends AbstractController
                                                                   'event' => $event]);
     }
 
+    public function update(int $eventId)
+    {
+        $eventsManager = new EventsManager();
+        $types = $eventsManager->selectAllType();
+        $event = $eventsManager->selectOneById($eventId);
+
+        $errors = [];
+
+        return $this->twig->render('Events/add.html.twig', ['types' => $types,
+            'errors' => $errors,
+            'event' => $event]);
+    }
+
     private function validateForm(array $data): array
     {
         $errors = array_merge($this->validateEmpty($data), $this->validateLength($data, self::MAX_TEXT));
