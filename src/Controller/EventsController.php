@@ -57,15 +57,15 @@ class EventsController extends AbstractController
         $errors = [];
 
         if (strlen($data['title']) > $length) {
-            $errors[] = 'Veuillez indiquer un titre inférieur à ' . self::MAX_TEXT . ' caractères';
+            $errors[] = 'Veuillez indiquer un titre inférieur à ' . $length . ' caractères';
         }
 
         if (strlen($data['location']) > $length) {
-            $errors[] = 'Veuillez indiquer un lieu inférieur à ' . self::MAX_TEXT . ' caractères';
+            $errors[] = 'Veuillez indiquer un lieu inférieur à ' . $length . ' caractères';
         }
 
         if (strlen($data['speaker_name']) > $length) {
-            $errors[] = 'Veuillez indiquer un nom inférieur à ' . self::MAX_TEXT . ' caractères';
+            $errors[] = 'Veuillez indiquer un nom inférieur à ' . $length . ' caractères';
         }
 
         return $errors;
