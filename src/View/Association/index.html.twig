@@ -3,16 +3,48 @@
     <link rel="stylesheet" href="/assets/css/association.css">
 {% endblock %}
 {% block content %}
-    <section class="asso">
-        <h1 class="text-center">Notre association</h1>
+    <main class="asso_main">
+        <section class="asso">
+            <header class="header">
+                <div class="container h-100 justify-around">
+                    <div class="row h-75 align-items-center">
+                        <div class="col-12">
+                            <h1 class="text-center">Notre association</h1>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <h2 class="asso_goals">Les buts de l'Association</h2>
 
-        <h2 class="asso_goals">Les buts de l'Association</h2>
+            <div class="asso-description">
+                <p>Créée en juillet 2001 et officialisée au J.O. du 25 août 2011, notre association a pour but de faire découvrir la flore et les champignons ainsi que de faire connaître au public les espèces dangereuses, toxiques ou mortelles. Nous souhaitons également développer le goût des sciences naturelles et le respect de la nature par une meilleure connaissance des végétaux.<br/>
+                    Nous tenons à sensibiliser un large public sur l'importance de la préservation la flore et les biotopes nécessaires à la conservation des espèces. Pour ce faire, nous initions, animons, informons et formons un public intéressé par les sciences naturelles à travers diverses actions départementales et régionales.<br/>
+                    Divers évènements sont organisés au cours de l'année, tels que des conférences, randonnées, et sorties botaniques dans le but d'initier nos membres aux plaisirs de la nature.<br/></p>
+            </div>
+        </section>
 
-        <div class="asso-description">
-            <p>Créée en juillet 2001 et officialisée au J.O. du 25 août 2011, notre association a pour but de faire découvrir la flore et les champignons ainsi que de faire connaître au public les espèces dangereuses, toxiques ou mortelles. Nous souhaitons également développer le goût des sciences naturelles et le respect de la nature par une meilleure connaissance des végétaux.<br/>
-                Nous tenons à sensibiliser un large public sur l'importance de la préservation la flore et les biotopes nécessaires à la conservation des espèces. Pour ce faire, nous initions, animons, informons et formons un public intéressé par les sciences naturelles à travers diverses actions départementales et régionales.<br/>
-                Divers évènements sont organisés au cours de l'année, tels que des conférences, randonnées, et sorties botaniques dans le but d'initier nos membres aux plaisirs de la nature.<br/></p>
+        <section>
+            <h2 class="asso_goals">Le conseil d'administration</h2>
+            <div class="container-fluid">
+                <div class="just-test">
+                    <div class="row">
 
-        </div>
-    </section>
+                        {% for counciler in council %}
+                            <div class="col-md-3 d-flex justify-content-center">
+                                <div class="card">
+                                    <img src="/assets/images/council/{{ counciler.picture }}" class="card-img-top" alt="{{ counciler.firstname}} {{ counciler.lastname }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ counciler.firstname}} {{ counciler.lastname }}</h5>
+                                        <h6 class="card-title">{{ counciler.role }}</h6>
+                                        <p>{{ counciler.mail }}</p>
+
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock  %}

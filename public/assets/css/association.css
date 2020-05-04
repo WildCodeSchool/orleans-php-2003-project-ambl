@@ -1,12 +1,23 @@
-.asso {
-    margin-top: var(--spacing-lg);
-}
-
 .asso_goals{
     margin: var(--spacing-lg);
+    padding: var(--spacing-lg);
 }
 
 .asso-description{
     margin: var(--spacing);
+    padding: var(--spacing-lg);
 }
 
+.card-img-top {
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+}
+
+.card {
+    align-items: center;
+    text-align: center;
+    padding-top: 10px;
+    margin-bottom: 30px;
+    width: 18rem;
+}
