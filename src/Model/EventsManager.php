@@ -39,4 +39,27 @@ class EventsManager extends AbstractManager
                   LIMIT " . $nbEvents;
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function selectAllType()
+    {
+        $query = "SELECT *
+                  FROM event_type";
+        return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function insert(array $item)
+    {
+        $query = "INSERT INTO event (title, date, hour, location, speaker_name, type_id)
+                  VALUES (:title, :date, :hour, :location, :speaker_name, :type_id)";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('title', $item['title'], \PDO::PARAM_STR);
+        $statement->bindValue('date', $item['date'], \PDO::PARAM_STR);
+        $statement->bindValue('hour', $item['hour'], \PDO::PARAM_STR);
+        $statement->bindValue('location', $item['location'], \PDO::PARAM_STR);
+        $statement->bindValue('speaker_name', $item['speaker_name'], \PDO::PARAM_STR);
+        $statement->bindValue('type_id', $item['type_id'], \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }
