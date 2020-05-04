@@ -60,6 +60,15 @@ class EventsController extends AbstractController
         $event = $eventsManager->selectOneById($eventId);
 
         $errors = [];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $event = array_map('trim', $_POST);
+            $errors = $this->validateForm($event);
+
+            if (empty($errors)) {
+                $eventsManager->update($event);
+                header('Location: /events/admin');
+            }
+        }
 
         return $this->twig->render('Events/update.html.twig', ['types' => $types,
             'errors' => $errors,
