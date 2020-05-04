@@ -16,5 +16,7 @@ a:hover{
 }
 
 .button-admin-events{
-    width: 45%;
+    width: 25px;
+    margin-left: var(--spacing-sm);
+    margin-right: var(--spacing-sm);
 }
