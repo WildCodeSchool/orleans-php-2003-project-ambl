@@ -61,7 +61,7 @@ class EventsController extends AbstractController
 
         $errors = [];
 
-        return $this->twig->render('Events/add.html.twig', ['types' => $types,
+        return $this->twig->render('Events/update.html.twig', ['types' => $types,
             'errors' => $errors,
             'event' => $event]);
     }

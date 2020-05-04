@@ -62,4 +62,23 @@ class EventsManager extends AbstractManager
 
         $statement->execute();
     }
+
+    public function update(array $item):bool
+    {
+        $query = "UPDATE event
+                  SET title = :title, date = :date, hour = :hour, location = :location, speaker_name = :speaker_name,
+                  type_id = :type_id
+                  WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('title', $item['title'], \PDO::PARAM_STR);
+        $statement->bindValue('date', $item['date'], \PDO::PARAM_STR);
+        $statement->bindValue('hour', $item['hour'], \PDO::PARAM_STR);
+        $statement->bindValue('location', $item['location'], \PDO::PARAM_STR);
+        $statement->bindValue('speaker_name', $item['speaker_name'], \PDO::PARAM_STR);
+        $statement->bindValue('type_id', $item['type_id'], \PDO::PARAM_INT);
+        $statement->bindValue('id', $item['id'], \PDO::PARAM_INT);
+
+        return $statement->execute();
+    }
 }
