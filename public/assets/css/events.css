@@ -1,3 +1,18 @@
+.card-events{
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.card-events .card{
+    margin: var(--spacing);
+    padding: 0;
+    width: 25%;
+}
+
+h2{
+    font-size: 1.3rem;
+}
+
 .list-events{
     margin-bottom: var(--spacing-lg);
 }
@@ -19,4 +34,12 @@ a:hover{
     width: 25px;
     margin-left: var(--spacing-sm);
     margin-right: var(--spacing-sm);
+}
+
+.img-admin{
+    width: 25px;
+}
+
+.button-delete{
+    padding: 0;
 }

@@ -1,0 +1,42 @@
+{% extends 'layout.html.twig' %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/adhesionpage.css"
+{% endblock %}
+
+{%  block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1>
+                        Vous souhaitez rejoindre notre association ?
+                    </h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="card-container mt-5 mb-5">
+            <div class="card">
+                <p class="mb-10 card-header border-secondary">La question que vous devez sans doute vous poser, c'est : Pourquoi rejoindre l'AMBL ?
+                    Voici quelques points succeptibles de piquer votre curiosité :</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">1</span> Faire
+                        découvrir et faire connaître la flore et les champignons</li>
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">2</span> Faire
+                        connaître au public les espèces dangereuses, toxiques ou mortelles</li>
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">3</span> Développer le
+                        goût des sciences naturelles et le respect de la nature par une meilleure connaissance des végétaux
+                        et des milieux</li>
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">4</span> Préserver la
+                        flore et les biotopes nécessaires à la conservation des espèces</li>
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">5</span> Initier,
+                        animer, informer et former un large public intéressé par les sciences naturelles</li>
+                    <li class="list-group-item bg-light"><span class="badge adhesion-badge-success badge">6</span> Développer des actions départementales et régionales, en particulier
+                        dans le Loiret et la Région Centre-Val de Loire</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
