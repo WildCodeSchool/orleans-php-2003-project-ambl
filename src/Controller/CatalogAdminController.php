@@ -12,6 +12,7 @@ namespace App\Controller;
 use App\Model\CatalogManager;
 use App\Model\ElementTypeManager;
 use App\Model\ToxicityManager;
+use App\Services\UploadeManager;
 
 /**
  * Class CatalogAdminController
@@ -61,26 +62,21 @@ class CatalogAdminController extends AbstractController
             $errorsList = $this->checkForm($dataSend);
 
             /* Checking the field used to upload the file */
-            if ($this->checkUploadFieldForm($_FILES) != '') {
-                $errorsList[] = $this->checkUploadFieldForm($_FILES);
-            }
+            $uploadManager = new UploadeManager($_FILES['picture'], 1000000, $uploadDir);
+            $uploadManager->isValidate();
+            $errorsList = array_merge($errorsList, $uploadManager->getErrors());
 
             if (empty($errorsList)) {
-                $tmpFilePath = $_FILES['picture']['tmp_name'];
-                $fileExtension = strtolower(pathinfo($_FILES['picture']['name'], PATHINFO_EXTENSION));
-                $newFileName = uniqid() . '.' .$fileExtension;
-                $filePath = $uploadDir . "/" . $newFileName;
-                move_uploaded_file($tmpFilePath, $filePath);
-
-                if (file_exists($filePath)) {
-                    $catalogManager = new CatalogManager();
-                    $dataSend['picture'] = $newFileName;
-                    $catalogManager->insert($dataSend);
-
-                    header('Location: /catalogAdmin/index');
-                } else {
-                    $errorsList[] = 'Le fichier n\'a pas été transféré';
+                $fileName = $uploadManager->upload();
+                if ($fileName == '') {
+                    $fileName = 'image_champignon.jpeg';
                 }
+
+                $catalogManager = new CatalogManager();
+                $dataSend['picture'] = $fileName;
+                $catalogManager->insert($dataSend);
+
+                header('Location: /catalogAdmin/index');
             }
         }
 
@@ -92,6 +88,12 @@ class CatalogAdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Check the conformity of the form fields
+     *
+     * @param array $dataSend
+     * @return array
+     */
     private function checkForm(array $dataSend): array
     {
         $errorMessage = [];
@@ -133,6 +135,13 @@ class CatalogAdminController extends AbstractController
         return $errorMessage;
     }
 
+    /**
+     * Check the conformity of the selected fields of the form
+     *
+     * @param string $fieldName
+     * @param string $fieldValue
+     * @return array
+     */
     private function checkSelectFieldsForm(string $fieldName, string $fieldValue): array
     {
         $errors = [];
@@ -164,60 +173,5 @@ class CatalogAdminController extends AbstractController
         }
 
         return $errors;
-    }
-
-    /**
-     * Check the fields used to upload the file is correct
-     *
-     * @param array $fileSend
-     * @return string
-     */
-    private function checkUploadFieldForm(array $fileSend): string
-    {
-        $errorMessage = "";
-
-        if ($_FILES['picture']['error'] == 4) {
-            $errorMessage = 'Aucun fichier n\'a été transféré';
-        } else {
-            foreach ($_FILES as $key => $value) {
-                $fileSend[$key] = $value;
-            }
-
-            $tmpFilePath = $fileSend['picture']['tmp_name'];
-
-            if ($tmpFilePath != "") {
-                $errorMessage = $this->checkValidFile($fileSend);
-            } else {
-                $errorMessage = 'Aucun fichier n\'a été transféré';
-            }
-        }
-
-        return $errorMessage;
-    }
-
-    /**
-     * Check that the file to be transferred is correct
-     *
-     * @param array $fileSend
-     * @return string
-     */
-    private function checkValidFile(array $fileSend): string
-    {
-        $errorMessage = "";
-        $fileExtensionAllowed = ['jpg', 'png', 'gif'];
-        $fileSizeMax = 1000000;
-
-        $fileExtension = strtolower(pathinfo($fileSend['picture']['name'], PATHINFO_EXTENSION));
-        $fileSize = $fileSend['picture']['size'];
-
-        if (!in_array($fileExtension, $fileExtensionAllowed) && $fileSize > $fileSizeMax) {
-            $errorMessage = 'Le fichier doit être une image et sa taille doit être inférieure à 1 MO';
-        } elseif (!in_array($fileExtension, $fileExtensionAllowed) && $fileSize < $fileSizeMax) {
-            $errorMessage = 'Le fichier doit être une image et sa taille doit être inférieure à 1 MO';
-        } elseif (in_array($fileExtension, $fileExtensionAllowed) && $fileSize > $fileSizeMax) {
-            $errorMessage = "Le fichier doit être inférieur à 1 MO";
-        }
-
-        return $errorMessage;
     }
 }
