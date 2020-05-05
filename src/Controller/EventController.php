@@ -28,7 +28,20 @@ class EventController extends AbstractController
         $eventManager = new EventManager();
         $events = $eventManager->selectTableEvent();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $eventManager->delete($_POST['id']);
+            header('Location: /event/admin');
+        }
+
         return $this->twig->render('Event/admin.html.twig', ['events' => $events]);
+    }
+
+    public function delete(int $eventId)
+    {
+        $eventManager = new EventManager();
+        $eventManager->delete($eventId);
+
+        header('Location: /event/admin');
     }
 
     public function add()
