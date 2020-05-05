@@ -81,4 +81,15 @@ class EventManager extends AbstractManager
 
         return $statement->execute();
     }
+
+    public function delete(int $id)
+    {
+        $query = "DELETE FROM event
+                  WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }
