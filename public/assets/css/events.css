@@ -20,3 +20,11 @@ a:hover{
     margin-left: var(--spacing-sm);
     margin-right: var(--spacing-sm);
 }
+
+.img-admin{
+    width: 25px;
+}
+
+.button-delete{
+    padding: 0;
+}
