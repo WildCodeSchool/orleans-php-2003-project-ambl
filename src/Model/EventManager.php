@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-class EventsManager extends AbstractManager
+class EventManager extends AbstractManager
 {
     /**
      *
@@ -21,7 +21,7 @@ class EventsManager extends AbstractManager
      *
      * @return array
      */
-    public function selectTableEvents(): array
+    public function selectTableEvent(): array
     {
         $query = "SELECT t.type, e.title, e.date, e.location, e.hour, e.speaker_name, e.id
                   FROM event e 
@@ -61,5 +61,24 @@ class EventsManager extends AbstractManager
         $statement->bindValue('type_id', $item['type_id'], \PDO::PARAM_INT);
 
         $statement->execute();
+    }
+
+    public function update(array $item):bool
+    {
+        $query = "UPDATE event
+                  SET title = :title, date = :date, hour = :hour, location = :location, speaker_name = :speaker_name,
+                  type_id = :type_id
+                  WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('title', $item['title'], \PDO::PARAM_STR);
+        $statement->bindValue('date', $item['date'], \PDO::PARAM_STR);
+        $statement->bindValue('hour', $item['hour'], \PDO::PARAM_STR);
+        $statement->bindValue('location', $item['location'], \PDO::PARAM_STR);
+        $statement->bindValue('speaker_name', $item['speaker_name'], \PDO::PARAM_STR);
+        $statement->bindValue('type_id', $item['type_id'], \PDO::PARAM_INT);
+        $statement->bindValue('id', $item['id'], \PDO::PARAM_INT);
+
+        return $statement->execute();
     }
 }
