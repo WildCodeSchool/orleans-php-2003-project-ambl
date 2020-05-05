@@ -14,7 +14,26 @@
                 </div>
             </div>
         </header>
-        
+
+
+        <div class="container confirmation">
+            <p class="row text-center justify-content-center">
+                Voulez-vous vraiment supprimer l'événement "{{ event.title }}" du {{ event.date|date("d/m/Y") }} ? <br />
+                Ça sera définitif !
+            </p>
+            <div class="row text-center buttons justify-content-around">
+                <a class="btn btn-primary" href="/event/admin">
+                    Annuler la suppression
+                </a>
+
+                <form method="post">
+                    <button type="submit" class="btn btn-primary button-warning">
+                        Supprimer l'événement
+                    </button>
+                </form>
+            </div>
+        </div>
+
 
     </section>
 {% endblock %}
