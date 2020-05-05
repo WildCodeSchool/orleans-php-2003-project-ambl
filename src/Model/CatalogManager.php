@@ -16,10 +16,13 @@ namespace App\Model;
 class CatalogManager extends AbstractManager
 {
     /**
-     *
+     * Name of table
      */
     const TABLE = 'element';
 
+    /**
+     * Number of results to display
+     */
     const MAX_RESULT = 12;
 
     /**
@@ -31,20 +34,16 @@ class CatalogManager extends AbstractManager
     }
 
     /**
-     * Recover data from the database according to the type of element (mushroom or plant)
-     * @param string $type
+     * Get all row from database.
+     *
      * @return array
      */
-    public function selectAllByType(string $type = 'mushroom'): array
+    public function selectAll(): array
     {
-        $query = 'SELECT element.id, element.name, element.picture, element.description ';
-        $query .= 'FROM ' . $this->table . ' JOIN type ' . 'ON ' . $this->table;
-        $query .= '.type_id = type.id WHERE type.name = :type LIMIT ' . self::MAX_RESULT;
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+                    JOIN toxicity ON toxicity.id=element.toxicity_id
+                    ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
 
-        $statement = $this->pdo->prepare($query);
-        $statement->bindValue(':type', $type, \PDO::PARAM_STR);
-        $statement->execute();
-
-        return $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->pdo->query($query)->fetchAll();
     }
 }

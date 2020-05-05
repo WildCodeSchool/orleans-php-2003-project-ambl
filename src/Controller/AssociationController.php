@@ -1,14 +1,14 @@
 <?php
 
 
-
 namespace App\Controller;
+
+use App\Model\AssociationManager;
 
 class AssociationController extends AbstractController
 {
-
     /**
-     * Display home page
+     * Display association page
      *
      * @return string
      * @throws \Twig\Error\LoaderError
@@ -17,6 +17,9 @@ class AssociationController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Association/index.html.twig');
+        $associationManager = new AssociationManager();
+        $council = $associationManager->selectTableAssociation();
+
+        return $this->twig->render('Association/index.html.twig', ['council' => $council]);
     }
 }

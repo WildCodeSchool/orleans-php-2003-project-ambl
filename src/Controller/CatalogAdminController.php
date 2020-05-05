@@ -1,21 +1,26 @@
 <?php
-
 /**
  * Created by PhpStorm.
- * User: aurelwcs
- * Date: 08/04/19
- * Time: 18:40
+ * User: root
+ * Date: 11/10/17
+ * Time: 16:07
+ * PHP version 7
  */
 
 namespace App\Controller;
 
 use App\Model\CatalogManager;
+use App\Model\ItemManager;
 
-class CatalogController extends AbstractController
+/**
+ * Class CatalogAdminController
+ *
+ */
+class CatalogAdminController extends AbstractController
 {
 
     /**
-     * Display catalog page
+     * Display catalogAdmin page
      *
      * @return string
      * @throws \Twig\Error\LoaderError
@@ -27,6 +32,6 @@ class CatalogController extends AbstractController
         $catalogManager = new CatalogManager();
         $elements = $catalogManager->selectAll();
 
-        return $this->twig->render('Catalog/index.html.twig', ['elements' => $elements]);
+        return $this->twig->render('CatalogAdmin/index.html.twig', ['elements' => $elements]);
     }
 }
