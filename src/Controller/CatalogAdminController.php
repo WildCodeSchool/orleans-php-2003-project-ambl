@@ -55,18 +55,10 @@ class CatalogAdminController extends AbstractController
         $uploadDir = '../public/assets/images/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            foreach ($_POST as $key => $value) {
-                $dataSend[$key] = trim($value);
-            }
+            $dataSend = array_map('trim', $_POST);
 
             /* Verification of form fields */
-            foreach ($dataSend as $field => $value) {
-                if ($field === 'type' || $field === 'toxicity') {
-                    $errorsList[] = $this->checkSelectFieldsForm($field, $value);
-                } else {
-                    $errorsList[] = $this->checkInputFieldsForm($field, $value);
-                }
-            }
+            $errorsList = $this->checkForm($dataSend);
 
             /* Checking the field used to upload the file */
             if ($this->checkUploadFieldForm($_FILES) != '') {
@@ -100,108 +92,47 @@ class CatalogAdminController extends AbstractController
         ]);
     }
 
-
-    /**
-     * Check the form fields
-     *
-     * @param string $fieldName
-     * @param string $fieldValue
-     * @return string
-     */
-    private function checkInputFieldsForm(string $fieldName, string $fieldValue): string
+    private function checkForm(array $dataSend): array
     {
-        $errorMessage = "";
+        $errorMessage = [];
 
-        if ($this->checkInputFieldFormEmpty($fieldName, $fieldValue)) {
-            $errorMessage = $this->checkInputFieldFormEmpty($fieldName, $fieldValue);
+        $commonNameLenght = 255;
+        if (empty($dataSend['commonName'])) {
+            $errorMessage[] = 'Le nom commun doit être renseigné';
         }
 
-        if ($this->checkInputFieldFormSize($fieldName, $fieldValue)) {
-            $errorMessage = $this->checkInputFieldFormEmpty($fieldName, $fieldValue);
+        if (strlen($dataSend['commonName']) > $commonNameLenght) {
+            $errorMessage[] = 'Le nom commun doit être inférieur a ' . $commonNameLenght . ' caractères';
         }
 
-        return $errorMessage;
-    }
-
-    /**
-     * Check that a form field is not empty
-     *
-     * @param string $fieldName
-     * @param string $fieldValue
-     * @return string
-     */
-    private function checkInputFieldFormEmpty(string $fieldName, string $fieldValue): string
-    {
-        $errorMessage = "";
-
-        if ($fieldName === 'commonName') {
-            if (empty($fieldValue)) {
-                $errorMessage = 'Le nom commun doit être renseigné';
-            }
-        }
-
-        if ($fieldName === 'latinName') {
-            if (empty($fieldValue)) {
-                $errorMessage = 'Le nom latin doit être renseigné';
-            }
-        }
-
-        if ($fieldName === 'color') {
-            if (empty($fieldValue)) {
-                $errorMessage = 'Le couleur doit être renseigné';
-            }
-        }
-
-        if ($fieldName === 'description') {
-            if (empty($fieldValue)) {
-                $errorMessage = 'Le description doit être renseigné';
-            }
-        }
-
-        return $errorMessage;
-    }
-
-    /** Check the size of what is entered
-     *
-     * @param string $fieldName
-     * @param string $fieldValue
-     * @return string
-     */
-    private function checkInputFieldFormSize(string $fieldName, string $fieldValue): string
-    {
-        $errorMessage = "";
-        $commonNameLenght = 100;
         $latinNameLenght = 255;
+        if (empty($dataSend['latinName'])) {
+            $errorMessage[] = 'Le nom latin doit être renseigné';
+        }
+
+        if (strlen($dataSend['latinName']) > $latinNameLenght) {
+            $errorMessage[] = 'Le nom latin doit être inférieur a ' . $latinNameLenght . ' caractères';
+        }
+
         $colorLenght = 100;
-
-        if ($fieldName === 'commonName') {
-            if (strlen($fieldValue) > $commonNameLenght) {
-                $errorMessage = 'Le nom commun doit être inférieur a ' . $commonNameLenght . ' caractères';
-            }
+        if (empty($dataSend['color'])) {
+            $errorMessage[] = 'Le couleur doit être renseigné';
         }
 
-        if ($fieldName === 'latinName') {
-            if (strlen($fieldValue) > $latinNameLenght) {
-                $errorMessage = 'Le nom commun doit être inférieur a ' . $latinNameLenght . ' caractères';
-            }
+        if (strlen($dataSend['color']) > $colorLenght) {
+            $errorMessage[] = 'Le couleur doit être inférieur a ' . $colorLenght . ' caractères';
         }
 
-        if ($fieldName === 'color') {
-            if (strlen($fieldValue) > $colorLenght) {
-                $errorMessage = 'Le couleur doit être inférieur a ' . $colorLenght . ' caractères';
-            }
+        if (empty($dataSend['description'])) {
+            $errorMessage[] = 'Le description doit être renseigné';
         }
+
+        $errorMessage = array_merge($errorMessage, $this->checkSelectFieldsForm('type', $dataSend['type']));
+        $errorMessage = array_merge($errorMessage, $this->checkSelectFieldsForm('toxicity', $dataSend['toxicity']));
 
         return $errorMessage;
     }
 
-    /**
-     * Check the select fields of the form
-     *
-     * @param string $fieldName
-     * @param string $fieldValue
-     * @return array
-     */
     private function checkSelectFieldsForm(string $fieldName, string $fieldValue): array
     {
         $errors = [];
