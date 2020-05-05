@@ -31,6 +31,15 @@ class EventController extends AbstractController
         return $this->twig->render('Event/admin.html.twig', ['events' => $events]);
     }
 
+    public function delete(int $eventId)
+    {
+        $eventManager = new EventManager();
+        $event = $eventManager->selectOneById($eventId);
+
+
+        return $this->twig->render('Event/delete.html.twig', ['event' => $event]);
+    }
+
     public function add()
     {
         $eventManager = new EventManager();
