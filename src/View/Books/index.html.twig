@@ -1,0 +1,36 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Livres Utiles{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/table.css">{% endblock %}
+
+{% block content %}
+    <section class="books">
+        <h1 class="text-center">Livres utiles</h1>
+
+        <div class="table-responsive container-fluid">
+            <table class="list-events table table-bordered table-striped col-10 offset-1">
+                <thead>
+                    <tr>
+                        
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Année</th>
+                        <th>Éditeur</th>
+                        <th>Catégorie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in elements %}
+                        <tr>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.author }}</td>
+                            <td>{{ item.year }}</td>
+                            <td>{{ item.publisher }}</td>
+                            <td>{{ item.name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+{% endblock %}
