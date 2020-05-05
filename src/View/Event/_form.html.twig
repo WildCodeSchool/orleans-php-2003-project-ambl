@@ -6,7 +6,9 @@
         <select class="form-control" name="type_id" id="type" required>
             <option value="">--Choisir un type d'événement--</option>
             {% for type in types %}
-                <option value="{{ type.id }}">{{ type.type }}</option>>
+                <option value="{{ type.id }}" {% if event.type_id == type.id %}selected{% endif %}>
+                    {{ type.type }}
+                </option>
             {% endfor %}
         </select>
     </div>

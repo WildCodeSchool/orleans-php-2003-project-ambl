@@ -1,6 +1,6 @@
 {% extends 'layout.html.twig' %}
 
-{% block title %}Events | Admin{% endblock %}
+{% block title %}Événements | Admin{% endblock %}
 {% block stylesheet %}<link rel="stylesheet" href="/assets/css/events.css">{% endblock %}
 
 {% block content %}
@@ -16,7 +16,7 @@
         </header>
 
         <div class="text-center button-add-events">
-            <a class="btn btn-primary" href="/events/add">
+            <a class="btn btn-primary" href="/event/add">
                 <img src="/assets/images/add.svg" class="button-admin-events">
                 Ajouter un événement
             </a>
@@ -45,10 +45,10 @@
                         <td>{{ event.location }}</td>
                         <td>{{ event.speaker_name }}</td>
                         <td>
-                            <a href="/events/update/{{ event.id }}">
+                            <a href="/event/update/{{ event.id }}">
                                 <img src="/assets/images/update.svg" class="button-admin-events">
                             </a>
-                            <a href="/events/delete/{{ event.id }}">
+                            <a href="/event/delete/{{ event.id }}">
                                 <img src="/assets/images/delete.svg" class="button-admin-events">
                             </a>
                         </td>
