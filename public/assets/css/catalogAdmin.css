@@ -62,7 +62,7 @@
     display: block;
     margin: 0 auto;
     padding-top: 10px;
-    color: #2ea591;
+    color: var(--form-input-color);
     font-weight: 600;
     text-transform: capitalize;
     text-align: center;
