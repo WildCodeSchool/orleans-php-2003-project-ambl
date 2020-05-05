@@ -1,0 +1,30 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Événements | Ajouter{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/form_events.css">{% endblock %}
+
+{% block content %}
+    <section class="events">
+        <header class="header">
+            <div class="container h-100 justify-around">
+                <div class="row h-75 align-items-center">
+                    <div class="col-12">
+                        <h1>Ajouter un événement</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            {% if errors is not empty %}
+                <div class="errors">
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% include "Event/_form.html.twig" %}
+        </div>
+
+    </section>
+{% endblock %}

@@ -35,7 +35,7 @@ class CatalogAdminController extends AbstractController
 
         return $this->twig->render('CatalogAdmin/index.html.twig', ['elements' => $elements]);
     }
-
+  
     /**
      * Display catalogAdmin creation page
      *

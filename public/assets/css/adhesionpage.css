@@ -1,0 +1,7 @@
+.list-group-item {
+    background-color: var(--contact-show-errors);
+}
+
+.adhesion-badge-success {
+    background-color: var(--secondary-color);
+}

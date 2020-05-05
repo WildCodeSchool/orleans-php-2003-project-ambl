@@ -8,7 +8,7 @@
 
 namespace App\Controller;
 
-use App\Model\EventsManager;
+use App\Model\EventManager;
 
 class HomeController extends AbstractController
 {
@@ -24,7 +24,7 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $eventsManager = new EventsManager();
+        $eventsManager = new EventManager();
         $nextEvents = $eventsManager->selectNextEvents(self::NB_EVENTS);
 
         return $this->twig->render('Home/index.html.twig', ["nextEvents" => $nextEvents]);
