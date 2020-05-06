@@ -14,3 +14,11 @@ nav{
     width: 80px;
     object-fit: contain;
 }
+
+.nav-link{
+    color: var(--light);
+}
+
+.nav-link:hover{
+    color: var(--light-hover);
+}

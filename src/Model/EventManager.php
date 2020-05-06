@@ -32,7 +32,7 @@ class EventManager extends AbstractManager
 
     public function selectNextEvents(int $nbEvents): array
     {
-        $query = "SELECT e.title, e.date, t.image, t.type
+        $query = "SELECT e.title, e.date, e.location, e.speaker_name, t.image, t.type
                   FROM event e
                   JOIN event_type t ON e.type_id = t.id
                   ORDER BY e.date, e.hour

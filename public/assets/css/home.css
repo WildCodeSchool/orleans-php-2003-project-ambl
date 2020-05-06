@@ -1,3 +1,19 @@
+.header h1{
+    margin-bottom: 0;
+}
+
+.header p {
+    font-size: 1.3rem;
+}
+
+.header img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    margin-bottom: var(--spacing-lg);
+    border-radius: 5px;
+}
+
 .next-events h2{
     margin: var(--spacing-lg);
 }
@@ -17,4 +33,18 @@ h3{
 
 .next-events .card{
     padding: 0;
+}
+
+.fields{
+    position: relative;
+    height: 10rem;
+}
+
+.event-title{
+    position: absolute;
+}
+
+.event-location{
+    position: absolute;
+    top: 75px;
 }
