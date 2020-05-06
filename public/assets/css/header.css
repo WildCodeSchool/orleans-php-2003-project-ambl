@@ -9,20 +9,7 @@
     font-family: var(--title-font);
 }
 
-.header p {
-    font-size: 1.5rem;
-}
-
 .header .row {
     padding-top: var(--spacing-lg);
     padding-bottom: var(--spacing-lg);
 }
-
-.header img {
-    height: 300px;
-    width: 300px;
-    object-fit: cover;
-    margin-bottom: var(--spacing-lg);
-    border-radius: 5px;
-}
-

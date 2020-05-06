@@ -1,10 +1,27 @@
-.next-events h2{
-    margin: var(--spacing-lg);
+.header h1{
+    margin-bottom: 0;
 }
 
-.button-events{
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing);
+.header p {
+    font-size: 1.3rem;
+}
+
+.header img {
+    height: 300px;
+    width: 300px;
+    object-fit: cover;
+    margin-bottom: var(--spacing-lg);
+    border-radius: 5px;
+}
+
+h2{
+    margin-top: var(--spacing-xlg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.button-events, .button-catalog{
+    margin-top: var(--spacing);
+    margin-bottom: var(--spacing-lg);
 }
 
 .next-events .card{
@@ -17,4 +34,22 @@ h3{
 
 .next-events .card{
     padding: 0;
+}
+
+.fields{
+    position: relative;
+    height: 10rem;
+}
+
+.event-title{
+    position: absolute;
+}
+
+.event-location{
+    position: absolute;
+    top: 75px;
+}
+
+.italic{
+    font-style: italic;
 }

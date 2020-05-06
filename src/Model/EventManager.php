@@ -23,7 +23,7 @@ class EventManager extends AbstractManager
      */
     public function selectTableEvent(): array
     {
-        $query = "SELECT t.type, e.title, e.date, e.location, e.hour, e.speaker_name, e.id
+        $query = "SELECT t.type, t.image, e.title, e.date, e.location, e.hour, e.speaker_name, e.id
                   FROM event e 
                   JOIN event_type t ON e.type_id = t.id
                   ORDER BY e.date, e.hour";
@@ -32,7 +32,7 @@ class EventManager extends AbstractManager
 
     public function selectNextEvents(int $nbEvents): array
     {
-        $query = "SELECT e.title, e.date, t.image, t.type
+        $query = "SELECT e.title, e.date, e.location, e.speaker_name, t.image, t.type
                   FROM event e
                   JOIN event_type t ON e.type_id = t.id
                   ORDER BY e.date, e.hour
@@ -80,5 +80,16 @@ class EventManager extends AbstractManager
         $statement->bindValue('id', $item['id'], \PDO::PARAM_INT);
 
         return $statement->execute();
+    }
+
+    public function delete(int $id)
+    {
+        $query = "DELETE FROM event
+                  WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+
+        $statement->execute();
     }
 }
