@@ -3,7 +3,7 @@
 
 namespace App\Services;
 
-class UploadeManager
+class UploadManager
 {
 
     const AUTHORIZED_FILE = ['image/jpeg', 'image/png'];

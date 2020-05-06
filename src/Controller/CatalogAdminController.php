@@ -12,7 +12,7 @@ namespace App\Controller;
 use App\Model\CatalogManager;
 use App\Model\ElementTypeManager;
 use App\Model\ToxicityManager;
-use App\Services\UploadeManager;
+use App\Services\UploadManager;
 
 /**
  * Class CatalogAdminController
@@ -63,26 +63,21 @@ class CatalogAdminController extends AbstractController
             $errorsList = $this->checkForm($dataSend);
 
             /* Checking the field used to upload the file */
-            $uploadManager = new UploadeManager($_FILES['picture'], 1000000, $uploadDir);
+            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
 
             if ($_FILES['picture']['error'] == 0) {
                 $uploadManager->isValidate();
                 $errorsList = array_merge($errorsList, $uploadManager->getErrors());
             } else {
-                if ($dataSend['type'] == '1') {
-                    $fileName = 'mushroom_image.jpeg';
-                } else {
-                    $fileName = 'plante_image.jpeg';
-                }
+                $fileName = 'botanic.jpg';
             }
 
             if (empty($errorsList)) {
                 if ($_FILES['picture']['error'] == 0) {
                     $fileName = $uploadManager->upload();
-                    if ($fileName == '' && $dataSend['type'] == '1') {
-                        $fileName = 'mushroom_image.jpeg';
-                    } else {
-                        $fileName = 'plante_image.jpeg';
+
+                    if ($fileName == '') {
+                        $fileName = 'botanic.jpg';
                     }
                 }
 
@@ -112,35 +107,35 @@ class CatalogAdminController extends AbstractController
     {
         $errorMessage = [];
 
-        $commonNameLenght = 255;
+        $commonNameLength = 255;
         if (empty($dataSend['commonName'])) {
             $errorMessage[] = 'Le nom commun doit être renseigné';
         }
 
-        if (strlen($dataSend['commonName']) > $commonNameLenght) {
-            $errorMessage[] = 'Le nom commun doit être inférieur a ' . $commonNameLenght . ' caractères';
+        if (strlen($dataSend['commonName']) > $commonNameLength) {
+            $errorMessage[] = 'Le nom commun doit être inférieur à ' . $commonNameLength . ' caractères';
         }
 
-        $latinNameLenght = 255;
+        $latinNameLength = 255;
         if (empty($dataSend['latinName'])) {
             $errorMessage[] = 'Le nom latin doit être renseigné';
         }
 
-        if (strlen($dataSend['latinName']) > $latinNameLenght) {
-            $errorMessage[] = 'Le nom latin doit être inférieur a ' . $latinNameLenght . ' caractères';
+        if (strlen($dataSend['latinName']) > $latinNameLength) {
+            $errorMessage[] = 'Le nom latin doit être inférieur à ' . $latinNameLength . ' caractères';
         }
 
-        $colorLenght = 100;
+        $colorLength = 100;
         if (empty($dataSend['color'])) {
-            $errorMessage[] = 'Le couleur doit être renseigné';
+            $errorMessage[] = 'La couleur doit être renseignée';
         }
 
-        if (strlen($dataSend['color']) > $colorLenght) {
-            $errorMessage[] = 'Le couleur doit être inférieur a ' . $colorLenght . ' caractères';
+        if (strlen($dataSend['color']) > $colorLength) {
+            $errorMessage[] = 'La couleur doit être inférieure à ' . $colorLength . ' caractères';
         }
 
         if (empty($dataSend['description'])) {
-            $errorMessage[] = 'Le description doit être renseigné';
+            $errorMessage[] = 'Le description doit être renseignée';
         }
 
         $errorMessage = array_merge($errorMessage, $this->checkSelectFieldsForm('type', $dataSend['type']));
@@ -168,7 +163,7 @@ class CatalogAdminController extends AbstractController
                 $errors[] = 'Le type doit être renseigné';
             } else {
                 if (!in_array($fieldValue, array_column($types, 'id'))) {
-                    $errors[] = 'Le type est inconnue';
+                    $errors[] = 'Le type est inconnu';
                 }
             }
         }
@@ -178,10 +173,10 @@ class CatalogAdminController extends AbstractController
             $toxicities = $toxicityManager->selectAll();
 
             if (empty($fieldValue) || $fieldValue === '') {
-                $errors[] = 'Le toxicity doit être renseigné';
+                $errors[] = 'La toxicité doit être renseignée';
             } else {
                 if (!in_array($fieldValue, array_column($toxicities, 'id'))) {
-                    $errors[] = 'Le toxicity est inconnue';
+                    $errors[] = 'La toxicité est inconnue';
                 }
             }
         }
