@@ -12,12 +12,12 @@ namespace App\Model;
 /**
  *
  */
-class BooksManager extends AbstractManager
+class BookManager extends AbstractManager
 {
     /**
      *
      */
-    const TABLE = 'starter_books_mycology';
+    const TABLE = 'books';
 
     /**
      *  Initializes this class.
@@ -29,7 +29,8 @@ class BooksManager extends AbstractManager
 
     public function selectAll() : array
     {
-        $query = 'SELECT title, author, year, publisher, name FROM books JOIN book_type ON book_type.id=books.type_id';
+        $query = 'SELECT title, author, year, publisher, name FROM '. self::TABLE .' 
+        JOIN book_type ON book_type.id=books.type_id';
     
         return $this->pdo->query($query)->fetchAll();
     }

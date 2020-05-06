@@ -20,13 +20,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in elements %}
+                    {% for book in books %}
                         <tr>
-                            <td>{{ item.title }}</td>
-                            <td>{{ item.author }}</td>
-                            <td>{{ item.year }}</td>
-                            <td>{{ item.publisher }}</td>
-                            <td>{{ item.name }}</td>
+                            <td>{{ book.title }}</td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.year }}</td>
+                            <td>{{ book.publisher }}</td>
+                            <td>{{ book.name }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>

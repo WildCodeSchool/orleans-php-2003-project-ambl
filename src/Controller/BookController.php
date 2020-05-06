@@ -9,9 +9,9 @@
 
 namespace App\Controller;
 
-use App\Model\BooksManager;
+use App\Model\BookManager;
 
-class BooksController extends AbstractController
+class BookController extends AbstractController
 {
 
     /**
@@ -24,9 +24,9 @@ class BooksController extends AbstractController
      */
     public function index()
     {
-        $booksManager = new BooksManager();
-        $elements = $booksManager->selectAll();
+        $bookManager = new BookManager();
+        $books = $bookManager->selectAll();
 
-        return $this->twig->render('Books/index.html.twig', ['elements' => $elements]);
+        return $this->twig->render('Books/index.html.twig', ['books' => $books]);
     }
 }
