@@ -53,6 +53,7 @@ class CatalogAdminController extends AbstractController
         $toxicities = $toxicityManager->selectAll();
         $errorsList = [];
         $dataSend = [];
+        $fileName = '';
         $uploadDir = '../public/assets/images/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -63,13 +64,26 @@ class CatalogAdminController extends AbstractController
 
             /* Checking the field used to upload the file */
             $uploadManager = new UploadeManager($_FILES['picture'], 1000000, $uploadDir);
-            $uploadManager->isValidate();
-            $errorsList = array_merge($errorsList, $uploadManager->getErrors());
+
+            if ($_FILES['picture']['error'] == 0) {
+                $uploadManager->isValidate();
+                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
+            } else {
+                if ($dataSend['type'] == '1') {
+                    $fileName = 'mushroom_image.jpeg';
+                } else {
+                    $fileName = 'plante_image.jpeg';
+                }
+            }
 
             if (empty($errorsList)) {
-                $fileName = $uploadManager->upload();
-                if ($fileName == '') {
-                    $fileName = 'image_champignon.jpeg';
+                if ($_FILES['picture']['error'] == 0) {
+                    $fileName = $uploadManager->upload();
+                    if ($fileName == '' && $dataSend['type'] == '1') {
+                        $fileName = 'mushroom_image.jpeg';
+                    } else {
+                        $fileName = 'plante_image.jpeg';
+                    }
                 }
 
                 $catalogManager = new CatalogManager();

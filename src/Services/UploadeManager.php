@@ -49,18 +49,15 @@ class UploadeManager
      */
     public function isValidate()
     {
-        if (isset($this->file['error']) &&  $this->file['error'] == 4) {
-            $this->errors[] = "Aucun fichier n'a ete envoyer";
-        } else {
-            $mime = mime_content_type($this->file['tmp_name']);
 
-            if (!in_array($mime, self::AUTHORIZED_FILE)) {
-                $this->errors[] = "Le fichier doit être une image";
-            }
+        $mime = mime_content_type($this->file['tmp_name']);
 
-            if ($this->file['size'] > $this->fileMaxSize) {
-                $this->errors[] = "Le fichier doit être inférieur à " . ($this->fileMaxSize / 1000000) . ' Mo';
-            }
+        if (!in_array($mime, self::AUTHORIZED_FILE)) {
+            $this->errors[] = "Le fichier doit être une image";
+        }
+
+        if ($this->file['size'] > $this->fileMaxSize) {
+            $this->errors[] = "Le fichier doit être inférieur à " . ($this->fileMaxSize / 1000000) . ' Mo';
         }
     }
 
