@@ -26,17 +26,6 @@
             {% endfor %}
         </select>
     </div>
-    <div class="form-group">
-        <label for="toxicity">Toxicité</label>
-        <select name="toxicity" class="form-control">
-            <option value="">Selectionner un élément dans la liste</option>
-            {% for toxicity in toxicities %}
-                <option value="{{ toxicity.id }}" {% if dataSend.toxicity  == toxicity.id %}selected{% endif %}>
-                    {{ toxicity.name }}
-                </option>
-            {% endfor %}
-        </select>
-    </div>
     <div class="form-group files">
         <label for="picture">Photo</label>
         <input type="file" name="picture" class="form-control" />
