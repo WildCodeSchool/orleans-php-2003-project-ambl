@@ -33,5 +33,4 @@ class BooksManager extends AbstractManager
     
         return $this->pdo->query($query)->fetchAll();
     }
-
 }
