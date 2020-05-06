@@ -40,8 +40,10 @@ class CatalogManager extends AbstractManager
      */
     public function selectAll(): array
     {
-        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
                     JOIN toxicity ON toxicity.id=element.toxicity_id
+                    JOIN element_type ON element_type.id=element.element_type_id
                     ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
 
         return $this->pdo->query($query)->fetchAll();

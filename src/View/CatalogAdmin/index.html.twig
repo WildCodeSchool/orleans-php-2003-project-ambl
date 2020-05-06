@@ -38,14 +38,16 @@ CatalogueAdmin
                         <div class="col-lg-4 col-md-6">
                             <div class="catalog-card mt-2">
                                 <div class="block-img">
-                                    <img src="/assets/images/catalog/{{ element.picture }}" alt="">
-                                    {% if element.toxicity_name == 'none'  %}
-                                        <div class="status"></div>
+                                    {% if element.picture is empty  %}
+                                        <img src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="">
                                     {% else %}
-                                        <div class="status">
-                                            <p>{{ element.toxicity_name }}</p>
-                                        </div>
+                                        <img src="/assets/images/catalog/{{ element.picture }}" alt="">
                                     {% endif %}
+                                    <div class="status">
+                                        {% if element.toxicity_name == 'none'  %}
+                                            <p>{{ element.toxicity_name }}</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                                 <div class="catalog-card-content">
                                     <div class="block-title mb-3">
