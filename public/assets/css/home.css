@@ -14,13 +14,14 @@
     border-radius: 5px;
 }
 
-.next-events h2{
-    margin: var(--spacing-lg);
+h2{
+    margin-top: var(--spacing-xlg);
+    margin-bottom: var(--spacing-lg);
 }
 
-.button-events{
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing);
+.button-events, .button-catalog{
+    margin-top: var(--spacing);
+    margin-bottom: var(--spacing-lg);
 }
 
 .next-events .card{
@@ -47,4 +48,8 @@ h3{
 .event-location{
     position: absolute;
     top: 75px;
+}
+
+.italic{
+    font-style: italic;
 }

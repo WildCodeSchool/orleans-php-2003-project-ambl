@@ -15,7 +15,7 @@
                 <div class="col-sm-6 col-md-7 col-xl-8">
                     <p>L’Association Mycologique et Botanique du Loiret a pour but de vous faire découvrir la biodiversité de notre beau département.
                         À travers différentes initiatives comme les rassemblements, randonnées pédestres, conférences et développement d’actions environnementales, l’AMBL propose à ses adhérents et adhérentes diverses activités constructives, basées sur l’apprentissage et la découverte de la flore locale.
-                        L’AMBL sera ravie de vous compter parmi ses rangs si vous ne faites pas encore partie de notre association !
+                        L’AMBL sera ravie de vous compter parmi ses rangs si vous ne faites pas encore partie de notre association !</p>
                 </div>
                 <div class="col-sm-6 col-md-5 col-xl-4">
                     <img class="img-fluid" src="/assets/images/image_champignon.jpeg" alt="">
@@ -49,6 +49,28 @@
 
         <div class="text-center button-events">
             <a class="btn btn-primary" href="/event/index">Voir tous les événements</a>
+        </div>
+    </section>
+
+    <section class="random-vegetal container">
+        <h2 class="text-center">Le connaissiez-vous ?</h2>
+
+        <div class="row align-items-center">
+            <div class="col-sm-6 col-md-5 col-xl-4">
+                <img class="img-fluid"
+                     src="/assets/images/catalog/{{ randomVegetal.picture }}"
+                     alt="Image {{ randomVegetal.common_name }}">
+            </div>
+            <div class="col-sm-6 col-md-7 col-xl-8">
+                <p>Nom latin : <span class="italic">{{ randomVegetal.latin_name }}</span></p>
+                <p>Nom vernaculaire : {{ randomVegetal.common_name }}</p>
+                <p>{{ randomVegetal.toxicity_name }}</p>
+                <p>{{ randomVegetal.description }}</p>
+            </div>
+        </div>
+
+        <div class="text-center button-catalog">
+            <a class="btn btn-primary" href="/catalog/index">Voir le catalogue</a>
         </div>
     </section>
 

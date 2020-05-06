@@ -12,6 +12,7 @@
     --spacing-sm: calc(var(--spacing) / 2);
     --spacing: 16px;
     --spacing-lg: calc(var(--spacing) * 2);
+    --spacing-xlg: calc(var(--spacing-lg) * 2);
 
     --main-color: #634b2d;
     --secondary-color: #b7cdae;
