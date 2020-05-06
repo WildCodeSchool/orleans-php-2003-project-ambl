@@ -29,19 +29,26 @@
 
         <div class="row justify-content-center justify-content-md-between">
         {% for nextEvent in nextEvents %}
-            <div class="card col-8 col-md-3">
+            <div class="card col-9 col-md-3">
                 <img class="card-img-top" src="{{ nextEvent.image }}" alt="{{ 'Image ' ~ nextEvent.type }}">
                 <div class="card-body">
-                    <h3 class="card-title">{{ nextEvent.title }}</h3>
-                    <p class="card-text">{{ nextEvent.type }}</p>
-                    <p class="card-text">{{ nexEvent.date|date('d/m/Y') }}</p>
+                    <h3 class="card-title">{{ nextEvent.date|date('d/m/Y') }}</h3>
+                    <div class="fields">
+                        <p class="event-title">
+                            {{ nextEvent.title }}
+                            {% if nextEvent.speaker_name is not empty %}
+                                - {{ nextEvent.speaker_name }}
+                            {% endif %}
+                        </p>
+                        <p class="event-location">{{ nextEvent.location }}</p>
+                    </div>
                 </div>
             </div>
         {% endfor %}
         </div>
 
         <div class="text-center button-events">
-            <a class="btn btn-primary" href="/events/index">Voir tous les événements</a>
+            <a class="btn btn-primary" href="/event/index">Voir tous les événements</a>
         </div>
     </section>
 
