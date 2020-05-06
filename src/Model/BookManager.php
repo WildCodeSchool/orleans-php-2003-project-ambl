@@ -17,7 +17,7 @@ class BookManager extends AbstractManager
     /**
      *
      */
-    const TABLE = 'books';
+    const TABLE = 'book';
 
     /**
      *  Initializes this class.
@@ -30,7 +30,7 @@ class BookManager extends AbstractManager
     public function selectAll() : array
     {
         $query = 'SELECT title, author, year, publisher, name FROM '. self::TABLE .' 
-        JOIN book_type ON book_type.id=books.type_id';
+        JOIN book_type ON book_type.id=book.type_id';
     
         return $this->pdo->query($query)->fetchAll();
     }
