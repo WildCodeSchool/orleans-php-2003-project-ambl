@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Model\CatalogManager;
 use App\Model\EventManager;
 
 class HomeController extends AbstractController
@@ -24,9 +25,13 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        $eventsManager = new EventManager();
-        $nextEvents = $eventsManager->selectNextEvents(self::NB_EVENTS);
+        $eventManager = new EventManager();
+        $nextEvents = $eventManager->selectNextEvents(self::NB_EVENTS);
 
-        return $this->twig->render('Home/index.html.twig', ["nextEvents" => $nextEvents]);
+        $catalogManager = new CatalogManager();
+        $randomVegetal = $catalogManager->selectOneAtRandom();
+
+        return $this->twig->render('Home/index.html.twig', ["nextEvents" => $nextEvents,
+                                                                  "randomVegetal" => $randomVegetal]);
     }
 }
