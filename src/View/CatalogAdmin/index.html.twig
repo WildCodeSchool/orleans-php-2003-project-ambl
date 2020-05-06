@@ -39,17 +39,20 @@ CatalogueAdmin
                             <div class="catalog-card mt-2">
                                 <div class="block-img">
                                     <img src="/assets/images/catalog/{{ element.picture }}" alt="">
-                                    <div class="status">
-                                        <p>{{ element.toxicity_name }}</p>
-                                    </div>
+                                    {% if element.toxicity_name == 'none'  %}
+                                        <div class="status"></div>
+                                    {% else %}
+                                        <div class="status">
+                                            <p>{{ element.toxicity_name }}</p>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="catalog-card-content">
                                     <div class="block-title mb-3">
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
-                                    <p>{{ element.description|slice(0,81)~'...' }}.</p>
-                                    <a href="" class="box_btn">Modifier</a>
-                                    <a href="" class="box_btn">Supprimer</a>
+                                    <a title="Modifier" href="" class="box_btn"><i class="fa fa-edit"></i></a>
+                                    <a title="Supprimer" href="" class="box_btn"><i class="fa fa-trash"></i></a>
                                 </div>
                             </div>
                         </div>
