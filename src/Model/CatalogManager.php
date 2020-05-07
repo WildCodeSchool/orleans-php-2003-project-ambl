@@ -40,13 +40,62 @@ class CatalogManager extends AbstractManager
      */
     public function selectAll(): array
     {
-        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
                     JOIN toxicity ON toxicity.id=element.toxicity_id
+                    JOIN element_type ON element_type.id=element.element_type_id
                     ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
 
         return $this->pdo->query($query)->fetchAll();
     }
 
+    /**
+     * Get one row from database by ID.
+     *
+     * @param  int $id
+     *
+     * @return array
+     */
+    public function selectOneById(int $id)
+    {
+        // prepared request
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    JOIN toxicity ON toxicity.id=element.toxicity_id
+                    JOIN element_type ON element_type.id=element.element_type_id
+                    WHERE element.id=:id";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    /**
+     * @param array $element
+     */
+    public function insert(array $element)
+    {
+        $query = "INSERT INTO " . self::TABLE . " 
+            (`common_name`, `latin_name`, `color`, `picture`, `description`, `element_type_id`, `toxicity_id`)
+            VALUES (:common_name, :latin_name, :color, :picture, :description, :element_type_id, :toxicity_id)";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('common_name', $element['commonName'], \PDO::PARAM_STR);
+        $statement->bindValue('latin_name', $element['latinName'], \PDO::PARAM_STR);
+        $statement->bindValue('color', $element['color'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $element['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
+        $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
+        $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
+
+    /**
+     * @return array
+     */
     public function selectOneAtRandom(): array
     {
         $query = 'SELECT ' . self::TABLE . '.*, toxicity.name toxicity_name 
