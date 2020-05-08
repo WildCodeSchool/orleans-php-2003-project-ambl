@@ -64,24 +64,18 @@ class CatalogAdminController extends AbstractController
             if ($_FILES['picture']['error'] == 0) {
                 $uploadManager->isValidate();
                 $errorsList = array_merge($errorsList, $uploadManager->getErrors());
-            } else {
-                $fileName = 'botanic.jpg';
             }
 
             if (empty($errorsList)) {
                 if ($_FILES['picture']['error'] == 0) {
                     $fileName = $uploadManager->upload();
-
-                    if ($fileName == '') {
-                        $fileName = 'botanic.jpg';
-                    }
                 }
 
                 $catalogManager = new CatalogManager();
                 $dataSend['picture'] = $fileName;
-                /*$catalogManager->insert($dataSend);
+                $catalogManager->update($dataSend);
 
-                header('Location: /catalogAdmin/index');*/
+                header('Location: /catalogAdmin/show/' . $id);
             }
         }
 
