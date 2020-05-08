@@ -34,6 +34,7 @@ class CatalogAdminController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $catalogManager->delete($_POST['id']);
+            header('Location: /catalogAdmin/index');
         }
 
         return $this->twig->render('CatalogAdmin/index.html.twig', ['elements' => $elements]);
@@ -43,7 +44,5 @@ class CatalogAdminController extends AbstractController
     {
         $catalogManager = new CatalogManager();
         $catalogManager->delete($id);
-
-        header('Location: /catalogAdmin/index');
     }
 }
