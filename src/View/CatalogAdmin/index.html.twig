@@ -49,7 +49,12 @@ CatalogueAdmin
                                     </div>
                                     <p>{{ element.description|slice(0,81)~'...' }}.</p>
                                     <a href="" class="box_btn">Modifier</a>
-                                    <a href="" class="box_btn">Supprimer</a>
+                                    <form action="" method="post">
+                                        <input type="hidden" value="{{ element.id }}" name="id">
+                                        <button class="box_btn" type="submit">
+                                            Supprimer
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

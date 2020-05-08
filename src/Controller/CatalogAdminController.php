@@ -32,6 +32,18 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
         $elements = $catalogManager->selectAll();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $catalogManager->delete($_POST['id']);
+        }
+
         return $this->twig->render('CatalogAdmin/index.html.twig', ['elements' => $elements]);
+    }
+
+    public function delete(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $catalogManager->delete($id);
+
+        header('Location: /catalogAdmin/index');
     }
 }
