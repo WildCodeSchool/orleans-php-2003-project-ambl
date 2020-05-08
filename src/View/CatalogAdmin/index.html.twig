@@ -48,7 +48,7 @@ CatalogueAdmin
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
                                     <p>{{ element.description|slice(0,81)~'...' }}.</p>
-                                    <a href="" class="box_btn">Modifier</a>
+                                    <a href="/catalogAdmin/edit/{{ element.id }}" class="box_btn">Modifier</a>
                                     <a href="" class="box_btn">Supprimer</a>
                                 </div>
                             </div>
