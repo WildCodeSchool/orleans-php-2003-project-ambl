@@ -44,7 +44,7 @@ CatalogueAdmin
                                         <img src="/assets/images/catalog/{{ element.picture }}" alt="">
                                     {% endif %}
                                     <div class="status">
-                                        {% if element.toxicity_name == 'none'  %}
+                                        {% if element.toxicity_name != 'none'  %}
                                             <p>{{ element.toxicity_name }}</p>
                                         {% endif %}
                                     </div>
@@ -53,6 +53,7 @@ CatalogueAdmin
                                     <div class="block-title mb-3">
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
+                                    <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn"><i class="fa fa-eye"></i></a>
                                     <a title="Modifier" href="" class="box_btn"><i class="fa fa-edit"></i></a>
                                     <a title="Supprimer" href="" class="box_btn"><i class="fa fa-trash"></i></a>
                                 </div>

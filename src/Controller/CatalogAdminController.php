@@ -92,6 +92,23 @@ class CatalogAdminController extends AbstractController
     }
 
     /**
+     * Display element of catalog informations specified by $id
+     *
+     * @param int $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function show(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $element = $catalogManager->selectOneById($id);
+
+        return $this->twig->render('CatalogAdmin/show.html.twig', ['element' => $element]);
+    }
+
+    /**
      * Check the conformity of the form fields
      *
      * @param array $dataSend
