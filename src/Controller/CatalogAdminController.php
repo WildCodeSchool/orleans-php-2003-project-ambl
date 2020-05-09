@@ -140,9 +140,16 @@ class CatalogAdminController extends AbstractController
                 $dataSend['picture'] = $fileName;
                 $catalogManager->insert($dataSend);
 
-                header('Location: /catalogAdmin/show/' . $id);
+                header('Location: /catalogAdmin/index');
             }
         }
+
+        return $this->twig->render('CatalogAdmin/add.html.twig', [
+            'elementTypes' => $elementTypes,
+            'toxicities' => $toxicities,
+            'errors' => $errorsList,
+            'dataSend' => $dataSend
+        ]);
     }
 
     /**
