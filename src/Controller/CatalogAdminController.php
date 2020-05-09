@@ -11,7 +11,6 @@ namespace App\Controller;
 
 use App\Model\CatalogManager;
 use App\Model\ElementTypeManager;
-use App\Model\ItemManager;
 use App\Model\ToxicityManager;
 use App\Services\UploadManager;
 
@@ -35,9 +34,14 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
         $elements = $catalogManager->selectAll();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $catalogManager->delete($_POST['id']);
+            header('Location: /catalogAdmin/index');
+        }
+
         return $this->twig->render('CatalogAdmin/index.html.twig', ['elements' => $elements]);
     }
-
+  
     public function edit(int $id)
     {
         $elementTypeManager = new ElementTypeManager();
@@ -86,6 +90,76 @@ class CatalogAdminController extends AbstractController
             'dataSend' => $dataSend,
             'element' => $element
         ]);
+    }
+  
+    public function delete(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $catalogManager->delete($id);
+    }
+  
+    /**
+     * Display catalogAdmin creation page
+     *
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function add()
+    {
+        $elementTypeManager = new ElementTypeManager();
+        $toxicityManager = new ToxicityManager();
+        $elementTypes = $elementTypeManager->selectAll();
+        $toxicities = $toxicityManager->selectAll();
+        $errorsList = [];
+        $dataSend = [];
+        $fileName = '';
+        $uploadDir = '../public/assets/images/catalog';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dataSend = array_map('trim', $_POST);
+
+            /* Verification of form fields */
+            $errorsList = $this->checkForm($dataSend);
+
+            /* Checking the field used to upload the file */
+            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
+
+            if ($_FILES['picture']['error'] == 0) {
+                $uploadManager->isValidate();
+                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
+            }
+
+            if (empty($errorsList)) {
+                if ($_FILES['picture']['error'] == 0) {
+                    $fileName = $uploadManager->upload();
+                }
+
+                $catalogManager = new CatalogManager();
+                $dataSend['picture'] = $fileName;
+                $catalogManager->insert($dataSend);
+
+                header('Location: /catalogAdmin/show/' . $id);
+            }
+        }
+    }
+
+    /**
+     * Display element of catalog informations specified by $id
+     *
+     * @param int $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function show(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $element = $catalogManager->selectOneById($id);
+
+        return $this->twig->render('CatalogAdmin/show.html.twig', ['element' => $element]);
     }
 
     /**
