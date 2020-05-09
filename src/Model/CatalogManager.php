@@ -98,4 +98,11 @@ class CatalogManager extends AbstractManager
 
         return $this->pdo->query($query)->fetch();
     }
+
+    public function delete(int $id): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+    }
 }

@@ -55,7 +55,12 @@ CatalogueAdmin
                                     </div>
                                     <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn"><i class="fa fa-eye"></i></a>
                                     <a title="Modifier" href="" class="box_btn"><i class="fa fa-edit"></i></a>
-                                    <a title="Supprimer" href="" class="box_btn"><i class="fa fa-trash"></i></a>
+                                    <form action="" method="post">
+                                        <input type="hidden" value="{{ element.id }}" name="id">
+                                        <button class="box_btn" type="submit">
+                                            Supprimer
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -64,5 +69,4 @@ CatalogueAdmin
             </div>
         </section>
     </main>
-
 {% endblock %}
