@@ -28,7 +28,7 @@ CatalogueAdmin
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm mr-5">
                             <div class="card-body card-block-header">
-                                <a class="stretched-link" href="#">
+                                <a class="stretched-link" href="/catalogAdmin/add">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </div>
@@ -38,17 +38,22 @@ CatalogueAdmin
                         <div class="col-lg-4 col-md-6">
                             <div class="catalog-card mt-2">
                                 <div class="block-img">
-                                    <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                    {% if element.picture is empty  %}
+                                        <img src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="">
+                                    {% else %}
+                                        <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                    {% endif %}
                                     <div class="status">
-                                        <p>{{ element.toxicity_name }}</p>
+                                        {% if element.toxicity_name == 'none'  %}
+                                            <p>{{ element.toxicity_name }}</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="catalog-card-content">
                                     <div class="block-title mb-3">
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
-                                    <p>{{ element.description|slice(0,81)~'...' }}.</p>
-                                    <a href="" class="box_btn">Modifier</a>
+                                    <a title="Modifier" href="" class="box_btn"><i class="fa fa-edit"></i></a>
                                     <form action="" method="post">
                                         <input type="hidden" value="{{ element.id }}" name="id">
                                         <button class="box_btn" type="submit">
@@ -63,5 +68,4 @@ CatalogueAdmin
             </div>
         </section>
     </main>
-
 {% endblock %}
