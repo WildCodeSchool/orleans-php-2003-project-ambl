@@ -68,11 +68,11 @@ class CatalogManager extends AbstractManager
      */
     public function selectOneAtRandom(): array
     {
-        $query = 'SELECT ' . self::TABLE . '.*, toxicity.name toxicity_name 
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name 
                   FROM ' . self::TABLE . '
                   JOIN toxicity ON toxicity.id=element.toxicity_id
                   ORDER BY RAND()
-                  LIMIT 1';
+                  LIMIT 1";
 
         return $this->pdo->query($query)->fetch();
     }
