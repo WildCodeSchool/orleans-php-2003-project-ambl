@@ -68,5 +68,45 @@ CatalogueAdmin
                 </div>
             </div>
         </section>
+
+        <div class="div-pagination">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="pagination">
+                            {% if numberPage == 1%}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">Précédent</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="/catalog/page/{{ previousPage }}" class="page-link">Précédent</a>
+                                </li>
+                            {% endif %}
+                            {% for i in 1..numberPageTotal %}
+                                {% if i == numberPage %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if numberPage == numberPageTotal %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Suivant</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="/catalog/page/{{ nextPage }}">Suivant</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 {% endblock %}
