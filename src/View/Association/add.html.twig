@@ -1,0 +1,65 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Association | Ajouter un membre{% endblock %}
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/associationAdmin.css">{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1 class="text-center">Ajouter un membre au conseil d'administration</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="add_counciler">
+        <div class="container">
+            <div class="row message-box">
+                <div class="col-12">
+                    {% if errors is not empty %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <form method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="firstname">Prénom<span class="red">*</span></label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ counciler.firstname }}" placeholder="John">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname">Nom<span class="red">*</span></label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ counciler.lastname }}" placeholder="Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Rôle<span class="red">*</span></label>
+                    <input type="text" class="form-control" id="role" name="role" value="{{ counciler.role }}" placeholder="Administrateur">
+                </div>
+
+                <div class="form-group">
+                    <label for="mail">Adresse mail</label>
+                    <input type="email" class="form-control" id="mail" name="mail" value="{{ counciler.mail }}" placeholder="xx@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="picture">Photo<span class="red">*</span></label>
+                    <input type="file" class="form-control-file" id="picture" name="picture" value="{{ counciler.picture }}">
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+{% endblock %}
