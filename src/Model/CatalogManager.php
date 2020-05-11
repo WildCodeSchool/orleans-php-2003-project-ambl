@@ -158,7 +158,6 @@ class CatalogManager extends AbstractManager
         $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
         $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
         $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
-      
         $statement->execute();
     }
   
@@ -167,5 +166,18 @@ class CatalogManager extends AbstractManager
         $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
+    }
+
+    /**
+     * Retrieve the number of records in the table
+     *
+     * @return int
+     */
+    public function getNumberCatalogElement(): int
+    {
+        $query = 'SELECT id FROM ' . self::TABLE;
+        $statement = $this->pdo->query($query);
+
+        return $statement->rowCount();
     }
 }

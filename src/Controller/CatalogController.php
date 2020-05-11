@@ -43,7 +43,7 @@ class CatalogController extends AbstractController
             'nextPage' => $nextPage
         ]);
     }
-
+  
     /**
      * Manage navigation from one page to another
      *
