@@ -54,7 +54,7 @@ CatalogueAdmin
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
                                     <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn"><i class="fa fa-eye"></i></a>
-                                    <a title="Modifier" href="" class="box_btn"><i class="fa fa-edit"></i></a>
+                                    <a title="Modifier" href="/catalogAdmin/edit/{{ element.id }}" class="box_btn"><i class="fa fa-edit"></i></a>
                                     <form action="" method="post">
                                         <input type="hidden" value="{{ element.id }}" name="id">
                                         <button class="box_btn" type="submit">
