@@ -1,0 +1,8 @@
+.identification{
+    min-height: 73vh;
+}
+
+.container-form{
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
