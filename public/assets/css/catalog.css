@@ -93,3 +93,29 @@
 .modal img {
     max-width: 100%;
 }
+
+.div-pagination {
+    margin-bottom: 10px;
+}
+.pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination .page-link {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--button-color-hover);
+    color: white;
+    border-color: var(--button-color-hover);
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: var(--button-color-hover);
+    color: white;
+}
