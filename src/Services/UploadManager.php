@@ -36,6 +36,8 @@ class UploadManager
     }
 
     /**
+     * Returns errors
+     *
      * @return array
      */
     public function getErrors()
