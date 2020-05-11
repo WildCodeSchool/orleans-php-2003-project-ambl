@@ -36,9 +36,10 @@ class CatalogManager extends AbstractManager
     /**
      * Get all row from database.
      *
+     * @param string $search
      * @return array
      */
-    public function selectAll(): array
+    public function selectAll(string $search = ''): array
     {
         $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
                     FROM " . self::TABLE . "
@@ -46,7 +47,21 @@ class CatalogManager extends AbstractManager
                     JOIN element_type ON element_type.id=element.element_type_id
                     ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
 
-        return $this->pdo->query($query)->fetchAll();
+        if ($search) {
+            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name";
+        } else {
+            $query .= " ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
+        }
+
+        $statement = $this->pdo->prepare($query);
+
+        if ($search) {
+            $statement->bindValue('search', $search . '%');
+        }
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
   
     public function insert(array $element)

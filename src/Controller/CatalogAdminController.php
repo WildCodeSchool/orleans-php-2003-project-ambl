@@ -31,8 +31,14 @@ class CatalogAdminController extends AbstractController
      */
     public function index()
     {
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+        } else {
+            $search = '';
+        }
+
         $catalogManager = new CatalogManager();
-        $elements = $catalogManager->selectAll();
+        $elements = $catalogManager->selectAll($search);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $catalogManager->delete($_POST['id']);

@@ -22,6 +22,20 @@ CatalogueAdmin
     </header>
 
     <main>
+        <div class="container-fluid bg-light h-100">
+            <div class="row align-items-center justify-content-center pt-5 pb-5">
+                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                    <div class="form-group">
+                        <label for="search">Rechercher</label>
+                        <input id="search" type="search" name="search" class="form-control">
+                    </div>
+                    <div class="form-group mt-4 pt-2 ml-2">
+                        <button class="btn btn-primary">Chercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <section class="catalog">
             <div class="container">
                 <div class="row">
