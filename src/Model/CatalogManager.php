@@ -167,4 +167,33 @@ class CatalogManager extends AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
     }
+
+    /**
+     * Retrieve the number of records in the table
+     *
+     * @return int
+     */
+    public function getNumberCatalogElement(): int
+    {
+        $query = 'SELECT id FROM ' . self::TABLE;
+        $statement = $this->pdo->query($query);
+
+        return $statement->rowCount();
+    }
+
+    /**
+     * Select an element group
+     *
+     * @param int $pageNumber
+     * @return array
+     */
+    public function selectByPage(int $pageNumber): array
+    {
+        $start = ($pageNumber - 1) * self::MAX_RESULT;
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+                    JOIN toxicity ON toxicity.id=element.toxicity_id
+                    ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+
+        return $this->pdo->query($query)->fetchAll();
+    }
 }
