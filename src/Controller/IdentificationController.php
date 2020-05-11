@@ -22,7 +22,7 @@ class IdentificationController extends AbstractController
         $errors = [];
         $request = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/identifications';
+        $uploadDir = '../public/uploads/identifications';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $request = array_map('trim', $_POST);
 
