@@ -6,3 +6,7 @@
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
+
+.red{
+    color: var(--error-color);
+}
