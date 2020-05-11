@@ -22,14 +22,19 @@
 
         <div class="container container-form">
             {% if errors is not empty %}
-                <div class="errors">
+                <ul class="errors">
                     {% for error in errors %}
                         <li>{{ error }}</li>
                     {% endfor %}
-                </div>
+                </ul>
+            {% endif %}
+            {% if success == 1 and errors is empty %}
+                <ul class="success">
+                    <li>Votre requête a bien été envoyée</li>
+                </ul>
             {% endif %}
 
-            <form method="post" enctype="multipart/form-data">
+            <form novalidate method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="picture">La photo de votre trouvaille<span class="red">*</span></label>
                     <input type="file" name="picture" class="form-control" required />

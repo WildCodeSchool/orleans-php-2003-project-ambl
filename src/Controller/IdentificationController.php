@@ -17,7 +17,7 @@ class IdentificationController extends AbstractController
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
      */
-    public function index()
+    public function index(int $success = 0)
     {
         $errors = [];
         $request = [];
@@ -46,10 +46,13 @@ class IdentificationController extends AbstractController
                 $request['picture'] = $fileName;
                 $requestManager->insert($request);
 
-                header('Location: /identification/index');
+                header('Location: /identification/index/1');
             }
         }
-        return $this->twig->render('Identification/index.html.twig', ['errors' => $errors, 'request' => $request]);
+
+        return $this->twig->render('Identification/index.html.twig', ['errors' => $errors,
+                                                                            'request' => $request,
+                                                                            'success' => $success]);
     }
 
     private function validateForm(array $data): array
