@@ -114,7 +114,6 @@ class CatalogManager extends AbstractManager
         return $this->pdo->query($query)->fetch();
     }
 
-
     /**
      * Retrieve the number of records in the table
      *
@@ -143,7 +142,25 @@ class CatalogManager extends AbstractManager
 
         return $this->pdo->query($query)->fetchAll();
     }
-  
+
+    public function update(array $element)
+    {
+        $query = "UPDATE " . self::TABLE . " SET `common_name` = :common_name, `latin_name` = :latin_name, 
+        `color` = :color, `picture` = :picture, `description` = :description, `element_type_id` = :element_type_id, 
+        `toxicity_id` = :toxicity_id WHERE id = :id";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $element['id'], \PDO::PARAM_STR);
+        $statement->bindValue('common_name', $element['commonName'], \PDO::PARAM_STR);
+        $statement->bindValue('latin_name', $element['latinName'], \PDO::PARAM_STR);
+        $statement->bindValue('color', $element['color'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $element['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
+        $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
+        $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
     public function delete(int $id): void
     {
         $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
