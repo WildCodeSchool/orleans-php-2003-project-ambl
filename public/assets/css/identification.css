@@ -10,3 +10,13 @@
 .red{
     color: var(--error-color);
 }
+
+.errors {
+    list-style: none;
+    width: 50%;
+    background-color: var(--contact-show-errors);
+    border-radius: 5px;
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing);
+    margin-top: var(--spacing);
+}

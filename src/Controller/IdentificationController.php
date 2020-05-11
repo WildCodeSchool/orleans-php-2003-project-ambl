@@ -49,7 +49,7 @@ class IdentificationController extends AbstractController
                 header('Location: /identification/index');
             }
         }
-        return $this->twig->render('Identification/index.html.twig');
+        return $this->twig->render('Identification/index.html.twig', ['errors' => $errors, 'request' => $request]);
     }
 
     private function validateForm(array $data): array
@@ -58,6 +58,10 @@ class IdentificationController extends AbstractController
 
         if (!filter_var($data['mail'], FILTER_VALIDATE_EMAIL)) {
             $errors[] = 'Le format d\'email est invalide';
+        }
+
+        if (empty($_FILES['picture']['name'])) {
+            $errors[] = 'Veuillez joindre une photo';
         }
 
         return $errors;
