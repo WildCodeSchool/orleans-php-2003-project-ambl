@@ -10,6 +10,8 @@
 namespace App\Controller;
 
 use App\Model\BookManager;
+use App\Model\LinkManager;
+
 
 class BookController extends AbstractController
 {
@@ -27,6 +29,9 @@ class BookController extends AbstractController
         $bookManager = new BookManager();
         $books = $bookManager->selectAll();
 
-        return $this->twig->render('Books/index.html.twig', ['books' => $books]);
+        $linkManager = new LinkManager();
+        $links = $linkManager->selectAll();
+
+        return $this->twig->render('Books/index.html.twig', ['books' => $books, 'links' => $links]);
     }
 }

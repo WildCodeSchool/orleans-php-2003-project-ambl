@@ -30,27 +30,47 @@
                         </tr>
                     {% endfor %}
                 </tbody>
-            </table><table class="list-books table table-bordered table-striped col-10 offset-1">
-                <thead>
-                    <tr>
-                        
-                        <th>Titre</th>
-                        <th>Auteur</th>
-                        <th>Année</th>
-                        <th>Éditeur</th>
-                        <th>Catégorie</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for link in links %}
-                        <tr>
-                            <td>{{ link.title }}</td>
-                            <td>{{ link.description }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            
             </table>
+                
+                    {% for link in links %}
+
+                     <div class="col-lg-4 col-md-6">
+                            <div class="catalog-card mt-2">
+                                {% if link.bool == 1 %}
+                                    <div class="block-img">
+                                    <button type="button" class="box_btn" data-toggle="modal" data-target="#modalItem{{ element.id }}"><img src="/assets/images/{{ link.image }}" alt=""></button> 
+
+                                    </div>
+                                    <div class="catalog-card-content">
+                                        <div class="block-title mb-3">
+                                            <h4>{{ link.title }}</h4>
+                                        </div>
+                                        <p>{{ link.description }}</p>
+                                        
+                                    </div>
+                                {% endif %}
+                            </div>
+                    {% endfor %}
+
+                    {% for link in links %}
+                             <div class="catalog-card mt-2">
+                                {% if link.bool == 0 %}
+                                    <div class="block-img">
+                                    <button type="button" class="box_btn" data-toggle="modal" data-target="#modalItem{{ element.id }}">{{ link.url }}</button> 
+
+                                    </div>
+                                    <div class="catalog-card-content">
+                                        <div class="block-title mb-3">
+                                            <h4>{{ link.title }}</h4>
+                                        </div>
+                                        <p>{{ link.description }}</p>
+                                        
+                                    </div>
+                                {% endif %}
+                            </div>
+                     
+                    {% endfor %}
+            
         </div>
     </section>
 {% endblock %}

@@ -27,10 +27,5 @@ class LinkManager extends AbstractManager
         parent::__construct(self::TABLE);
     }
 
-    public function selectAll() : array
-    {
-        $query = 'SELECT * FROM '. self::TABLE;
-    
-        return $this->pdo->query($query)->fetchAll();
-    }
+
 }

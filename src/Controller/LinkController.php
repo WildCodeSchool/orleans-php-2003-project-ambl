@@ -27,6 +27,9 @@ class LinkController extends AbstractController
         $linkManager = new LinkManager();
         $links = $linkManager->selectAll();
 
-        return $this->twig->render('Links/index.html.twig', ['links' => $links]);
+        var_dump($links);
+        return $this->twig->render('Books/index.html.twig', ['links' => $links]);
+
+        
     }
 }
