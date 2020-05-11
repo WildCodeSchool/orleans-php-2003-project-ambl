@@ -67,11 +67,11 @@ class IdentificationController extends AbstractController
     {
         $errors = [];
 
-        if (strlen($data['speaker_name']) > self::MAX_VARCHAR) {
+        if (strlen($data['sender_name']) > self::MAX_VARCHAR) {
             $errors[] = 'Veuillez indiquer un nom inférieur à ' . self::MAX_VARCHAR . ' caractères';
         }
 
-        if (strlen($data['email']) > self::MAX_VARCHAR) {
+        if (strlen($data['mail']) > self::MAX_VARCHAR) {
             $errors[] = 'Veuillez indiquer une adresse mail inférieure à ' . self::MAX_VARCHAR . ' caractères';
         }
 
@@ -86,7 +86,7 @@ class IdentificationController extends AbstractController
     {
         $errors = [];
 
-        if (empty($data['speaker_name'])) {
+        if (empty($data['sender_name'])) {
             $errors[] = 'Veuillez indiquer votre nom';
         }
 
