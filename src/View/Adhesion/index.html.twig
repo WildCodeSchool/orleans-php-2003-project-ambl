@@ -63,6 +63,20 @@
         </div>
         <div class="container card mb-5">
             <div class="row container-form">
+                {% if contactSuccess is not empty %}
+                    <div class="adhesion-show-success mt-3">
+                        <p>
+                            Merci de nous avoir contacté. Nous reviendrons vers vous dans les plus brefs délais.
+                        </p>
+                    </div>
+                {% endif %}
+                {% if contactErrors is not empty %}
+                    <div class="adhesion-show-errors mt-3">
+                        {% for error in contactErrors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
                 <form class="adhesion-form" action="/adhesion/index" method="POST">
 
                     <label class="adhesion-label" for="firstname">Votre prénom :</label>
