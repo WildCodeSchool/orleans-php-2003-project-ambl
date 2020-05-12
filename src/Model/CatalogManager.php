@@ -36,15 +36,71 @@ class CatalogManager extends AbstractManager
     /**
      * Get all row from database.
      *
+     * @param string $search
      * @return array
      */
-    public function selectAll(): array
+    public function selectAll(string $search = ''): array
     {
-        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+              $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
                     JOIN toxicity ON toxicity.id=element.toxicity_id
+                    JOIN element_type ON element_type.id=element.element_type_id
                     ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
 
-        return $this->pdo->query($query)->fetchAll();
+        if ($search) {
+            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name";
+        } else {
+            $query .= " ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
+        }
+
+        $statement = $this->pdo->prepare($query);
+
+        if ($search) {
+            $statement->bindValue('search', $search . '%');
+        }
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+  
+    public function insert(array $element)
+    {
+        $query = "INSERT INTO " . self::TABLE . " 
+            (`common_name`, `latin_name`, `color`, `picture`, `description`, `element_type_id`, `toxicity_id`)
+            VALUES (:common_name, :latin_name, :color, :picture, :description, :element_type_id, :toxicity_id)";
+        
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('common_name', $element['commonName'], \PDO::PARAM_STR);
+        $statement->bindValue('latin_name', $element['latinName'], \PDO::PARAM_STR);
+        $statement->bindValue('color', $element['color'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $element['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
+        $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
+        $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
+    }
+  
+    /**
+     * Get one row from database by ID.
+     *
+     * @param  int $id
+     *
+     * @return array
+     */
+    public function selectOneById(int $id)
+    {
+        // prepared request
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    JOIN toxicity ON toxicity.id=element.toxicity_id
+                    JOIN element_type ON element_type.id=element.element_type_id
+                    WHERE element.id=:id";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
     }
 
     public function selectOneAtRandom(): array
@@ -56,5 +112,59 @@ class CatalogManager extends AbstractManager
                   LIMIT 1';
 
         return $this->pdo->query($query)->fetch();
+    }
+
+    /**
+     * Retrieve the number of records in the table
+     *
+     * @return int
+     */
+    public function getNumberCatalogElement(): int
+    {
+        $query = 'SELECT id FROM ' . self::TABLE;
+        $statement = $this->pdo->query($query);
+
+        return $statement->rowCount();
+    }
+
+    /**
+     * Select an element group
+     *
+     * @param int $pageNumber
+     * @return array
+     */
+    public function selectByPage(int $pageNumber): array
+    {
+        $start = ($pageNumber - 1) * self::MAX_RESULT;
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
+                    JOIN toxicity ON toxicity.id=element.toxicity_id
+                    ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+
+        return $this->pdo->query($query)->fetchAll();
+    }
+
+    public function update(array $element)
+    {
+        $query = "UPDATE " . self::TABLE . " SET `common_name` = :common_name, `latin_name` = :latin_name, 
+        `color` = :color, `picture` = :picture, `description` = :description, `element_type_id` = :element_type_id, 
+        `toxicity_id` = :toxicity_id WHERE id = :id";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('id', $element['id'], \PDO::PARAM_STR);
+        $statement->bindValue('common_name', $element['commonName'], \PDO::PARAM_STR);
+        $statement->bindValue('latin_name', $element['latinName'], \PDO::PARAM_STR);
+        $statement->bindValue('color', $element['color'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $element['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
+        $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
+        $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public function delete(int $id): void
+    {
+        $statement = $this->pdo->prepare("DELETE FROM " . self::TABLE . " WHERE id=:id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
     }
 }

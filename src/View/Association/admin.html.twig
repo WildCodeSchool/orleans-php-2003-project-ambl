@@ -1,0 +1,55 @@
+{% extends 'layout.html.twig' %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/association.css">
+    <link rel="stylesheet" href="/assets/css/associationAdmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% endblock %}
+{% block title %}Association | Admin{% endblock %}
+{% block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1 class="text-center">Modifier le conseil d'administration</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="council">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="card-title-hov col-md-3 d-flex justify-content-center">
+                    <div class="card card-title-add">
+                        <a class="stretched-link" href="/Association/add">
+                            <div class="card-body-add">
+                                <h5 class="card-title-hov"><i class="fa fa-plus"></i></h5>
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                {% for counciler in council %}
+                    <div class="col-md-3 d-flex justify-content-center">
+                        <div class="card">
+                            <img src="/assets/images/council/{{ counciler.picture }}" class="card-img-top" alt="{{ counciler.firstname}} {{ counciler.lastname }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ counciler.firstname}} {{ counciler.lastname }}</h5>
+                                <h6 class="card-title">{{ counciler.role }}</h6>
+                                <p>{{ counciler.mail }}</p>
+
+                            </div>
+                            <div class="button-council">
+                                <a class="btn btn-primary">Modifier</a>
+                                <a class="btn btn-primary">Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

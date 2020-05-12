@@ -1,0 +1,89 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    CatalogueAdmin | {{ element.common_name }}
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/catalogAdmin.css">
+{% endblock %}
+
+{% block content %}
+    <header class="header">
+        <div class="container h-100 justify-around">
+            <div class="row h-75 align-items-center">
+                <div class="col-12">
+                    <h1>{{ element.common_name }}</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="catalog">
+            <div class="container">
+                <div class="row">
+                    <div class="col-6">
+                        {% if element.picture is empty  %}
+                            <img class="img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="">
+                        {% else %}
+                            <img class="img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="">
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="col-8">
+                                <p>Nom latin</p>
+                            </div>
+                            <div class="col-4">
+                                <I>{{ element.latin_name }}</I>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                <p>Couleur</p>
+                            </div>
+                            <div class="col-4">
+                                {{ element.color }}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-8">
+                                {% if element.toxicity_name == 'none' %}
+                                    <p></p>
+                                {% else %}
+                                    <p>Information(s) complémentaire(s)</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-4">
+                                {% if element.toxicity_name == 'none' %}
+                                    <p></p>
+                                {% else %}
+                                    {{ element.toxicity_name }}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-12">
+                        <p>{{ element.description }}</p>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-4">
+                        <a class="btn btn-primary" href="/catalogAdmin/index">
+                            Retourner à la page précédente
+                        </a>
+                    </div>
+                    <div class="offset-4"></div>
+                    <div class="col-4 float-right">
+                        <a class="btn btn-primary" href="#">
+                            Modifier les informations
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

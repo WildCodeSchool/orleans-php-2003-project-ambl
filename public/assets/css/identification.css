@@ -1,0 +1,29 @@
+.identification{
+    min-height: 73vh;
+}
+
+.container-form{
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+.red{
+    color: var(--error-color);
+}
+
+.errors, .success {
+    list-style: none;
+    width: 50%;
+    border-radius: 5px;
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing);
+    margin-top: var(--spacing);
+}
+
+.errors{
+    background-color: var(--contact-show-errors);
+}
+
+.success{
+    background-color: var(--contact-show-success);
+}

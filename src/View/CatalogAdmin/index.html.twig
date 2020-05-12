@@ -22,13 +22,27 @@ CatalogueAdmin
     </header>
 
     <main>
+        <div class="container-fluid bg-light h-100">
+            <div class="row align-items-center justify-content-center pt-5 pb-5">
+                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                    <div class="form-group">
+                        <label for="search">Rechercher</label>
+                        <input id="search" type="search" name="search" class="form-control">
+                    </div>
+                    <div class="form-group mt-4 pt-2 ml-2">
+                        <button class="btn btn-primary">Chercher</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
         <section class="catalog">
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card mb-4 shadow-sm mr-5">
                             <div class="card-body card-block-header">
-                                <a class="stretched-link" href="#">
+                                <a class="stretched-link" href="/catalogAdmin/add">
                                     <i class="fa fa-plus"></i>
                                 </a>
                             </div>
@@ -38,18 +52,29 @@ CatalogueAdmin
                         <div class="col-lg-4 col-md-6">
                             <div class="catalog-card mt-2">
                                 <div class="block-img">
-                                    <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                    {% if element.picture is empty  %}
+                                        <img src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="">
+                                    {% else %}
+                                        <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                    {% endif %}
                                     <div class="status">
-                                        <p>{{ element.toxicity_name }}</p>
+                                        {% if element.toxicity_name != 'none'  %}
+                                            <p>{{ element.toxicity_name }}</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="catalog-card-content">
                                     <div class="block-title mb-3">
                                         <h4>{{ element.common_name }}</h4>
                                     </div>
-                                    <p>{{ element.description|slice(0,81)~'...' }}.</p>
-                                    <a href="" class="box_btn">Modifier</a>
-                                    <a href="" class="box_btn">Supprimer</a>
+                                    <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn"><i class="fa fa-eye"></i></a>
+                                    <a title="Modifier" href="/catalogAdmin/edit/{{ element.id }}" class="box_btn"><i class="fa fa-edit"></i></a>
+                                    <form action="" method="post">
+                                        <input type="hidden" value="{{ element.id }}" name="id">
+                                        <button class="box_btn" type="submit">
+                                            Supprimer
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -57,6 +82,45 @@ CatalogueAdmin
                 </div>
             </div>
         </section>
-    </main>
 
+        <div class="div-pagination">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <ul class="pagination">
+                            {% if numberPage == 1%}
+                                <li class="page-item disabled">
+                                    <a href="#" class="page-link">Précédent</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a href="/catalogAdmin/page/{{ previousPage }}" class="page-link">Précédent</a>
+                                </li>
+                            {% endif %}
+                            {% for i in 1..numberPageTotal %}
+                                {% if i == numberPage %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                            {% if numberPage == numberPageTotal %}
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#">Suivant</a>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="/catalogAdmin/page/{{ nextPage }}">Suivant</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}
