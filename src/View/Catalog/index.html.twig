@@ -114,55 +114,75 @@
         </div>
 
         {% for element in elements %}
-        <div class="modal fade" id="modalItem{{ element.id }}" tabindex="-1" role="dialog" aria-labelledby="modalItem{{ element.id }}" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header modal-catalog">
-                        <h5 class="modal-title" id="exampleModalLongTitle">{{ element.common_name }}</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12">
-                                    <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo du champignon">
-                                </div>
-                            </div>
-                            <div class="row mt-5">
-                                <div class="col-12">
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <p>Nom latin</p>
-                                        </div>
-                                        <div class="col-8">
-                                            {{ element.latin_name }}
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <p>Couleur</p>
-                                        </div>
-                                        <div class="col-8">
-                                            {{ element.color }}
-                                        </div>
+            <div class="modal fade" id="modalItem{{ element.id }}" tabindex="-1" role="dialog" aria-labelledby="modalItem{{ element.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header modal-catalog">
+                            <h5 class="modal-title" id="exampleModalLongTitle">{{ element.common_name }}</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {% if element.picture is empty  %}
+                                            <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
+                                        {% else %}
+                                            <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
+                                        {% endif %}
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row mt-3">
-                                <div class="col-12">
-                                    <p>{{ element.description }}</p>
+                                <div class="row mt-5">
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <p>Nom latin</p>
+                                            </div>
+                                            <div class="col-7">
+                                                {{ element.latin_name }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                <p>Couleur</p>
+                                            </div>
+                                            <div class="col-7">
+                                                {{ element.color }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-5">
+                                                {% if element.toxicity_name == null %}
+                                                    <p></p>
+                                                {% else %}
+                                                    <p>Information(s) complémentaire(s)</p>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-7">
+                                                {% if element.toxicity_name == null %}
+                                                    <p></p>
+                                                {% else %}
+                                                    {{ element.toxicity_name }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <p>{{ element.description }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endfor %}
     </main>
 
