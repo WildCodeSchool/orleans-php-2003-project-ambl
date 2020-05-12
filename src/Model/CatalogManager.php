@@ -131,12 +131,16 @@ class CatalogManager extends AbstractManager
      *
      * @param int $pageNumber
      * @return array
+
      */
+
     public function selectByPage(int $pageNumber): array
     {
         $start = ($pageNumber - 1) * self::MAX_RESULT;
-        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name FROM " . self::TABLE . "
-                    JOIN toxicity ON toxicity.id=element.toxicity_id
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id
                     ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
 
         return $this->pdo->query($query)->fetchAll();
