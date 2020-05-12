@@ -32,7 +32,7 @@
                 </div>
 
                 {% for counciler in council %}
-                    <div class="col-md-3 d-flex justify-content-center">
+                    <div class="col-md-3 d-flex">
                         <div class="card">
                             <img src="/assets/images/council/{{ counciler.picture }}" class="card-img-top" alt="{{ counciler.firstname}} {{ counciler.lastname }}">
                             <div class="card-body">
@@ -41,9 +41,15 @@
                                 <p>{{ counciler.mail }}</p>
 
                             </div>
-                            <div class="button-council">
-                                <a class="btn btn-primary">Modifier</a>
-                                <a class="btn btn-primary">Supprimer</a>
+
+                            <div class="button-council row">
+                                <a class="btn btn-primary mx-2 mb-2">Modifier</a>
+                                <form action="" method="post">
+                                    <input type="hidden" value="{{ counciler.id }}" name="id">
+                                    <button class="btn btn-primary" type="submit">
+                                        Supprimer
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

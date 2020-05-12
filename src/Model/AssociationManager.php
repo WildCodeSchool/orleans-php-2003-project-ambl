@@ -46,4 +46,15 @@ class AssociationManager extends AbstractManager
 
         $statement->execute();
     }
+
+    public function deleteMember(int $id)
+    {
+        $query = "DELETE FROM council
+                  WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+
+        $statement->execute();
+    }
 }
