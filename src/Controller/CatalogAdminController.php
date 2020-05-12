@@ -135,6 +135,15 @@ class CatalogAdminController extends AbstractController
         return $this->twig->render('CatalogAdmin/show.html.twig', ['element' => $element]);
     }
 
+    /**
+     * Edit an element of catalog
+     *
+     * @param int $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
     public function edit(int $id)
     {
         $elementTypeManager = new ElementTypeManager();
@@ -169,6 +178,13 @@ class CatalogAdminController extends AbstractController
                 }
 
                 $catalogManager = new CatalogManager();
+
+                if (empty($dataSend['toxicity'])) {
+                    $dataSend['toxicity'] = null;
+                }
+
+                $dataSend['picture'] = $fileName;
+
                 $dataSend['picture'] = $fileName;
                 $catalogManager->update($dataSend);
 
