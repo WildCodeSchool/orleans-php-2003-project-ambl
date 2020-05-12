@@ -27,6 +27,8 @@
 
 .button-council{
     justify-content: flex-end;
+    color: var(--light);
+
 }
 
 .add_counciler {
