@@ -43,12 +43,15 @@
                             </div>
 
                             <div class="button-council row">
-                                <a class="btn btn-primary mx-2 mb-2">Modifier</a>
+                                <a href="/Association/edit/{{ counciler.id }}" class="btn btn-primary mx-2 mb-2">Modifier</a>
                                 <form action="" method="post">
                                     <input type="hidden" value="{{ counciler.id }}" name="id">
+
                                     <button class="btn btn-primary" type="submit">
                                         Supprimer
                                     </button>
+
+
                                 </form>
                             </div>
                         </div>
