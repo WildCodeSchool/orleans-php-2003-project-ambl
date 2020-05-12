@@ -1,10 +1,12 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-    CatalogueAdmin | {{ element.common_name }}
+    CatalogueAdmin | Consulter
 {% endblock %}
 
 {% block stylesheet %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/catalog.css">
     <link rel="stylesheet" href="/assets/css/catalogAdmin.css">
 {% endblock %}
 
@@ -13,14 +15,17 @@
         <div class="container h-100 justify-around">
             <div class="row h-75 align-items-center">
                 <div class="col-12">
-                    <h1>{{ element.common_name }}</h1>
+                    <div class="block-title-page">
+                        <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.jpg" alt="">
+                        <h1>{{ element.common_name }}</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="catalog">
+        <section class="catalog-section">
             <div class="container">
                 <div class="row">
                     <div class="col-6">
@@ -49,14 +54,14 @@
                         </div>
                         <div class="row">
                             <div class="col-8">
-                                {% if element.toxicity_name == 'none' %}
+                                {% if element.toxicity_name == null %}
                                     <p></p>
                                 {% else %}
                                     <p>Information(s) complémentaire(s)</p>
                                 {% endif %}
                             </div>
                             <div class="col-4">
-                                {% if element.toxicity_name == 'none' %}
+                                {% if element.toxicity_name == null %}
                                     <p></p>
                                 {% else %}
                                     {{ element.toxicity_name }}
@@ -70,20 +75,25 @@
                         <p>{{ element.description }}</p>
                     </div>
                 </div>
-                <div class="row mt-5">
+            </div>
+        </section>
+
+        <div class="mt-5 mb-5">
+            <div class="container">
+                <div class="row">
                     <div class="col-4">
                         <a class="btn btn-primary" href="/catalogAdmin/index">
                             Retourner à la page précédente
                         </a>
                     </div>
                     <div class="offset-4"></div>
-                    <div class="col-4 float-right">
-                        <a class="btn btn-primary" href="#">
+                    <div class="col-4">
+                        <a class="btn btn-primary" href="/catalogAdmin/edit/{{ element.id }}">
                             Modifier les informations
                         </a>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 {% endblock %}

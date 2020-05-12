@@ -72,11 +72,10 @@ class CatalogManager extends AbstractManager
      */
     public function selectOneById(int $id)
     {
-        // prepared request
         $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
                     FROM " . self::TABLE . "
-                    JOIN toxicity ON toxicity.id=element.toxicity_id
-                    JOIN element_type ON element_type.id=element.element_type_id
+                    lEFT JOIN toxicity ON toxicity.id=element.toxicity_id
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id
                     WHERE element.id=:id";
 
         $statement = $this->pdo->prepare($query);
@@ -125,6 +124,7 @@ class CatalogManager extends AbstractManager
 
     /**
      * Update an entry in the catalog table
+     *
      * @param array $element
      * @return void
      */

@@ -58,63 +58,7 @@ class CatalogAdminController extends AbstractController
             'search' => $search
         ]);
     }
-  
-    public function edit(int $id)
-    {
-        $elementTypeManager = new ElementTypeManager();
-        $toxicityManager = new ToxicityManager();
-        $elementTypes = $elementTypeManager->selectAll();
-        $toxicities = $toxicityManager->selectAll();
-        $catalogManager = new CatalogManager();
-        $element = $catalogManager->selectOneById($id);
 
-        $errorsList = [];
-        $dataSend = [];
-        $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dataSend = array_map('trim', $_POST);
-
-            /* Verification of form fields */
-            $errorsList = $this->checkForm($dataSend);
-
-            /* Checking the field used to upload the file */
-            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
-
-            if ($_FILES['picture']['error'] == 0) {
-                $uploadManager->isValidate();
-                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
-            }
-
-            if (empty($errorsList)) {
-                if ($_FILES['picture']['error'] == 0) {
-                    $fileName = $uploadManager->upload();
-                }
-
-                $catalogManager = new CatalogManager();
-                $dataSend['picture'] = $fileName;
-                $catalogManager->update($dataSend);
-
-                header('Location: /catalogAdmin/show/' . $id);
-            }
-        }
-
-        return $this->twig->render('CatalogAdmin/edit.html.twig', [
-            'elementTypes' => $elementTypes,
-            'toxicities' => $toxicities,
-            'errors' => $errorsList,
-            'dataSend' => $dataSend,
-            'element' => $element
-        ]);
-    }
-  
-    public function delete(int $id)
-    {
-        $catalogManager = new CatalogManager();
-        $catalogManager->delete($id);
-    }
-  
     /**
      * Display catalogAdmin creation page
      *
@@ -184,6 +128,62 @@ class CatalogAdminController extends AbstractController
         $element = $catalogManager->selectOneById($id);
 
         return $this->twig->render('CatalogAdmin/show.html.twig', ['element' => $element]);
+    }
+
+    public function edit(int $id)
+    {
+        $elementTypeManager = new ElementTypeManager();
+        $toxicityManager = new ToxicityManager();
+        $elementTypes = $elementTypeManager->selectAll();
+        $toxicities = $toxicityManager->selectAll();
+        $catalogManager = new CatalogManager();
+        $element = $catalogManager->selectOneById($id);
+
+        $errorsList = [];
+        $dataSend = [];
+        $fileName = '';
+        $uploadDir = '../public/assets/images/catalog';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dataSend = array_map('trim', $_POST);
+
+            /* Verification of form fields */
+            $errorsList = $this->checkForm($dataSend);
+
+            /* Checking the field used to upload the file */
+            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
+
+            if ($_FILES['picture']['error'] == 0) {
+                $uploadManager->isValidate();
+                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
+            }
+
+            if (empty($errorsList)) {
+                if ($_FILES['picture']['error'] == 0) {
+                    $fileName = $uploadManager->upload();
+                }
+
+                $catalogManager = new CatalogManager();
+                $dataSend['picture'] = $fileName;
+                $catalogManager->update($dataSend);
+
+                header('Location: /catalogAdmin/show/' . $id);
+            }
+        }
+
+        return $this->twig->render('CatalogAdmin/edit.html.twig', [
+            'elementTypes' => $elementTypes,
+            'toxicities' => $toxicities,
+            'errors' => $errorsList,
+            'dataSend' => $dataSend,
+            'element' => $element
+        ]);
+    }
+
+    public function delete(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $catalogManager->delete($id);
     }
 
     /**
