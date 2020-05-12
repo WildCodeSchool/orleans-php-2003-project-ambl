@@ -33,6 +33,12 @@
                         <p>Contact : {{ request.mail }}</p>
                         <p>{{ request.message }}</p>
                     </div>
+                    <form action="" method="post" class="delete-request">
+                        <input type="hidden" value="{{ request.id }}" name="id">
+                        <button class="btn btn-primary" type="submit">
+                            Supprimer
+                        </button>
+                    </form>
                 </div>
             {% else %}
                 <div class="text-center no-request">
