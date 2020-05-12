@@ -21,10 +21,13 @@
                 <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
                     <div class="form-group">
                         <label for="search">Rechercher</label>
-                        <input id="search" type="search" name="search" class="form-control">
+                        <input id="search" type="search" name="search" class="form-control" value="{{ search ?? ''}}">
                     </div>
                     <div class="form-group mt-4 pt-2 ml-2">
                         <button class="btn btn-primary">Chercher</button>
+                        {% if search != '' %}
+                            <a href="/catalog/index" class="btn btn-primary">Retourner en arrière</a>
+                        {% endif %}
                     </div>
                 </form>
             </div>

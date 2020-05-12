@@ -42,7 +42,8 @@ class CatalogController extends AbstractController
             'elements' => $elements,
             'numberPageTotal' => $numberPageTotal,
             'numberPage' => $numberPage,
-            'nextPage' => $nextPage
+            'nextPage' => $nextPage,
+            'search' => $search
         ]);
     }
 
