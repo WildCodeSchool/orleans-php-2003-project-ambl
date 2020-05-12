@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-CatalogueAdmin
+    CatalogueAdmin
 {% endblock %}
 
 {% block stylesheet %}
@@ -15,7 +15,7 @@ CatalogueAdmin
         <div class="container h-100 justify-around">
             <div class="row h-75 align-items-center">
                 <div class="col-12">
-                    <h1>Catalogue</h1>
+                    <h1>Gestionnaire du catalogue</h1>
                 </div>
             </div>
         </div>
@@ -24,13 +24,16 @@ CatalogueAdmin
     <main>
         <div class="container-fluid bg-light h-100">
             <div class="row align-items-center justify-content-center pt-5 pb-5">
-                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                <form method="get" action="/catalogAdmin/index/" class="d-flex flex-direction-row justify-content-around">
                     <div class="form-group">
                         <label for="search">Rechercher</label>
-                        <input id="search" type="search" name="search" class="form-control">
+                        <input id="search" type="search" name="search" class="form-control" value="{{ search ?? ''}}">
                     </div>
                     <div class="form-group mt-4 pt-2 ml-2">
                         <button class="btn btn-primary">Chercher</button>
+                        {% if search != '' %}
+                            <a href="/catalogAdmin/index" class="btn btn-primary">Retourner en arrière</a>
+                        {% endif %}
                     </div>
                 </form>
             </div>
