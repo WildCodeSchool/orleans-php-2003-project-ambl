@@ -201,6 +201,11 @@ class CatalogAdminController extends AbstractController
         ]);
     }
 
+    /**
+     * Delete an element of catalog
+     *
+     * @param int $id
+     */
     public function delete(int $id)
     {
         $catalogManager = new CatalogManager();
