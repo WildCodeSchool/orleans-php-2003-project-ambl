@@ -1,0 +1,40 @@
+.council{
+    padding-top: 30px;
+}
+
+.card-title-add{
+    text-decoration: none;
+    background-color: var(--main-lighter);
+    color: var(--light)
+}
+
+.card-title-hov :hover{
+    text-decoration: none;
+    background-color: var(--main-darker);
+    color: var(--light)
+}
+
+.card-body-add{
+    color: var(--light);
+}
+
+.council .card-title-add {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-council{
+    justify-content: flex-end;
+}
+
+.add_counciler {
+    padding-top: var(--spacing-xlg);
+    padding-bottom: var(--spacing-xlg);
+}
+
+.red{
+    color: var(--error-color);
+}
+
