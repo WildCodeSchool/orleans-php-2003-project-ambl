@@ -30,24 +30,41 @@
             </div>
         </div>
 
-        <section class="catalog">
+        <section class="catalog-section">
             <div class="container">
                 <div class="row">
                     {% for element in elements %}
                         <div class="col-lg-4 col-md-6">
                             <div class="catalog-card mt-2">
-                                <div class="block-img">
-                                    <img src="/assets/images/catalog/{{ element.picture }}" alt="">
-                                    <div class="status">
-                                        <p>{{ element.toxicity_name }}</p>
+                                <div class="catalog-card-header">
+                                    {% if element.picture is empty  %}
+                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
+                                    {% else %}
+                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
+                                    {% endif %}
+                                    <div class="card-icon">
+                                        <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.jpg" alt="">
+                                    </div>
+                                    <div class="catalog-card-category">
+                                        {% if element.toxicity_name != null %}
+                                            {% if element.toxicity_name == 'Toxique' %}
+                                                <p class="text-category status-danger">{{ element.toxicity_name }}</p>
+                                            {% elseif element.toxicity_name == 'Mortel' %}
+                                                <p class="text-category status-warning">{{ element.toxicity_name }}</p>
+                                            {% else %}
+                                                <p class="text-category status">{{ element.toxicity_name }}</p>
+                                            {% endif %}
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="catalog-card-content">
-                                    <div class="block-title mb-3">
-                                        <h4>{{ element.common_name }}</h4>
+                                    <div class="blog-title">
+                                        <h4>
+                                            <a href="#" class="block-title-link stretched-link" data-toggle="modal" data-target="#modalItem{{ element.id }}">
+                                                {{ element.common_name }}
+                                            </a>
+                                        </h4>
                                     </div>
-                                    <p>{{ element.description|slice(0,81)~'...' }}.</p>
-                                    <button type="button" class="box_btn" data-toggle="modal" data-target="#modalItem{{ element.id }}">Lire la suite</button>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,4 @@
-.catalog {
+.catalog-section {
     margin-top: var(--spacing-lg);
     margin-bottom: var(--spacing-lg);
 }
@@ -7,31 +7,56 @@
     border: 1px solid #eee;
 }
 
-.catalog-card:hover img {
-    opacity: .85;
-}
-
-.catalog-card .block-img {
+.catalog-card-header {
     position: relative;
 }
-.catalog-card .block-img img {
+
+.catalog-card-header .picture {
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
 
-.catalog-card .status {
+.catalog-card-header .picture:hover {
+    opacity: .85;
+}
+
+.catalog-card-header .card-icon {
+    position: absolute;
+    top: 10px;
+    left: 16px;
+}
+
+.catalog-card-header .card-icon .icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+}
+
+.catalog-card-header .catalog-card-category {
     position: absolute;
     left: 0;
     bottom: 0;
 }
 
-.catalog-card .status p {
+.catalog-card-header .catalog-card-category .text-category {
     display: inline-block;
-    background-color: var(--main-color);
     color: #fff;
     font-size: 15px;
     padding: 5px 20px;
+}
+
+.status {
+    background-color: var(--main-color);
+}
+
+.status-danger {
+    background-color: var(--color-status-toxic);
+}
+
+.status-warning {
+    background-color: var(--color-status-mortel);
 }
 
 .catalog-card-content {
@@ -42,6 +67,17 @@
     font-size: 20px;
     font-weight: 500;
     margin-bottom: 5px;
+    color: var(--dark);
+}
+
+.block-title-link {
+    color: var(--dark);
+    text-decoration: none;
+}
+
+.block-title-link:hover {
+    color: var(--dark);
+    text-decoration: none;
 }
 
 .catalog-card-content .box_btn {
@@ -54,8 +90,12 @@
     border: none;
 }
 
-.catalog-card-content .box_btn:hover {
-    text-decoration: none;
+.box_btn {
+    overflow: hidden;
+    z-index: 2;
+    transition: .5s;
+    position: relative;
+    text-decoration:none;
 }
 
 .box_btn::before {
@@ -71,13 +111,8 @@
     z-index: -1;
 }
 
-.box_btn {
-    overflow: hidden;
-    z-index: 2;
-    -webkit-transition: .5s;
-    transition: .5s;
-    position: relative;
-    text-decoration:none;
+.box_btn:hover {
+    text-decoration: none;
 }
 
 .box_btn:hover::before {
@@ -91,6 +126,7 @@
 }
 
 .modal img {
+    max-height: 100%;
     max-width: 100%;
 }
 
