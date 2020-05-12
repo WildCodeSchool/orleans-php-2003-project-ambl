@@ -25,7 +25,7 @@
                 {% endif %}
 
                 {# Contact Form #}
-                <form novalidate class="contact-form" action="/contact/index" method="POST">
+                <form class="contact-form" action="/contact/index" method="POST">
 
                     <label class="contact-label" for="firstname">Votre prénom :</label>
                     <input class="contact-input" type="text" id="firstname" name="contact_firstname" placeholder="Jean" value="{{ contactData['contact_firstname'] }}" required>
