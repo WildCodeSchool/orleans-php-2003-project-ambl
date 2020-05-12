@@ -33,6 +33,7 @@
     margin-top: var(--spacing-lg);
     background-color: var(--secondary-color);
     border-radius:  var(--spacing-sm);
+    position: relative;
 }
 
 .request-img{
@@ -43,4 +44,10 @@
 .no-request{
     font-size: 1.3rem;
     margin-top: var(--spacing-lg);
+}
+
+.delete-request{
+    position: absolute;
+    top: var(--spacing);
+    right: var(--spacing);
 }
