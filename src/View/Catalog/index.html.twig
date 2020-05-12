@@ -18,7 +18,7 @@
     <main>
         <div class="container-fluid bg-light h-100">
             <div class="row align-items-center justify-content-center pt-5 pb-5">
-                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                <form method="get" class="d-flex flex-direction-row justify-content-around">
                     <div class="form-group">
                         <label for="search">Rechercher</label>
                         <input id="search" type="search" name="search" class="form-control">
@@ -73,45 +73,47 @@
             </div>
         </section>
 
-        <div class="div-pagination">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="pagination">
-                            {% if numberPage == 1%}
-                                <li class="page-item disabled">
-                                    <a href="#" class="page-link">Précédent</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a href="/catalog/page/{{ previousPage }}" class="page-link">Précédent</a>
-                                </li>
-                            {% endif %}
-                            {% for i in 1..numberPageTotal %}
-                                {% if i == numberPage %}
-                                    <li class="page-item active">
-                                        <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+        {% if numberPageTotal != 0 %}
+            <div class="div-pagination">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="pagination">
+                                {% if numberPage == 1%}
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link">Précédent</a>
                                     </li>
                                 {% else %}
                                     <li class="page-item">
-                                        <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                        <a href="/catalog/page/{{ previousPage }}" class="page-link">Précédent</a>
                                     </li>
                                 {% endif %}
-                            {% endfor %}
-                            {% if numberPage == numberPageTotal %}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#">Suivant</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link" href="/catalog/page/{{ nextPage }}">Suivant</a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                                {% for i in 1..numberPageTotal %}
+                                    {% if i == numberPage %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if numberPage == numberPageTotal %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Suivant</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/catalog/page/{{ nextPage }}">Suivant</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
 
         {% for element in elements %}
             <div class="modal fade" id="modalItem{{ element.id }}" tabindex="-1" role="dialog" aria-labelledby="modalItem{{ element.id }}" aria-hidden="true">

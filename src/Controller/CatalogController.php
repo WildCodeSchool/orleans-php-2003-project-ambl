@@ -24,15 +24,17 @@ class CatalogController extends AbstractController
      */
     public function index()
     {
+        $catalogManager = new CatalogManager();
+
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
+            $numberPageTotal = 0;
         } else {
             $search = '';
+            $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
         }
 
-        $catalogManager = new CatalogManager();
         $elements = $catalogManager->selectAll($search);
-        $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
         $numberPage = 1;
         $nextPage = 2;
 
