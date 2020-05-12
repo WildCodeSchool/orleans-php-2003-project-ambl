@@ -6,6 +6,7 @@
 
 {% block stylesheet %}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/catalog.css">
     <link rel="stylesheet" href="/assets/css/catalogAdmin.css">
 {% endblock %}
 
@@ -14,80 +15,39 @@
         <div class="container h-100 justify-around">
             <div class="row h-75 align-items-center">
                 <div class="col-12">
-                    <h1>Ajout d'un élément au catalogue</h1>
+                    <h1><h1>Ajout d'un élément au catalogue</h1></h1>
                 </div>
             </div>
         </div>
     </header>
 
     <main>
-        <section class="catalog">
+        <section class="catalog-section">
             <div class="container">
                 <div class="row message-box">
                     <div class="col-12">
                         {% if errors is not empty %}
-                        <div class="alert alert-danger">
-                            <ul>
-                            {% for error in errors %}
-                                <li>{{ error }}</li>
-                            {% endfor %}
-                            </ul>
-                        </div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <form method="post" enctype="multipart/form-data">
-                            <div class="form-group">
-                                <label for="commonName">Nom commun *</label>
-                                <input type="text" name="commonName" class="form-control" placeholder="Champignon" value="{{ dataSend.commonName }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="latinName">Nom latin *</label>
-                                <input type="text" name="latinName" class="form-control" placeholder="tremella" value="{{ dataSend.latinName }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="color">Couleur *</label>
-                                <input type="text" name="color" class="form-control" placeholder="Jaune" value="{{ dataSend.color }}" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Description *</label>
-                                <textarea type="text" name="description" class="form-control" placeholder="De pettie taille" rows="3" required>{{ dataSend.description }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="type">Type *</label>
-                                <select name="type" class="form-control">
-                                    <option value="">Selectionner le type de l'élément</option>
-                                    {% for elementType in elementTypes %}
-                                        <option value="{{ elementType.id }}" {% if dataSend.type  == elementType.id %}selected{% endif %}>
-                                            {{ elementType.name }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="toxicity">Toxicité</label>
-                                <select name="toxicity" class="form-control">
-                                    <option value="">Selectionner un élément dans la liste</option>
-                                    {% for toxicity in toxicities %}
-                                        <option value="{{ toxicity.id }}" {% if dataSend.toxicity  == toxicity.id %}selected{% endif %}>
-                                            {{ toxicity.name }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="form-group files">
-                                <label for="picture">Photo</label>
-                                <input type="file" name="picture" class="form-control" />
-                            </div>
-
-                            <button class="btn btn-primary">Ajouter</button>
-                        </form>
+                        {% include 'CatalogAdmin/_form.html.twig' %}
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="row mt-5">
+        <div class="mt-3 mb-4">
+            <div class="container">
+                <div class="row">
                     <div class="col-12">
                         <a class="btn btn-primary" href="/catalogAdmin/index">
                             Retourner à la page précédente
@@ -95,6 +55,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 {% endblock %}

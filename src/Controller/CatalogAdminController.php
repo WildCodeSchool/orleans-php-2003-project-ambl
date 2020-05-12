@@ -98,10 +98,15 @@ class CatalogAdminController extends AbstractController
                 }
 
                 $catalogManager = new CatalogManager();
-                $dataSend['picture'] = $fileName;
-                $catalogManager->insert($dataSend);
 
-                header('Location: /catalogAdmin/index');
+                if (empty($dataSend['toxicity'])) {
+                    $dataSend['toxicity'] = null;
+                }
+
+                $dataSend['picture'] = $fileName;
+                $id = $catalogManager->insert($dataSend);
+
+                header('Location: /catalogAdmin/show/' . $id);
             }
         }
 
@@ -261,9 +266,7 @@ class CatalogAdminController extends AbstractController
             $toxicityManager = new ToxicityManager();
             $toxicities = $toxicityManager->selectAll();
 
-            if (empty($fieldValue) || $fieldValue === '') {
-                $errors[] = 'La toxicité doit être renseignée';
-            } else {
+            if (!empty($fieldValue) || $fieldValue != '') {
                 if (!in_array($fieldValue, array_column($toxicities, 'id'))) {
                     $errors[] = 'La toxicité est inconnue';
                 }

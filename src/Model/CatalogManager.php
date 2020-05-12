@@ -105,6 +105,7 @@ class CatalogManager extends AbstractManager
      * Add an entry in the catalog table
      *
      * @param array $element
+     * @return int
      */
     public function insert(array $element)
     {
@@ -120,6 +121,10 @@ class CatalogManager extends AbstractManager
         $statement->bindValue('description', $element['description'], \PDO::PARAM_STR);
         $statement->bindValue('element_type_id', $element['type'], \PDO::PARAM_INT);
         $statement->bindValue('toxicity_id', $element['toxicity'], \PDO::PARAM_INT);
+
+        if ($statement->execute()) {
+            return (int)$this->pdo->lastInsertId();
+        }
     }
 
     /**
