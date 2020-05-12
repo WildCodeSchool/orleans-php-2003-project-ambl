@@ -109,6 +109,6 @@ class IdentificationController extends AbstractController
         $requestManager = new RequestManager();
         $requests = $requestManager->selectAll();
 
-        return $this->twig->render('Identification/index.html.twig', ['requests' => $requests]);
+        return $this->twig->render('Identification/admin.html.twig', ['requests' => $requests]);
     }
 }
