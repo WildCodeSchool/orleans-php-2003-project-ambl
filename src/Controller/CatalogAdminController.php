@@ -42,8 +42,7 @@ class CatalogAdminController extends AbstractController
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $catalogManager->delete($_POST['id']);
-            header('Location: /catalogAdmin/index');
+            $this->delete($_POST['id']);
         }
 
         $elements = $catalogManager->selectAll($search);
@@ -209,7 +208,18 @@ class CatalogAdminController extends AbstractController
     public function delete(int $id)
     {
         $catalogManager = new CatalogManager();
-        $catalogManager->delete($id);
+        $element = $catalogManager->selectOneById($id);
+        if (!empty($element['picture'])) {
+            $deletedFile = "../public/assets/images/catalog/" . $element['picture'];
+
+            if (unlink($deletedFile)) {
+                $catalogManager->delete($id);
+            }
+        } else {
+            $catalogManager->delete($id);
+        }
+
+        header('Location: /catalogAdmin/index');
     }
 
     /**

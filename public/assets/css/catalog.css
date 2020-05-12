@@ -23,8 +23,8 @@
 
 .catalog-card-header .card-icon {
     position: absolute;
-    top: 10px;
-    left: 16px;
+    top: var(--spacing);
+    left: var(--spacing);
 }
 
 .catalog-card-header .card-icon .icon {
@@ -32,6 +32,7 @@
     width: 50px;
     border-radius: 50%;
     box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);
+    background-color: white;
 }
 
 .catalog-card-header .catalog-card-category {
