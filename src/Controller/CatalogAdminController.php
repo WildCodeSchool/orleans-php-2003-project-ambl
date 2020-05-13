@@ -31,21 +31,21 @@ class CatalogAdminController extends AbstractController
      */
     public function index()
     {
+        $catalogManager = new CatalogManager();
+
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             $search = $_GET['search'];
+            $numberPageTotal = 0;
         } else {
             $search = '';
+            $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
         }
-
-        $catalogManager = new CatalogManager();
-        $elements = $catalogManager->selectAll($search);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $catalogManager->delete($_POST['id']);
-            header('Location: /catalogAdmin/index');
+            $this->delete($_POST['id']);
         }
 
-        $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
+        $elements = $catalogManager->selectAll($search);
         $numberPage = 1;
         $nextPage = 2;
 
@@ -53,66 +53,11 @@ class CatalogAdminController extends AbstractController
             'elements' => $elements,
             'numberPageTotal' => $numberPageTotal,
             'numberPage' => $numberPage,
-            'nextPage' => $nextPage
+            'nextPage' => $nextPage,
+            'search' => $search
         ]);
     }
-  
-    public function edit(int $id)
-    {
-        $elementTypeManager = new ElementTypeManager();
-        $toxicityManager = new ToxicityManager();
-        $elementTypes = $elementTypeManager->selectAll();
-        $toxicities = $toxicityManager->selectAll();
-        $catalogManager = new CatalogManager();
-        $element = $catalogManager->selectOneById($id);
 
-        $errorsList = [];
-        $dataSend = [];
-        $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $dataSend = array_map('trim', $_POST);
-
-            /* Verification of form fields */
-            $errorsList = $this->checkForm($dataSend);
-
-            /* Checking the field used to upload the file */
-            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
-
-            if ($_FILES['picture']['error'] == 0) {
-                $uploadManager->isValidate();
-                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
-            }
-
-            if (empty($errorsList)) {
-                if ($_FILES['picture']['error'] == 0) {
-                    $fileName = $uploadManager->upload();
-                }
-
-                $catalogManager = new CatalogManager();
-                $dataSend['picture'] = $fileName;
-                $catalogManager->update($dataSend);
-
-                header('Location: /catalogAdmin/show/' . $id);
-            }
-        }
-
-        return $this->twig->render('CatalogAdmin/edit.html.twig', [
-            'elementTypes' => $elementTypes,
-            'toxicities' => $toxicities,
-            'errors' => $errorsList,
-            'dataSend' => $dataSend,
-            'element' => $element
-        ]);
-    }
-  
-    public function delete(int $id)
-    {
-        $catalogManager = new CatalogManager();
-        $catalogManager->delete($id);
-    }
-  
     /**
      * Display catalogAdmin creation page
      *
@@ -152,10 +97,15 @@ class CatalogAdminController extends AbstractController
                 }
 
                 $catalogManager = new CatalogManager();
-                $dataSend['picture'] = $fileName;
-                $catalogManager->insert($dataSend);
 
-                header('Location: /catalogAdmin/index');
+                if (empty($dataSend['toxicity'])) {
+                    $dataSend['toxicity'] = null;
+                }
+
+                $dataSend['picture'] = $fileName;
+                $id = $catalogManager->insert($dataSend);
+
+                header('Location: /catalogAdmin/show/' . $id);
             }
         }
 
@@ -182,6 +132,94 @@ class CatalogAdminController extends AbstractController
         $element = $catalogManager->selectOneById($id);
 
         return $this->twig->render('CatalogAdmin/show.html.twig', ['element' => $element]);
+    }
+
+    /**
+     * Edit an element of catalog
+     *
+     * @param int $id
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function edit(int $id)
+    {
+        $elementTypeManager = new ElementTypeManager();
+        $toxicityManager = new ToxicityManager();
+        $elementTypes = $elementTypeManager->selectAll();
+        $toxicities = $toxicityManager->selectAll();
+        $catalogManager = new CatalogManager();
+        $element = $catalogManager->selectOneById($id);
+
+        $errorsList = [];
+        $dataSend = [];
+        $fileName = '';
+        $uploadDir = '../public/assets/images/catalog';
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $dataSend = array_map('trim', $_POST);
+
+            /* Verification of form fields */
+            $errorsList = $this->checkForm($dataSend);
+
+            /* Checking the field used to upload the file */
+            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
+
+            if ($_FILES['picture']['error'] == 0) {
+                $uploadManager->isValidate();
+                $errorsList = array_merge($errorsList, $uploadManager->getErrors());
+            }
+
+            if (empty($errorsList)) {
+                if ($_FILES['picture']['error'] == 0) {
+                    $fileName = $uploadManager->upload();
+                }
+
+                $catalogManager = new CatalogManager();
+
+                if (empty($dataSend['toxicity'])) {
+                    $dataSend['toxicity'] = null;
+                }
+
+                $dataSend['picture'] = $fileName;
+
+                $dataSend['picture'] = $fileName;
+                $catalogManager->update($dataSend);
+
+                header('Location: /catalogAdmin/show/' . $id);
+            }
+        }
+
+        return $this->twig->render('CatalogAdmin/edit.html.twig', [
+            'elementTypes' => $elementTypes,
+            'toxicities' => $toxicities,
+            'errors' => $errorsList,
+            'dataSend' => $dataSend,
+            'element' => $element
+        ]);
+    }
+
+    /**
+     * Delete an element of catalog
+     *
+     * @param int $id
+     */
+    public function delete(int $id)
+    {
+        $catalogManager = new CatalogManager();
+        $element = $catalogManager->selectOneById($id);
+        if (!empty($element['picture'])) {
+            $deletedFile = "../public/assets/images/catalog/" . $element['picture'];
+
+            if (unlink($deletedFile)) {
+                $catalogManager->delete($id);
+            }
+        } else {
+            $catalogManager->delete($id);
+        }
+
+        header('Location: /catalogAdmin/index');
     }
 
     /**
@@ -259,9 +297,7 @@ class CatalogAdminController extends AbstractController
             $toxicityManager = new ToxicityManager();
             $toxicities = $toxicityManager->selectAll();
 
-            if (empty($fieldValue) || $fieldValue === '') {
-                $errors[] = 'La toxicité doit être renseignée';
-            } else {
+            if (!empty($fieldValue) || $fieldValue != '') {
                 if (!in_array($fieldValue, array_column($toxicities, 'id'))) {
                     $errors[] = 'La toxicité est inconnue';
                 }
@@ -282,31 +318,35 @@ class CatalogAdminController extends AbstractController
      */
     public function page(int $numberPage): string
     {
-        $catalogManager = new CatalogManager();
-        $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
-
-        if ($numberPage <= 1) {
-            $elements = $catalogManager->selectAll();
-            $numberPage = 1;
-            $previousPage = 0;
-            $nextPage = 2;
-        } elseif ($numberPage > $numberPageTotal) {
-            $numberPage = $numberPageTotal;
-            $elements = $catalogManager->selectByPage($numberPage);
-            $previousPage = $numberPage - 1;
-            $nextPage = $numberPage + 1;
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            header('Location: /catalog/index/?search=' . $_GET['search']);
         } else {
-            $elements = $catalogManager->selectByPage($numberPage);
-            $previousPage = $numberPage - 1;
-            $nextPage = $numberPage + 1;
-        }
+            $catalogManager = new CatalogManager();
+            $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
 
-        return $this->twig->render('CatalogAdmin/index.html.twig', [
-            'elements' => $elements,
-            'numberPageTotal' => $numberPageTotal,
-            'numberPage' => $numberPage,
-            'previousPage' => $previousPage,
-            'nextPage' => $nextPage
-        ]);
+            if ($numberPage <= 1) {
+                $elements = $catalogManager->selectAll();
+                $numberPage = 1;
+                $previousPage = 0;
+                $nextPage = 2;
+            } elseif ($numberPage > $numberPageTotal) {
+                $numberPage = $numberPageTotal;
+                $elements = $catalogManager->selectByPage($numberPage);
+                $previousPage = $numberPage - 1;
+                $nextPage = $numberPage + 1;
+            } else {
+                $elements = $catalogManager->selectByPage($numberPage);
+                $previousPage = $numberPage - 1;
+                $nextPage = $numberPage + 1;
+            }
+
+            return $this->twig->render('CatalogAdmin/index.html.twig', [
+                'elements' => $elements,
+                'numberPageTotal' => $numberPageTotal,
+                'numberPage' => $numberPage,
+                'previousPage' => $previousPage,
+                'nextPage' => $nextPage
+            ]);
+        }
     }
 }

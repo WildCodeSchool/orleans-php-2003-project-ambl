@@ -1,9 +1,51 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Livres Utiles{% endblock %}
-{% block stylesheet %}<link rel="stylesheet" href="/assets/css/table.css">{% endblock %}
-
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/table.css">
+<link rel="stylesheet" href="/assets/css/link.css">
+{% endblock %}
 {% block content %}
+
+    <h1 class="text-center">Liens utiles</h1>
+
+    <section class="links">
+
+        <div class="wrapTop">
+                    {% for link in links %}
+                                {% if link.bool == 1 %}
+
+                                    <a href="{{ link.url }}">
+
+                                        <figure>
+                                           <img src="/assets/images/{{ link.image }}" alt="website">
+                                            <figcaption>
+                                                <h5>{{ link.name }}</h5>
+                                                <hr>
+                                                <h6>{{ link.description }}</h6>
+                                            </figcaption>
+                                        </figure>
+                                    </a>    
+                                {% endif %}
+                    {% endfor %}
+        </div> 
+                   
+        <div class="wrapBottom">
+                   {% for link in links %}
+                                {% if link.bool == 0 %}
+                                    <a href="{{ link.url }}">
+                                        <figure>
+                                            <figcaption>
+                                                <h5>{{ link.name }}</h5>
+                                                <hr>
+                                                <h6>{{ link.description }}</h6>
+                                            </figcaption>
+                                        </figure>
+                                     </a>        
+                                {% endif %}
+                    {% endfor %}
+        </div>           
+    </section>
+
     <section class="books">
         <h1 class="text-center">Livres utiles</h1>
 
@@ -31,6 +73,8 @@
                     {% endfor %}
                 </tbody>
             </table>
+                
+                   
         </div>
     </section>
 {% endblock %}

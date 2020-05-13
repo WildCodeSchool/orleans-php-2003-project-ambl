@@ -28,6 +28,11 @@ class AssociationController extends AbstractController
         $associationManager = new AssociationManager();
         $council = $associationManager->selectTableAssociation();
 
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $associationManager->deleteMember($_POST['id']);
+            header('Location: /Association/admin');
+        }
+
         return $this->twig->render('Association/admin.html.twig', ['council' => $council]);
     }
 
@@ -67,6 +72,53 @@ class AssociationController extends AbstractController
         return $this->twig->render('Association/add.html.twig', ['errors' => $errors,
             'data' => $data,]);
     }
+
+    public function edit(int $id)
+    {
+        $data = [];
+        $fileName = '';
+        $uploadDir = '../public/assets/images/council';
+        $errors = [];
+
+        $associationManager = new AssociationManager();
+        $council = $associationManager->selectOneById($id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = array_map('trim', $_POST);
+
+            /* Verification of form fields */
+            $errors = $this->checkAdd($data);
+
+            /* Checking the field used to upload the file */
+            $uploadManager = new UploadManager($_FILES['picture'], 1000000, $uploadDir);
+
+            if ($_FILES['picture']['error'] == 0) {
+                $uploadManager->isValidate();
+                $errors = array_merge($errors, $uploadManager->getErrors());
+            }
+
+            if (empty($errors)) {
+                if ($_FILES['picture']['error'] == 0) {
+                    $fileName = $uploadManager->upload();
+                }
+            }
+            $data['picture'] = $fileName;
+            $associationManager->editMember($data);
+
+            header('Location: /Association/admin/');
+        }
+
+        return $this->twig->render('Association/edit.html.twig', [
+            'council' => $council,
+            'errors' => $errors,
+            'data' => $data
+        ]);
+    }
+
+
+
+
+
 
     private function checkAdd(array $data): array
     {

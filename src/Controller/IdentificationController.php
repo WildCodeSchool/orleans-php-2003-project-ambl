@@ -103,4 +103,24 @@ class IdentificationController extends AbstractController
 
         return $errors;
     }
+
+    public function admin()
+    {
+        $requestManager = new RequestManager();
+        $requests = $requestManager->selectAll();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $deletedRequest = $requestManager->selectOneById($id);
+            $deletedFile = "uploads/identifications/" . $deletedRequest['picture'];
+
+            if (unlink($deletedFile)) {
+                $requestManager->delete($id);
+            }
+
+            header('Location: /identification/admin');
+        }
+
+        return $this->twig->render('Identification/admin.html.twig', ['requests' => $requests]);
+    }
 }

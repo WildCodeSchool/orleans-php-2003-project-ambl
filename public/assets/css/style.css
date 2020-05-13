@@ -25,6 +25,10 @@
     --main-darker: #342b17;
     --main-lighter: #957144;
     --error-color : #8b0000;
+
+    --icon-color: white;
+    --color-status-toxic: #F27D16;
+    --color-status-mortel: #F20732;
     
     --contact-show-success: #9fecc1;
     --contact-show-errors: #e26060;

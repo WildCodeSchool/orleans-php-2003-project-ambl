@@ -27,3 +27,27 @@
 .success{
     background-color: var(--contact-show-success);
 }
+
+.request{
+    margin-bottom: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    background-color: var(--secondary-color);
+    border-radius:  var(--spacing-sm);
+    position: relative;
+}
+
+.request-img{
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.no-request{
+    font-size: 1.3rem;
+    margin-top: var(--spacing-lg);
+}
+
+.delete-request{
+    position: absolute;
+    top: var(--spacing);
+    right: var(--spacing);
+}

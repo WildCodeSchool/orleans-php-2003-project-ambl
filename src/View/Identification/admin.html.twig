@@ -1,0 +1,50 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+    Identification | Admin
+{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="/assets/css/identification.css">
+{% endblock %}
+
+{% block content %}
+    <section class="identification">
+        <header class="header">
+            <div class="container h-100 justify-around">
+                <div class="row h-75 align-items-center">
+                    <div class="col-12">
+                        <h1>Liste des requêtes d'identification</h1>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <div class="container">
+            {% for request in requests %}
+                <div class="row align-items-center request">
+                    <div class="col-sm-6 col-md-5 col-xl-4">
+                        <img class="img-fluid request-img"
+                             src="/uploads/identifications/{{ request.picture }}"
+                             alt="Photo de {{ request.sender_name }}">
+                    </div>
+                    <div class="col-sm-6 col-md-7 col-xl-8">
+                        <p>Envoyeur : {{ request.sender_name }}</p>
+                        <p>Contact : {{ request.mail }}</p>
+                        <p>{{ request.message }}</p>
+                    </div>
+                    <form action="" method="post" class="delete-request">
+                        <input type="hidden" value="{{ request.id }}" name="id">
+                        <button class="btn btn-primary" type="submit">
+                            Supprimer
+                        </button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="text-center no-request">
+                    <p>Il n'y a aucune requête d'identification en cours.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

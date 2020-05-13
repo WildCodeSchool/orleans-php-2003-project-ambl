@@ -16,6 +16,8 @@
             </div>
         </div>
     </header>
+
+    {# Adhesion Infos #}
     <div class="container">
         <div class="card-container mt-5 mb-5">
             <div class="card">
@@ -39,4 +41,62 @@
             </div>
         </div>
     </div>
+
+    {# Adhesion Form #}
+    <section class="section-adhesion-form pb-3">
+        <div class="container">
+            <div class="card-container pt-3 mt-5 mb-5">
+                <h5 class="pb-3">Si vous souhaitez rejoindre l'association, veuillez adresser un chèque de cotisation (10 € en cotisation
+                    individuelle, 15 € de cotisation familiale) à l'adresse suivante :
+                </h5>
+                <p class="blockquote text-center mb-4 mt-4">
+                    AMBL, Mme Claude Mayeur, 3, rue Saint-Loup, 77620 Bransles
+                </p>
+                <p class="mb-5">A réception de votre chèque, le Bureau examinera votre candidature puis nous vous ferons parvenir
+                    votre carte de membre. Les cotisations sont valables pour l'année civile mais toute adhésion
+                    nouvelle prise à partir de septembre est valable jusqu'au 31 décembre de l'année suivante.
+                </p>
+                <p class="text-center">
+                    Merci de remplir le formulaire ci-dessous afin de compléter votre inscription :
+                </p>
+            </div>
+        </div>
+        <div class="container card mb-5">
+            <div class="row container-form">
+                {% if contactSuccess is not empty %}
+                    <div class="adhesion-show-success mt-3">
+                        <p>
+                            Merci de nous avoir contacté. Nous reviendrons vers vous dans les plus brefs délais.
+                        </p>
+                    </div>
+                {% endif %}
+                {% if contactErrors is not empty %}
+                    <div class="adhesion-show-errors mt-3">
+                        {% for error in contactErrors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <form class="adhesion-form" action="/adhesion/index" method="POST">
+
+                    <label class="adhesion-label" for="firstname">Votre prénom :</label>
+                    <input class="adhesion-input" type="text" id="firstname" name="adhesion_firstname" placeholder="Jean" value="{{ adhesionData['adhesion_firstname'] }}" required>
+
+                    <label class="adhesion-label" for="lastname">Votre nom :</label>
+                    <input class="adhesion-input" type="text" id="lastname" name="adhesion_lastname" placeholder="Dupont" value="{{ adhesionData['adhesion_lastname'] }}" required>
+
+                    <label class="adhesion-label" for="email">Votre email :</label>
+                    <input class="adhesion-input" type="email" id="email" name="adhesion_email" placeholder="jean-dupont@gmail.com" value="{{ adhesionData['adhesion_email'] }}" required>
+
+                    <label class="adhesion-label" for="phonenumber">Votre numéro de téléphone :</label>
+                    <input class="adhesion-input" type="text" id="phonenumber" name="adhesion_phonenumber" placeholder="0678453421" value="{{ adhesionData['adhesion_phonenumber'] }}" required>
+
+                    <label class="adhesion-label" for="adress">Votre adresse :</label>
+                    <input class="adhesion-input" id="adress" name="adhesion_adress" placeholder="34 rue du Général Leclerc, 45000, Orléans" required>{{ adhesionData['adhesion_adress'] }}
+
+                    <button class="adhesion-button btn btn-outline-secondary" type="submit">Confirmer votre inscription</button>
+                </form>
+            </div>
+        </div>
+    </section>
 {% endblock %}
