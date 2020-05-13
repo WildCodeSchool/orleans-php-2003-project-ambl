@@ -75,7 +75,7 @@ class CatalogAdminController extends AbstractController
         $errorsList = [];
         $dataSend = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
+        $uploadDir = '../public/uploads/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dataSend = array_map('trim', $_POST);
@@ -155,7 +155,7 @@ class CatalogAdminController extends AbstractController
         $errorsList = [];
         $dataSend = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
+        $uploadDir = '../public/uploads/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dataSend = array_map('trim', $_POST);
@@ -210,7 +210,7 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
         $element = $catalogManager->selectOneById($id);
         if (!empty($element['picture'])) {
-            $deletedFile = "../public/assets/images/catalog/" . $element['picture'];
+            $deletedFile = "../public/uploads/catalog/" . $element['picture'];
 
             if (unlink($deletedFile)) {
                 $catalogManager->delete($id);
