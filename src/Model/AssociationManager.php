@@ -47,6 +47,27 @@ class AssociationManager extends AbstractManager
         $statement->execute();
     }
 
+    public function editMember(array $data)
+    {
+
+        $query="UPDATE council 
+        SET firstname = :firstname, lastname = :lastname, role = :role, mail = :mail, picture = :picture 
+        WHERE id = :id";
+        $statement = $this->pdo->prepare($query);
+
+        $statement->bindValue('firstname', $data['firstname'], \PDO::PARAM_STR);
+        $statement->bindValue('lastname', $data['lastname'], \PDO::PARAM_STR);
+        $statement->bindValue('role', $data['role'], \PDO::PARAM_STR);
+        $statement->bindValue('mail', $data['mail'], \PDO::PARAM_STR);
+        $statement->bindValue('picture', $data['picture'], \PDO::PARAM_STR);
+        $statement->bindValue('id', $data['id'], \PDO::PARAM_STR);
+
+        $statement->execute();
+
+
+        return $statement->execute();
+    }
+
     public function deleteMember(int $id)
     {
         $query = "DELETE FROM council
