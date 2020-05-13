@@ -1,5 +1,13 @@
-h1 {
-    padding: var(--spacing);
+.adhesion-badge-success {
+    background-color: var(--secondary-color);
+}
+
+header {
+    margin-bottom: 60px;
+}
+
+h2 {
+    padding: var(--spacing-lg);
 }
 
 .wrapTop, .links, .wrapBottom {
@@ -7,11 +15,11 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     font-family: var(--main-font);
-
+    padding: var(--spacing);
 }
 
 .wrapBottom {
-    width: 1200px;
+    width: 1500px;
 }
 
 hr {
@@ -21,28 +29,26 @@ hr {
 
 .wrapBottom hr {
     border: 1px solid var(--dark);
-    width: 85%;
 }
 
  figure {
-    width: 360px;
+    width: 380px;
     height: 200px;
     position: relative;
-    padding: 0;
     margin: 5px;
     justify-content: space-between;
 }
 
 .wrapBottom figure {
-    width: 280px;
+    width: 330px;
     height: 170px;
     position: relative;
     padding: 0;
     margin: 5px;
-    justify-content: space-between;
+    justify-content: space-between;    
+    margin: var(--spacing);
+
 }
-
-
 
 figure img {
     width: 100%;
@@ -59,18 +65,18 @@ figure img {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     top: 0;
-    align-items: center;
     border-radius: 4px;
     text-align: center;
     transition: all 0.4s;
     flex-direction: column;
+    padding: 5%;
+    padding-top: 10%;
 
 }
 
 .wrapTop figcaption {
-    background: rgba(99, 75, 45, 0.85);
+    background: rgba(99, 75, 45, 0.90);
     color: var(--light);
 }
 

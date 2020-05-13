@@ -31,6 +31,6 @@ class BookController extends AbstractController
         $linkManager = new LinkManager();
         $links = $linkManager->selectAll();
 
-        return $this->twig->render('Books/index.html.twig', ['books' => $books, 'links' => $links]);
+        return $this->twig->render('Ressources/index.html.twig', ['books' => $books, 'links' => $links]);
     }
 }
