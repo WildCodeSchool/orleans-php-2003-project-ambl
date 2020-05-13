@@ -64,9 +64,7 @@
             <div class="col-sm-6 col-md-7 col-xl-8">
                 <p>Nom latin : <span class="italic">{{ randomVegetal.latin_name }}</span></p>
                 <p>Nom vernaculaire : {{ randomVegetal.common_name }}</p>
-                {% if randomVegetal.toxicity_name == null %}
-                    <p></p>
-                {% else %}
+                {% if randomVegetal.toxicity_name != null %}
                     <p>{{ randomVegetal.toxicity_name }}</p>
                 {% endif %}
                 <p>{{ randomVegetal.description }}</p>
