@@ -60,7 +60,7 @@
                                     {% if element.picture is empty  %}
                                         <img class="picture img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
                                     {% else %}
-                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
+                                        <img class="picture img-fluid" src="/uploads/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
                                     {% endif %}
                                     <div class="card-icon">
                                         <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.png" alt="">
