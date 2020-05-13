@@ -36,6 +36,10 @@
     position: relative;
 }
 
+.request p{
+    word-wrap: break-word;
+}
+
 .request-img{
     margin-top: var(--spacing-sm);
     margin-bottom: var(--spacing-sm);
