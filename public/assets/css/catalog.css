@@ -156,3 +156,10 @@
     background-color: var(--button-color-hover);
     color: white;
 }
+
+@media screen and (max-width: 600px){
+    .form-search {
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
+}
