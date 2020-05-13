@@ -57,9 +57,15 @@
 
         <div class="row align-items-center">
             <div class="col-sm-6 col-md-5 col-xl-4">
-                <img class="img-fluid"
-                     src="/assets/images/catalog/{{ randomVegetal.picture }}"
-                     alt="Image {{ randomVegetal.common_name }}">
+                {% if randomVegetal.picture is empty %}
+                    <img class="img-fluid"
+                         src="/assets/images/catalog/{{ randomVegetal.type_name }}_image.jpg"
+                         alt="Image {{ randomVegetal.common_name }}">
+                {% else %}
+                    <img class="img-fluid"
+                         src="/uploads/catalog/{{ randomVegetal.picture }}"
+                         alt="Image {{ randomVegetal.common_name }}">
+                {% endif %}
             </div>
             <div class="col-sm-6 col-md-7 col-xl-8">
                 <p>Nom latin : <span class="italic">{{ randomVegetal.latin_name }}</span></p>
