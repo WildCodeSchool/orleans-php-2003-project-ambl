@@ -32,6 +32,8 @@
     
     --contact-show-success: #9fecc1;
     --contact-show-errors: #e26060;
+
+    --text-size: 20px;
 }
 
 body{

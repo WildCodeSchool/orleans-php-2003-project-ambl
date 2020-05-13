@@ -4,8 +4,10 @@
 }
 
 .asso-description{
+
     margin: var(--spacing);
     padding: var(--spacing-lg);
+    font-size: var(--text-size);
 }
 
 .card-img-top {
