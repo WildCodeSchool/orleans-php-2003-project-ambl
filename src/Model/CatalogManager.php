@@ -55,7 +55,7 @@ class CatalogManager extends AbstractManager
         $statement = $this->pdo->prepare($query);
 
         if ($search) {
-            $statement->bindValue('search', $search . '%');
+            $statement->bindValue('search', '%' . $search . '%');
         }
 
         $statement->execute();
