@@ -65,6 +65,10 @@
     padding: 30px 20px;
 }
 
+.catalog-card-content .block-title {
+    overflow-x: hidden;
+}
+
 .catalog-card-content .block-title h4 {
     font-size: 20px;
     font-weight: 500;
