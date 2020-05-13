@@ -34,7 +34,12 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
 
         if (isset($_GET['search']) && !empty($_GET['search'])) {
-            $search = $_GET['search'];
+            if ($_GET['search'] == '%') {
+                $search = '';
+            } else {
+                $search = $_GET['search'];
+            }
+
             $numberPageTotal = 0;
         } else {
             $search = '';
