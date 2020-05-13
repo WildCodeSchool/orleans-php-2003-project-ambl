@@ -1,7 +1,7 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}
-CatalogueAdmin
+    CatalogueAdmin
 {% endblock %}
 
 {% block stylesheet %}
@@ -15,7 +15,7 @@ CatalogueAdmin
         <div class="container h-100 justify-around">
             <div class="row h-75 align-items-center">
                 <div class="col-12">
-                    <h1>Catalogue</h1>
+                    <h1>Gestionnaire du catalogue</h1>
                 </div>
             </div>
         </div>
@@ -24,57 +24,79 @@ CatalogueAdmin
     <main>
         <div class="container-fluid bg-light h-100">
             <div class="row align-items-center justify-content-center pt-5 pb-5">
-                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                <form method="get" action="/catalogAdmin/index/" class="d-flex flex-direction-row justify-content-around">
                     <div class="form-group">
                         <label for="search">Rechercher</label>
-                        <input id="search" type="search" name="search" class="form-control">
+                        <input id="search" type="search" name="search" class="form-control" value="{{ search ?? ''}}">
                     </div>
                     <div class="form-group mt-4 pt-2 ml-2">
                         <button class="btn btn-primary">Chercher</button>
+                        {% if search != '' %}
+                            <a href="/catalogAdmin/index" class="btn btn-primary">Retourner en arrière</a>
+                        {% endif %}
                     </div>
                 </form>
             </div>
         </div>
 
-        <section class="catalog">
+        <section class="catalog-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card mb-4 shadow-sm mr-5">
-                            <div class="card-body card-block-header">
-                                <a class="stretched-link" href="/catalogAdmin/add">
-                                    <i class="fa fa-plus"></i>
-                                </a>
+                    {% if numberPageTotal != 0 %}
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card mb-4 shadow-sm mr-5 mt-2">
+                                <div class="card-body card-block-header">
+                                    <a class="stretched-link" href="/catalogAdmin/add">
+                                        <i class="fa fa-plus"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                     {% for element in elements %}
                         <div class="col-lg-4 col-md-6">
                             <div class="catalog-card mt-2">
-                                <div class="block-img">
+                                <div class="catalog-card-header">
                                     {% if element.picture is empty  %}
-                                        <img src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="">
+                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
                                     {% else %}
-                                        <img src="/assets/images/catalog/{{ element.picture }}" alt="">
+                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
                                     {% endif %}
-                                    <div class="status">
-                                        {% if element.toxicity_name != 'none'  %}
-                                            <p>{{ element.toxicity_name }}</p>
+                                    <div class="card-icon">
+                                        <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.png" alt="">
+                                    </div>
+                                    <div class="catalog-card-category">
+                                        {% if element.toxicity_name != null %}
+                                            {% if element.toxicity_name == 'Toxique' %}
+                                                <p class="text-category status-danger">{{ element.toxicity_name }}</p>
+                                            {% elseif element.toxicity_name == 'Mortel' %}
+                                                <p class="text-category status-warning">{{ element.toxicity_name }}</p>
+                                            {% else %}
+                                                <p class="text-category status">{{ element.toxicity_name }}</p>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
                                 <div class="catalog-card-content">
-                                    <div class="block-title mb-3">
-                                        <h4>{{ element.common_name }}</h4>
+                                    <div class="blog-title mt-3">
+                                        <h4>
+                                            {{ element.common_name }}
+                                        </h4>
                                     </div>
-                                    <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn"><i class="fa fa-eye"></i></a>
-                                    <a title="Modifier" href="/catalogAdmin/edit/{{ element.id }}" class="box_btn"><i class="fa fa-edit"></i></a>
-                                    <form action="" method="post">
-                                        <input type="hidden" value="{{ element.id }}" name="id">
-                                        <button class="box_btn" type="submit">
-                                            Supprimer
-                                        </button>
-                                    </form>
+                                    <div class="btn_action">
+                                        <a title="Consulter" href="/catalogAdmin/show/{{ element.id }}" class="box_btn">
+                                            <i class="fa fa-eye"></i>
+                                        </a>
+                                        <a title="Modifier" href="/catalogAdmin/edit/{{ element.id }}" class="box_btn">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        <form action="/catalogAdmin/index" method="post">
+                                            <input type="hidden" value="{{ element.id }}" name="id">
+                                            <button title="Supprimer" class="box_btn">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,44 +105,46 @@ CatalogueAdmin
             </div>
         </section>
 
-        <div class="div-pagination">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <ul class="pagination">
-                            {% if numberPage == 1%}
-                                <li class="page-item disabled">
-                                    <a href="#" class="page-link">Précédent</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a href="/catalogAdmin/page/{{ previousPage }}" class="page-link">Précédent</a>
-                                </li>
-                            {% endif %}
-                            {% for i in 1..numberPageTotal %}
-                                {% if i == numberPage %}
-                                    <li class="page-item active">
-                                        <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+        {% if numberPageTotal != 0 %}
+            <div class="div-pagination">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="pagination">
+                                {% if numberPage == 1%}
+                                    <li class="page-item disabled">
+                                        <a href="#" class="page-link">Précédent</a>
                                     </li>
                                 {% else %}
                                     <li class="page-item">
-                                        <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+                                        <a href="/catalogAdmin/page/{{ previousPage }}" class="page-link">Précédent</a>
                                     </li>
                                 {% endif %}
-                            {% endfor %}
-                            {% if numberPage == numberPageTotal %}
-                                <li class="page-item disabled">
-                                    <a class="page-link" href="#">Suivant</a>
-                                </li>
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link" href="/catalogAdmin/page/{{ nextPage }}">Suivant</a>
-                                </li>
-                            {% endif %}
-                        </ul>
+                                {% for i in 1..numberPageTotal %}
+                                    {% if i == numberPage %}
+                                        <li class="page-item active">
+                                            <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="/catalogAdmin/page/{{ i }}">{{ i }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if numberPage == numberPageTotal %}
+                                    <li class="page-item disabled">
+                                        <a class="page-link" href="#">Suivant</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="/catalogAdmin/page/{{ nextPage }}">Suivant</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endif %}
     </main>
 {% endblock %}

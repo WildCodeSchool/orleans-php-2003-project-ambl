@@ -1,9 +1,15 @@
-.catalog {
-    margin-top: var(--spacing-lg);
-    margin-bottom: var(--spacing-lg);
+.btn_action {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
 }
 
-.catalog .card-block-header {
+.btn_action .box_btn {
+    margin-right: 5px;
+}
+
+.catalog-section .card-block-header {
     background-color: var(--main-color);
     display: flex;
     flex-direction: column;
@@ -12,65 +18,12 @@
     min-height: 33vh;
 }
 
-.catalog .card-block-header a {
+.catalog-section .card-block-header a {
     color: var(--light);
 }
 
-.catalog .card-block-header i {
+.catalog-section .card-block-header i {
     font-size: 2rem;
-}
-
-.files input {
-    outline: 2px dashed grey;
-    outline-offset: -10px;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    padding: 120px 0px 85px 35%;
-    text-align: center;
-    margin: 0;
-    width: 100%;
-}
-.files input:focus {
-    outline: 2px dashed grey;
-    outline-offset: -10px;
-    transition: outline-offset .15s ease-in-out, background-color .15s linear;
-    border:1px solid grey;
-}
-
-.files {
-    position:relative;
-}
-.files:after {  pointer-events: none;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 50px;
-    right: 0;
-    font-family: FontAwesome;
-    content: "\f093";
-    font-size: 3rem;
-    display: block;
-    margin: 0 auto;
-}
-
-.color input{
-    background-color:grey;
-}
-.files:before {
-    position: absolute;
-    bottom: 1px;
-    top: auto;
-    left: 0;  pointer-events: none;
-    width: 100%;
-    right: 0;
-    height: 57px;
-    content: " ou faites-le glisser ici. ";
-    display: block;
-    margin: 0 auto;
-    padding-top: 10px;
-    color: var(--form-input-color);
-    font-weight: 600;
-    text-transform: capitalize;
-    text-align: center;
 }
 
 .message-box {
@@ -81,8 +34,26 @@
     display: block;
 }
 
+.block-title-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.block-title-page .icon {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.block-title-page h1 {
+    margin-left: 10px;
+}
+
 @media screen and (max-width: 800px){
-    .catalog .card {
+    .catalog-section .card {
         width: 100%;
     }
 }
