@@ -6,8 +6,12 @@
 .asso-description{
 
     margin: var(--spacing);
-    padding: var(--spacing-lg);
+
     font-size: var(--text-size);
+
+    padding-left: var(--spacing-xlg);
+    padding-right: var(--spacing-xlg)
+
 }
 
 .card-img-top {
