@@ -1,9 +1,51 @@
 {% extends 'layout.html.twig' %}
 
 {% block title %}Livres Utiles{% endblock %}
-{% block stylesheet %}<link rel="stylesheet" href="/assets/css/table.css">{% endblock %}
-
+{% block stylesheet %}<link rel="stylesheet" href="/assets/css/table.css">
+<link rel="stylesheet" href="/assets/css/link.css">
+{% endblock %}
 {% block content %}
+
+    <h1 class="text-center">Liens utiles</h1>
+
+    <section class="links">
+
+        <div class="wrapTop">
+                    {% for link in links %}
+                                {% if link.bool == 1 %}
+
+                                    <a href="{{ link.url }}">
+
+                                        <figure>
+                                           <img src="/assets/images/{{ link.image }}" alt="website">
+                                            <figcaption>
+                                                <h5>{{ link.name }}</h5>
+                                                <hr>
+                                                <h6>{{ link.description }}</h6>
+                                            </figcaption>
+                                        </figure>
+                                    </a>    
+                                {% endif %}
+                    {% endfor %}
+        </div> 
+                   
+        <div class="wrapBottom">
+                   {% for link in links %}
+                                {% if link.bool == 0 %}
+                                    <a href="{{ link.url }}">
+                                        <figure>
+                                            <figcaption>
+                                                <h5>{{ link.name }}</h5>
+                                                <hr>
+                                                <h6>{{ link.description }}</h6>
+                                            </figcaption>
+                                        </figure>
+                                     </a>        
+                                {% endif %}
+                    {% endfor %}
+        </div>           
+    </section>
+
     <section class="books">
         <h1 class="text-center">Livres utiles</h1>
 
@@ -32,45 +74,7 @@
                 </tbody>
             </table>
                 
-                    {% for link in links %}
-
-                     <div class="col-lg-4 col-md-6">
-                            <div class="catalog-card mt-2">
-                                {% if link.bool == 1 %}
-                                    <div class="block-img">
-                                    <button type="button" class="box_btn" data-toggle="modal" data-target="#modalItem{{ element.id }}"><img src="/assets/images/{{ link.image }}" alt=""></button> 
-
-                                    </div>
-                                    <div class="catalog-card-content">
-                                        <div class="block-title mb-3">
-                                            <h4>{{ link.title }}</h4>
-                                        </div>
-                                        <p>{{ link.description }}</p>
-                                        
-                                    </div>
-                                {% endif %}
-                            </div>
-                    {% endfor %}
-
-                    {% for link in links %}
-                             <div class="catalog-card mt-2">
-                                {% if link.bool == 0 %}
-                                    <div class="block-img">
-                                    <button type="button" class="box_btn" data-toggle="modal" data-target="#modalItem{{ element.id }}">{{ link.url }}</button> 
-
-                                    </div>
-                                    <div class="catalog-card-content">
-                                        <div class="block-title mb-3">
-                                            <h4>{{ link.title }}</h4>
-                                        </div>
-                                        <p>{{ link.description }}</p>
-                                        
-                                    </div>
-                                {% endif %}
-                            </div>
-                     
-                    {% endfor %}
-            
+                   
         </div>
     </section>
 {% endblock %}

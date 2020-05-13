@@ -12,7 +12,6 @@ namespace App\Controller;
 use App\Model\BookManager;
 use App\Model\LinkManager;
 
-
 class BookController extends AbstractController
 {
 

@@ -1,0 +1,105 @@
+h1 {
+    padding: var(--spacing);
+}
+
+.wrapTop, .links, .wrapBottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: var(--main-font);
+
+}
+
+.wrapBottom {
+    width: 1200px;
+}
+
+hr {
+    border: 1px solid var(--light);
+    width: 85%;
+}
+
+.wrapBottom hr {
+    border: 1px solid var(--dark);
+    width: 85%;
+}
+
+ figure {
+    width: 360px;
+    height: 200px;
+    position: relative;
+    padding: 0;
+    margin: 5px;
+    justify-content: space-between;
+}
+
+.wrapBottom figure {
+    width: 280px;
+    height: 170px;
+    position: relative;
+    padding: 0;
+    margin: 5px;
+    justify-content: space-between;
+}
+
+
+
+figure img {
+    width: 100%;
+    height: 100%;
+    padding: 0;                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    margin: 0;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.wrapTop figcaption, .wrapBottom figcaption {
+    font-size: 15pt;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    top: 0;
+    align-items: center;
+    border-radius: 4px;
+    text-align: center;
+    transition: all 0.4s;
+    flex-direction: column;
+
+}
+
+.wrapTop figcaption {
+    background: rgba(99, 75, 45, 0.85);
+    color: var(--light);
+}
+
+.wrapBottom figcaption {
+    background-color: var(--secondary-color);
+    color: var(--dark);
+}
+
+
+.wrapBottom figcaption:hover {
+    background: var(--main-color);
+    color: var(--light);
+}
+
+.wrapTop figcaption:hover{
+    background: none;
+    color: rgba(0, 0, 0, 0);
+    
+}
+
+.wrapTop figcaption:hover hr {
+    border: none;
+    transition: all 0.4s;
+}
+
+
+
+.wrapBottom figcaption:hover hr {
+    border: 1px solid var(--light);
+    width: 85%;
+    transition: all 0.4s;
+}

@@ -29,7 +29,5 @@ class LinkController extends AbstractController
 
         var_dump($links);
         return $this->twig->render('Books/index.html.twig', ['links' => $links]);
-
-        
     }
 }
