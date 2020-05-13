@@ -25,6 +25,7 @@
     position: absolute;
     top: var(--spacing);
     left: var(--spacing);
+    padding:4px;
 }
 
 .catalog-card-header .card-icon .icon {
