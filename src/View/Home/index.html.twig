@@ -32,15 +32,22 @@
             <div class="card col-9 col-md-3">
                 <img class="card-img-top" src="{{ nextEvent.image }}" alt="{{ 'Image ' ~ nextEvent.type }}">
                 <div class="card-body">
-                    <h3 class="card-title">{{ nextEvent.date|date('d/m/Y') }}</h3>
+                    <h3 class="card-title">
+                        <img class="events-icons" src="/assets/images/date.svg">
+                        {{ nextEvent.date|date('d/m/Y') }}
+                    </h3>
                     <div class="fields">
                         <p class="event-title">
+                            <img class="events-icons" src="/assets/images/title.svg">
                             {{ nextEvent.title }}
                             {% if nextEvent.speaker_name is not empty %}
                                 - {{ nextEvent.speaker_name }}
                             {% endif %}
                         </p>
-                        <p class="event-location">{{ nextEvent.location }}</p>
+                        <p class="event-location">
+                            <img class="events-icons" src="/assets/images/location.svg">
+                            {{ nextEvent.location }}
+                        </p>
                     </div>
                 </div>
             </div>

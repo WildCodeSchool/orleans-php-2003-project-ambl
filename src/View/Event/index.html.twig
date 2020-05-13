@@ -21,15 +21,25 @@
                     <div class="card">
                         <img class="card-img-top" src="{{ event.image }}" alt="{{ 'Image ' ~ event.type }}">
                         <div class="card-body">
-                            <h2 class="card-title">{{ event.title }}</h2>
+                            <h2 class="card-title">
+                                <img class="events-icons" src="/assets/images/title.svg">
+                                {{ event.title }}
+                            </h2>
                             <p class="card-text">
+                                <img class="events-icons" src="/assets/images/type.svg">
                                 {{ event.type }}
                                 {% if event.speaker_name is not empty %}
                                     donnée par {{ event.speaker_name }}
                                 {% endif %}
                             </p>
-                            <p class="card-text">{{ event.date|date('d/m/Y') }} - {{ event.hour|date("H\\hi") }}</p>
-                            <p class="card-text">{{ event.location }}</p>
+                            <p class="card-text">
+                                <img class="events-icons" src="/assets/images/date.svg">
+                                {{ event.date|date('d/m/Y') }} - {{ event.hour|date("H\\hi") }}
+                            </p>
+                            <p class="card-text">
+                                <img class="events-icons" src="/assets/images/location.svg">
+                                {{ event.location }}
+                            </p>
                         </div>
                     </div>
                 {% endfor %}
