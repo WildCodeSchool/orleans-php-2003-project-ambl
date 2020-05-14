@@ -35,6 +35,7 @@ class EventManager extends AbstractManager
         $query = "SELECT e.title, e.date, e.location, e.speaker_name, t.image, t.type
                   FROM event e
                   JOIN event_type t ON e.type_id = t.id
+                  WHERE e.date >= CURDATE()
                   ORDER BY e.date, e.hour
                   LIMIT " . $nbEvents;
         return $this->pdo->query($query)->fetchAll(\PDO::FETCH_ASSOC);
