@@ -95,4 +95,19 @@ class CatalogController extends AbstractController
             ]);
         }
     }
+
+    /**
+     * @param int $numberPage
+     * @return mixed
+     */
+    public function searchPage($numberPage)
+    {
+        $search = '';
+
+        if (isset($_GET['search']) && !empty($_GET['search'])) {
+            $search = $_GET['search'];
+        }
+
+        return $numberPage;
+    }
 }
