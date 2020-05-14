@@ -201,17 +201,37 @@ class CatalogManager extends AbstractManager
      * Select an element group
      *
      * @param int $pageNumber
+     * @param string $search
      * @return array
      */
-    public function selectByPage(int $pageNumber): array
+    public function selectByPage(int $pageNumber, string $search = ''): array
     {
-        $start = ($pageNumber - 1) * self::MAX_RESULT;
+        if ($search) {
+            $start = ($pageNumber - 1) * 5;
+        } else {
+            $start = ($pageNumber - 1) * self::MAX_RESULT;
+        }
+
         $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
                     FROM " . self::TABLE . "
                     LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
-                    LEFT JOIN element_type ON element_type.id=element.element_type_id
-                    ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id";
 
-        return $this->pdo->query($query)->fetchAll();
+        if ($search) {
+            $query .= " WHERE element.common_name LIKE :search 
+            ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+        } else {
+            $query .= " ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+        }
+
+        $statement = $this->pdo->prepare($query);
+
+        if ($search) {
+            $statement->bindValue('search', '%' . $search . '%');
+        }
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 }
