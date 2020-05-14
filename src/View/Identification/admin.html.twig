@@ -23,12 +23,12 @@
         <div class="container">
             {% for request in requests %}
                 <div class="row align-items-center request">
-                    <div class="col-sm-6 col-md-5 col-xl-4">
+                    <div class="col-md-5 col-xl-4">
                         <img class="img-fluid request-img"
                              src="/uploads/identifications/{{ request.picture }}"
                              alt="Photo de {{ request.sender_name }}">
                     </div>
-                    <div class="col-sm-6 col-md-7 col-xl-8">
+                    <div class="col-md-7 col-xl-8">
                         <p>Envoyeur : {{ request.sender_name }}</p>
                         <p>Contact : {{ request.mail }}</p>
                         <p>{{ request.message }}</p>
