@@ -17,7 +17,7 @@
 
         <div class="card-events container">
             <div class="d-flex flex-wrap justify-content-around">
-                {% for event in events %}
+                {% for event in events if event.date >= "now"|date('Y-m-d') %}
                     <div class="card">
                         <img class="card-img-top" src="{{ event.image }}" alt="{{ 'Image ' ~ event.type }}">
                         <div class="card-body">
