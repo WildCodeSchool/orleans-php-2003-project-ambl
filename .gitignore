@@ -4,6 +4,6 @@
 *.cache
 db.php
 .idea
-/public/assets/images/council/
 /public/uploads/catalog/
 /public/uploads/identifications/
+/public/uploads/council/
