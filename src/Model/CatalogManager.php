@@ -47,7 +47,7 @@ class CatalogManager extends AbstractManager
                     LEFT JOIN element_type ON element_type.id=element.element_type_id";
 
         if ($search) {
-            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name";
+            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
         } else {
             $query .= " ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
         }
@@ -172,6 +172,27 @@ class CatalogManager extends AbstractManager
     {
         $query = 'SELECT id FROM ' . self::TABLE;
         $statement = $this->pdo->query($query);
+
+        return $statement->rowCount();
+    }
+
+    /**
+     * Retrieve the number of search results
+     *
+     * @param string $search
+     * @return int
+     */
+    public function getNumberSearchResult(string $search): int
+    {
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id
+                    WHERE common_name LIKE :search ORDER BY element.common_name";
+
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('search', '%' . $search . '%');
+        $statement->execute();
 
         return $statement->rowCount();
     }

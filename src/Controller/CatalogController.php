@@ -29,11 +29,12 @@ class CatalogController extends AbstractController
         if (isset($_GET['search']) && !empty($_GET['search'])) {
             if ($_GET['search'] == '%') {
                 $search = '';
+                $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
             } else {
                 $search = $_GET['search'];
+                $numberResult = $catalogManager->getNumberSearchResult($search);
+                $numberPageTotal = ceil($numberResult/$catalogManager::MAX_RESULT);
             }
-
-            $numberPageTotal = 0;
         } else {
             $search = '';
             $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
