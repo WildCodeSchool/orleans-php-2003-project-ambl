@@ -1,5 +1,6 @@
 .books, .list-books{
     margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
 }
 
 thead {
