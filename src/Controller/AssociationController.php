@@ -29,7 +29,14 @@ class AssociationController extends AbstractController
         $council = $associationManager->selectTableAssociation();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $associationManager->deleteMember($_POST['id']);
+            $id = $_POST['id'];
+            $deletedRequest = $associationManager->selectOneById($id);
+            $deletedFile = "uploads/council/" . $deletedRequest['picture'];
+
+            if (unlink($deletedFile)) {
+                $associationManager->deleteMember($id);
+            }
+
             header('Location: /Association/admin');
         }
 
