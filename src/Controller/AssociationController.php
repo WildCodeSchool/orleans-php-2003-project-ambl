@@ -29,7 +29,14 @@ class AssociationController extends AbstractController
         $council = $associationManager->selectTableAssociation();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $associationManager->deleteMember($_POST['id']);
+            $id = $_POST['id'];
+            $deletedRequest = $associationManager->selectOneById($id);
+            $deletedFile = "uploads/council/" . $deletedRequest['picture'];
+
+            if (unlink($deletedFile)) {
+                $associationManager->deleteMember($id);
+            }
+
             header('Location: /Association/admin');
         }
 
@@ -41,7 +48,7 @@ class AssociationController extends AbstractController
         $errors = [];
         $data = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/council';
+        $uploadDir = '../public/uploads/council';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
 
@@ -77,7 +84,7 @@ class AssociationController extends AbstractController
     {
         $data = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/council';
+        $uploadDir = '../public/uploads/council';
         $errors = [];
 
         $associationManager = new AssociationManager();

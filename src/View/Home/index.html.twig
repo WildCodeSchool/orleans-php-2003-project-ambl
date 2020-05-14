@@ -32,15 +32,22 @@
             <div class="card col-9 col-md-3">
                 <img class="card-img-top" src="{{ nextEvent.image }}" alt="{{ 'Image ' ~ nextEvent.type }}">
                 <div class="card-body">
-                    <h3 class="card-title">{{ nextEvent.date|date('d/m/Y') }}</h3>
+                    <h3 class="card-title">
+                        <img class="events-icons" src="/assets/images/date.svg">
+                        {{ nextEvent.date|date('d/m/Y') }}
+                    </h3>
                     <div class="fields">
                         <p class="event-title">
+                            <img class="events-icons" src="/assets/images/title.svg">
                             {{ nextEvent.title }}
                             {% if nextEvent.speaker_name is not empty %}
                                 - {{ nextEvent.speaker_name }}
                             {% endif %}
                         </p>
-                        <p class="event-location">{{ nextEvent.location }}</p>
+                        <p class="event-location">
+                            <img class="events-icons" src="/assets/images/location.svg">
+                            {{ nextEvent.location }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -57,14 +64,22 @@
 
         <div class="row align-items-center">
             <div class="col-sm-6 col-md-5 col-xl-4">
-                <img class="img-fluid"
-                     src="/assets/images/catalog/{{ randomVegetal.picture }}"
-                     alt="Image {{ randomVegetal.common_name }}">
+                {% if randomVegetal.picture is empty %}
+                    <img class="img-fluid"
+                         src="/assets/images/catalog/{{ randomVegetal.type_name }}_image.jpg"
+                         alt="Image {{ randomVegetal.common_name }}">
+                {% else %}
+                    <img class="img-fluid"
+                         src="/uploads/catalog/{{ randomVegetal.picture }}"
+                         alt="Image {{ randomVegetal.common_name }}">
+                {% endif %}
             </div>
             <div class="col-sm-6 col-md-7 col-xl-8">
                 <p>Nom latin : <span class="italic">{{ randomVegetal.latin_name }}</span></p>
                 <p>Nom vernaculaire : {{ randomVegetal.common_name }}</p>
-                <p>{{ randomVegetal.toxicity_name }}</p>
+                {% if randomVegetal.toxicity_name != null %}
+                    <p>{{ randomVegetal.toxicity_name }}</p>
+                {% endif %}
                 <p>{{ randomVegetal.description }}</p>
             </div>
         </div>

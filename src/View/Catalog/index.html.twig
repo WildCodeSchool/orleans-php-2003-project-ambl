@@ -1,5 +1,9 @@
 {% extends 'layout.html.twig' %}
 
+{% block title %}
+    Catalogue
+{% endblock %}
+
 {% block stylesheet %}
     <link rel="stylesheet" href="/assets/css/catalog.css">
 {% endblock %}
@@ -18,7 +22,7 @@
     <main>
         <div class="container-fluid bg-light h-100">
             <div class="row align-items-center justify-content-center pt-5 pb-5">
-                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around">
+                <form method="get" action="/catalog/index/" class="d-flex flex-direction-row justify-content-around form-search">
                     <div class="form-group">
                         <label for="search">Rechercher</label>
                         <input id="search" type="search" name="search" class="form-control" value="{{ search ?? ''}}">
@@ -43,10 +47,10 @@
                                     {% if element.picture is empty  %}
                                         <img class="picture img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
                                     {% else %}
-                                        <img class="picture img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
+                                        <img class="picture img-fluid" src="/uploads/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
                                     {% endif %}
                                     <div class="card-icon">
-                                        <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.jpg" alt="">
+                                        <img class="icon" src="/assets/images/catalog/{{ element.type_name }}_icon.png" alt="">
                                     </div>
                                     <div class="catalog-card-category">
                                         {% if element.toxicity_name != null %}
@@ -61,7 +65,7 @@
                                     </div>
                                 </div>
                                 <div class="catalog-card-content">
-                                    <div class="blog-title">
+                                    <div class="block-title">
                                         <h4>
                                             <a href="#" class="block-title-link stretched-link" data-toggle="modal" data-target="#modalItem{{ element.id }}">
                                                 {{ element.common_name }}
@@ -88,17 +92,29 @@
                                     </li>
                                 {% else %}
                                     <li class="page-item">
-                                        <a href="/catalog/page/{{ previousPage }}" class="page-link">Précédent</a>
+                                        {% if search is empty %}
+                                            <a href="/catalog/page/{{ previousPage }}" class="page-link">Précédent</a>
+                                        {% else %}
+                                            <a href="/catalog/searchpage/{{ previousPage }}/?search={{ search }}" class="page-link">Précédent</a>
+                                        {% endif %}
                                     </li>
                                 {% endif %}
                                 {% for i in 1..numberPageTotal %}
                                     {% if i == numberPage %}
                                         <li class="page-item active">
-                                            <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                            {% if search is empty %}
+                                                <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                            {% else %}
+                                                <a class="page-link" href="/catalog/searchpage/{{ i }}/?search={{ search }}">{{ i }}</a>
+                                            {% endif %}
                                         </li>
                                     {% else %}
                                         <li class="page-item">
-                                            <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                            {% if search is empty %}
+                                                <a class="page-link" href="/catalog/page/{{ i }}">{{ i }}</a>
+                                            {% else %}
+                                                <a class="page-link" href="/catalog/searchpage/{{ i }}/?search={{ search }}">{{ i }}</a>
+                                            {% endif %}
                                         </li>
                                     {% endif %}
                                 {% endfor %}
@@ -108,7 +124,11 @@
                                     </li>
                                 {% else %}
                                     <li class="page-item">
-                                        <a class="page-link" href="/catalog/page/{{ nextPage }}">Suivant</a>
+                                        {% if search is empty %}
+                                        <a href="/catalog/page/{{ nextPage }}" class="page-link">Suivant</a>
+                                        {% else %}
+                                            <a href="/catalog/searchpage/{{ nextPage }}/?search={{ search }}" class="page-link">Suivant</a>
+                                        {% endif %}
                                     </li>
                                 {% endif %}
                             </ul>
@@ -135,7 +155,7 @@
                                         {% if element.picture is empty  %}
                                             <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.type_name }}_image.jpg" alt="Photo de {{ element.common_name }}">
                                         {% else %}
-                                            <img class="card-img-top img-fluid" src="/assets/images/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
+                                            <img class="card-img-top img-fluid" src="/uploads/catalog/{{ element.picture }}" alt="Photo de {{ element.common_name }}">
                                         {% endif %}
                                     </div>
                                 </div>

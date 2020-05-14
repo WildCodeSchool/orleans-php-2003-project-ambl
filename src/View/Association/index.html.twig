@@ -2,6 +2,7 @@
 {% block stylesheet %}
     <link rel="stylesheet" href="/assets/css/association.css">
 {% endblock %}
+{% block title %}Notre association{% endblock %}
 {% block content %}
     <main class="asso_main">
         <section class="asso">
@@ -32,7 +33,7 @@
                         {% for counciler in council %}
                             <div class="col-md-3 d-flex justify-content-center">
                                 <div class="card">
-                                    <img src="/assets/images/council/{{ counciler.picture }}" class="card-img-top" alt="{{ counciler.firstname}} {{ counciler.lastname }}">
+                                    <img src="/uploads/council/{{ counciler.picture }}" class="card-img-top" alt="{{ counciler.firstname}} {{ counciler.lastname }}">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ counciler.firstname}} {{ counciler.lastname }}</h5>
                                         <h6 class="card-title">{{ counciler.role }}</h6>

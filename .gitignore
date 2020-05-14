@@ -4,7 +4,6 @@
 *.cache
 db.php
 .idea
-/public/assets/images/event_type/
-/public/assets/images/council/
-/public/assets/images/catalog/
+/public/uploads/catalog/
 /public/uploads/identifications/
+/public/uploads/council/

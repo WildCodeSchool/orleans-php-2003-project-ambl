@@ -34,8 +34,14 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
 
         if (isset($_GET['search']) && !empty($_GET['search'])) {
-            $search = $_GET['search'];
-            $numberPageTotal = 0;
+            if ($_GET['search'] == '%') {
+                $search = '';
+                $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
+            } else {
+                $search = $_GET['search'];
+                $numberResult = $catalogManager->getNumberSearchResult($search);
+                $numberPageTotal = ceil($numberResult/$catalogManager::MAX_RESULT);
+            }
         } else {
             $search = '';
             $numberPageTotal = ceil($catalogManager->getNumberCatalogElement()/$catalogManager::MAX_RESULT);
@@ -75,7 +81,7 @@ class CatalogAdminController extends AbstractController
         $errorsList = [];
         $dataSend = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
+        $uploadDir = '../public/uploads/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dataSend = array_map('trim', $_POST);
@@ -155,7 +161,7 @@ class CatalogAdminController extends AbstractController
         $errorsList = [];
         $dataSend = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/catalog';
+        $uploadDir = '../public/uploads/catalog';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dataSend = array_map('trim', $_POST);
@@ -210,7 +216,7 @@ class CatalogAdminController extends AbstractController
         $catalogManager = new CatalogManager();
         $element = $catalogManager->selectOneById($id);
         if (!empty($element['picture'])) {
-            $deletedFile = "../public/assets/images/catalog/" . $element['picture'];
+            $deletedFile = "../public/uploads/catalog/" . $element['picture'];
 
             if (unlink($deletedFile)) {
                 $catalogManager->delete($id);
@@ -348,5 +354,47 @@ class CatalogAdminController extends AbstractController
                 'nextPage' => $nextPage
             ]);
         }
+    }
+
+    /**
+     * Manage navigation from one search page to another
+     * @param int $numberPage
+     * @return mixed
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function searchPage($numberPage)
+    {
+        $search = $_GET['search'];
+
+        $catalogManager = new CatalogManager();
+        $numberResult = $catalogManager->getNumberSearchResult($search);
+        $numberPageTotal = ceil($numberResult/$catalogManager::MAX_RESULT);
+
+        if ($numberPage <= 1) {
+            $elements = $catalogManager->selectAll($search);
+            $numberPage = 1;
+            $previousPage = 0;
+            $nextPage = 2;
+        } elseif ($numberPage > $numberPageTotal) {
+            $numberPage = $numberPageTotal;
+            $elements = $catalogManager->selectByPage($numberPage, $search);
+            $previousPage = $numberPage - 1;
+            $nextPage = $numberPage + 1;
+        } else {
+            $elements = $catalogManager->selectByPage($numberPage, $search);
+            $previousPage = $numberPage - 1;
+            $nextPage = $numberPage + 1;
+        }
+
+        return $this->twig->render('CatalogAdmin/index.html.twig', [
+            'elements' => $elements,
+            'numberPageTotal' => $numberPageTotal,
+            'numberPage' => $numberPage,
+            'previousPage' => $previousPage,
+            'nextPage' => $nextPage,
+            'search' => $search
+        ]);
     }
 }

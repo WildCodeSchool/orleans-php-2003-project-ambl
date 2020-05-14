@@ -47,9 +47,14 @@ h3{
 
 .event-location{
     position: absolute;
-    top: 75px;
+    top: 85px;
 }
 
 .italic{
     font-style: italic;
+}
+
+.events-icons{
+    width: 25px;
+    margin: var(--spacing-sm);
 }

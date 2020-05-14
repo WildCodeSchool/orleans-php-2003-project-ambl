@@ -47,7 +47,7 @@ class CatalogManager extends AbstractManager
                     LEFT JOIN element_type ON element_type.id=element.element_type_id";
 
         if ($search) {
-            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name";
+            $query .= " WHERE common_name LIKE :search ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
         } else {
             $query .= " ORDER BY element.common_name LIMIT " . self::MAX_RESULT;
         }
@@ -55,7 +55,7 @@ class CatalogManager extends AbstractManager
         $statement = $this->pdo->prepare($query);
 
         if ($search) {
-            $statement->bindValue('search', $search . '%');
+            $statement->bindValue('search', '%' . $search . '%');
         }
 
         $statement->execute();
@@ -92,11 +92,11 @@ class CatalogManager extends AbstractManager
      */
     public function selectOneAtRandom(): array
     {
-        $query = 'SELECT ' . self::TABLE . '.*, toxicity.name toxicity_name 
-                  FROM ' . self::TABLE . '
-                  JOIN toxicity ON toxicity.id=element.toxicity_id
-                  ORDER BY RAND()
-                  LIMIT 1';
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id
+                    ORDER BY RAND() LIMIT 1";
 
         return $this->pdo->query($query)->fetch();
     }
@@ -177,20 +177,61 @@ class CatalogManager extends AbstractManager
     }
 
     /**
-     * Select an element group
+     * Retrieve the number of search results
      *
-     * @param int $pageNumber
-     * @return array
+     * @param string $search
+     * @return int
      */
-    public function selectByPage(int $pageNumber): array
+    public function getNumberSearchResult(string $search): int
     {
-        $start = ($pageNumber - 1) * self::MAX_RESULT;
         $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
                     FROM " . self::TABLE . "
                     LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
                     LEFT JOIN element_type ON element_type.id=element.element_type_id
-                    ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+                    WHERE common_name LIKE :search ORDER BY element.common_name";
 
-        return $this->pdo->query($query)->fetchAll();
+        $statement = $this->pdo->prepare($query);
+        $statement->bindValue('search', '%' . $search . '%');
+        $statement->execute();
+
+        return $statement->rowCount();
+    }
+
+    /**
+     * Select an element group
+     *
+     * @param int $pageNumber
+     * @param string $search
+     * @return array
+     */
+    public function selectByPage(int $pageNumber, string $search = ''): array
+    {
+        if ($search) {
+            $start = ($pageNumber - 1) * 5;
+        } else {
+            $start = ($pageNumber - 1) * self::MAX_RESULT;
+        }
+
+        $query = "SELECT " . self::TABLE . ".*, toxicity.name toxicity_name, element_type.name type_name
+                    FROM " . self::TABLE . "
+                    LEFT JOIN toxicity ON toxicity.id=element.toxicity_id
+                    LEFT JOIN element_type ON element_type.id=element.element_type_id";
+
+        if ($search) {
+            $query .= " WHERE element.common_name LIKE :search 
+            ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+        } else {
+            $query .= " ORDER BY element.common_name LIMIT " . $start . ' OFFSET ' . self::MAX_RESULT;
+        }
+
+        $statement = $this->pdo->prepare($query);
+
+        if ($search) {
+            $statement->bindValue('search', '%' . $search . '%');
+        }
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 }

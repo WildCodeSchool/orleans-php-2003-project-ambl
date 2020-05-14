@@ -25,6 +25,7 @@
     position: absolute;
     top: var(--spacing);
     left: var(--spacing);
+    padding:4px;
 }
 
 .catalog-card-header .card-icon .icon {
@@ -62,6 +63,10 @@
 
 .catalog-card-content {
     padding: 30px 20px;
+}
+
+.catalog-card-content .block-title {
+    overflow-x: hidden;
 }
 
 .catalog-card-content .block-title h4 {
@@ -155,4 +160,11 @@
 .pagination .page-item .page-link:hover {
     background-color: var(--button-color-hover);
     color: white;
+}
+
+@media screen and (max-width: 600px){
+    .form-search {
+        margin-top: var(--spacing-lg);
+        margin-bottom: var(--spacing-lg);
+    }
 }

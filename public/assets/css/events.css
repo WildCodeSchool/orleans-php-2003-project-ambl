@@ -6,7 +6,7 @@
 .card-events .card{
     margin: var(--spacing);
     padding: 0;
-    width: 25%;
+    width: 300px;
 }
 
 h2{
@@ -42,4 +42,15 @@ a:hover{
 
 .button-delete{
     padding: 0;
+}
+
+.events-icons{
+    width: 25px;
+    margin: var(--spacing-sm);
+}
+
+.past-event,
+.table-striped tbody .past-event:nth-of-type(2n+1){
+    background-color: var(--contact-show-errors);
+    color: var(--light);
 }

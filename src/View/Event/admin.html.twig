@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
 {% block title %}Événements | Admin{% endblock %}
 {% block stylesheet %}<link rel="stylesheet" href="/assets/css/events.css">{% endblock %}
@@ -37,7 +37,7 @@
                 </thead>
                 <tbody>
                 {% for event in events %}
-                    <tr>
+                    <tr {% if event.date < "now"|date('Y-m-d') %}class="past-event"{% endif %}>
                         <td>{{ event.type }}</td>
                         <td>{{ event.title }}</td>
                         <td>{{ event.date|date("d/m/Y")}}</td>

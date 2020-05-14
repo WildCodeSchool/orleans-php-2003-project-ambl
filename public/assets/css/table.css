@@ -1,3 +1,13 @@
 .books, .list-books{
     margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+}
+
+thead {
+    background-color: var(--main-color);
+    color: var(--light);
+}
+
+td {
+    background-color: rgba(182, 205, 174, 0.50);
 }

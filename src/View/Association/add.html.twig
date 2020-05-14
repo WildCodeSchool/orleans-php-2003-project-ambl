@@ -1,4 +1,4 @@
-{% extends 'layout.html.twig' %}
+{% extends 'layout_admin.html.twig' %}
 
 {% block title %}Association | Ajouter un membre{% endblock %}
 {% block stylesheet %}<link rel="stylesheet" href="/assets/css/associationAdmin.css">{% endblock %}
@@ -20,7 +20,7 @@
                 <div class="col-12">
                     {% if errors is not empty %}
                         <div class="alert alert-danger">
-                            <ul>
+                            <ul class="list-none">
                                 {% for error in errors %}
                                     <li>{{ error }}</li>
                                 {% endfor %}
@@ -33,17 +33,17 @@
 
                 <div class="form-group">
                     <label for="firstname">Prénom<span class="red">*</span></label>
-                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ counciler.firstname }}" placeholder="John">
+                    <input type="text" class="form-control" id="firstname" name="firstname" value="{{ counciler.firstname }}" placeholder="John" required>
                 </div>
 
                 <div class="form-group">
                     <label for="lastname">Nom<span class="red">*</span></label>
-                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ counciler.lastname }}" placeholder="Doe">
+                    <input type="text" class="form-control" id="lastname" name="lastname" value="{{ counciler.lastname }}" placeholder="Doe" required>
                 </div>
 
                 <div class="form-group">
                     <label for="role">Rôle<span class="red">*</span></label>
-                    <input type="text" class="form-control" id="role" name="role" value="{{ counciler.role }}" placeholder="Administrateur">
+                    <input type="text" class="form-control" id="role" name="role" value="{{ counciler.role }}" placeholder="Administrateur" required>
                 </div>
 
                 <div class="form-group">
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <label for="picture">Photo<span class="red">*</span></label>
-                    <input type="file" class="form-control-file" id="picture" name="picture" value="{{ counciler.picture }}">
+                    <input type="file" class="form-control-file" id="picture" name="picture" value="{{ counciler.picture }}" required>
                 </div>
 
                 <div class="text-center">

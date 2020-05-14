@@ -40,3 +40,6 @@
     color: var(--error-color);
 }
 
+.list-none {
+    list-style: none;
+}
