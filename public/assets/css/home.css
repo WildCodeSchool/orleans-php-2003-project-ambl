@@ -53,3 +53,8 @@ h3{
 .italic{
     font-style: italic;
 }
+
+.events-icons{
+    width: 25px;
+    margin: var(--spacing-sm);
+}

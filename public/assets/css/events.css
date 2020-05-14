@@ -43,3 +43,8 @@ a:hover{
 .button-delete{
     padding: 0;
 }
+
+.events-icons{
+    width: 25px;
+    margin: var(--spacing-sm);
+}
