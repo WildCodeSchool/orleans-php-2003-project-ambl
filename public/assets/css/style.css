@@ -9,6 +9,7 @@
     --title-font: 'Headland One', serif;
     --main-font: 'Noto Sans TC', sans-serif;
 
+    --spacing-xsm: calc(var(--spacing-sm) / 2);
     --spacing-sm: calc(var(--spacing) / 2);
     --spacing: 16px;
     --spacing-lg: calc(var(--spacing) * 2);

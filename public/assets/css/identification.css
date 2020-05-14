@@ -55,3 +55,15 @@
     top: var(--spacing);
     right: var(--spacing);
 }
+
+.explication{
+    font-size: 1.2rem;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-sm);
+    background-color: var(--light);
+    border-radius: var(--spacing-xsm);
+}
+
+.explication p{
+    margin-bottom: 0;
+}
