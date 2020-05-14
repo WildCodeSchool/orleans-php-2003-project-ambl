@@ -41,7 +41,7 @@ class AssociationController extends AbstractController
         $errors = [];
         $data = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/council';
+        $uploadDir = '../public/uploads/council';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = array_map('trim', $_POST);
 
@@ -77,7 +77,7 @@ class AssociationController extends AbstractController
     {
         $data = [];
         $fileName = '';
-        $uploadDir = '../public/assets/images/council';
+        $uploadDir = '../public/uploads/council';
         $errors = [];
 
         $associationManager = new AssociationManager();
