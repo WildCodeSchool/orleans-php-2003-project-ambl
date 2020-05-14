@@ -48,3 +48,9 @@ a:hover{
     width: 25px;
     margin: var(--spacing-sm);
 }
+
+.past-event,
+.table-striped tbody .past-event:nth-of-type(2n+1){
+    background-color: var(--contact-show-errors);
+    color: var(--light);
+}
